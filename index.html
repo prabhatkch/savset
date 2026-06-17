@@ -83,6 +83,8 @@
     color:var(--lavender);
   }
   .logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.02em;}
+  .logo-link{color:inherit;text-decoration:none;display:inline-block;transition:opacity .2s ease;}
+  .logo-link:hover{opacity:0.8;}
   .nav-links{display:flex;gap:2.4rem;font-size:0.9rem;}
   .nav-links a{color:inherit;text-decoration:none;position:relative;}
   .nav-links a::after{
@@ -247,8 +249,8 @@
     right: 4vw;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(260px, 36vw, 520px);
-    height: clamp(260px, 36vw, 520px);
+    width: clamp(300px, 40vw, 580px);
+    height: clamp(300px, 40vw, 580px);
     pointer-events: none;
     z-index: 1;
   }
@@ -630,10 +632,14 @@
   footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
   .footer-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;border-bottom:1px solid rgba(219,217,255,0.15);padding-bottom:3rem;}
   .footer-logo{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3rem, 12vw, 7rem);letter-spacing:-0.03em;line-height:1;}
+  .footer-logo-link{color:inherit;text-decoration:none;display:inline-block;transition:opacity .2s ease;}
+  .footer-logo-link:hover{opacity:0.82;}
   .footer-links{display:flex;gap:3rem;flex-wrap:wrap;}
   .footer-col h5{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:1rem;}
   .footer-col a{display:block;color:var(--lavender);text-decoration:none;font-size:0.95rem;margin-bottom:0.6rem;opacity:0.85;transition:opacity .2s ease;}
   .footer-col a:hover{opacity:1;text-decoration:underline;}
+  .footer-illustration{display:flex;justify-content:center;padding:2.8rem 0 0.5rem;}
+  .footer-illustration svg{width:100%;max-width:460px;height:auto;display:block;}
   .footer-bottom{display:flex;justify-content:space-between;padding-top:1.8rem;font-size:0.8rem;opacity:0.5;flex-wrap:wrap;gap:1rem;}
 
   /* ---------- RESPONSIVE ---------- */
@@ -659,7 +665,7 @@
 
     #saturn-wrap {
       position: relative; right: auto; top: auto; transform: none;
-      width: clamp(200px, 70vw, 300px); height: clamp(200px, 70vw, 300px);
+      width: clamp(230px, 78vw, 360px); height: clamp(230px, 78vw, 360px);
       margin: 2.5rem auto 0;
     }
 
@@ -670,12 +676,22 @@
     .work-grid { grid-template-columns: 1fr; }
 
     .podcast-addon { flex-direction: column; }
+    .podcast-addon-links { width: 100%; }
     .pricing-custom { flex-direction: column; }
+    .pricing-custom-link,
+    .podcast-addon-links .pricing-custom-link {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+      justify-content: center;
+    }
 
     .cta { padding: 6rem 1.4rem; }
     footer { padding: 4rem 1.4rem 2rem; }
     .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 2rem; }
+    .footer-illustration { padding: 2rem 0 0.5rem; }
+    .footer-illustration svg { max-width: 320px; }
   }
 
   @media (max-width: 480px) {
@@ -690,7 +706,7 @@
 <div id="cursor-ring"></div>
 
 <nav id="main-nav">
-  <div class="logo">Savset</div>
+  <a href="#home" class="logo-link" aria-label="Savset — back to home"><div class="logo">Savset</div></a>
   <div class="nav-links">
     <a href="#services">Services</a>
     <a href="#work">Work</a>
@@ -704,14 +720,14 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-  <a href="#services">Services</a>
+  <a href="#services" class="mobile-link">Services</a>
   <a href="#work" class="mobile-link">Work</a>
   <a href="#approach" class="mobile-link">Approach</a>
   <a href="#pricing" class="mobile-link">Pricing</a>
   <a href="#contact" class="mobile-link">Contact</a>
 </div>
 
-<header class="hero">
+<header class="hero" id="home">
   <div class="blob" aria-hidden="true"></div>
 
   <div id="saturn-wrap" aria-hidden="true">
@@ -1140,7 +1156,7 @@
 
 <footer>
   <div class="footer-top">
-    <div class="footer-logo">Savset</div>
+    <a href="#home" class="footer-logo-link" aria-label="Savset — back to home"><div class="footer-logo">Savset</div></a>
     <div class="footer-links">
       <div class="footer-col">
         <h5>Company</h5>
@@ -1170,6 +1186,39 @@
       </div>
     </div>
   </div>
+
+  <div class="footer-illustration" aria-hidden="true">
+    <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+      <!-- distant mountain range -->
+      <path d="M0,120 L60,68 L100,98 L150,48 L195,90 L235,62 L270,100" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.22"/>
+      <path d="M330,100 L368,60 L405,92 L450,46 L495,96 L540,70 L600,118" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.22"/>
+      <!-- ground line -->
+      <line x1="0" y1="120" x2="600" y2="120" stroke="#DBD9FF" stroke-width="0.75" opacity="0.18"/>
+      <!-- pagoda temple, centered -->
+      <g stroke="#DBD9FF" stroke-width="1.3" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round">
+        <!-- finial -->
+        <line x1="300" y1="14" x2="300" y2="34"/>
+        <circle cx="300" cy="10" r="3"/>
+        <!-- tier 1 roof (top) -->
+        <path d="M278,40 L300,34 L322,40 L312,46 L288,46 Z"/>
+        <line x1="293" y1="46" x2="293" y2="56"/>
+        <line x1="307" y1="46" x2="307" y2="56"/>
+        <!-- tier 2 roof (middle) -->
+        <path d="M262,62 L300,52 L338,62 L324,70 L276,70 Z"/>
+        <line x1="284" y1="70" x2="284" y2="82"/>
+        <line x1="316" y1="70" x2="316" y2="82"/>
+        <!-- tier 3 roof (bottom, widest) -->
+        <path d="M244,88 L300,74 L356,88 L340,98 L260,98 Z"/>
+        <!-- base plinth -->
+        <rect x="270" y="98" width="60" height="14"/>
+        <line x1="270" y1="112" x2="330" y2="112"/>
+      </g>
+      <!-- small foreground hill accents either side of temple -->
+      <path d="M90,120 L150,104 L210,120" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.3"/>
+      <path d="M390,120 L450,104 L510,120" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.3"/>
+    </svg>
+  </div>
+
   <div class="footer-bottom">
     <span>© 2026 Savset. All rights reserved.</span>
     <span>Go Creative.</span>
@@ -1208,7 +1257,7 @@ function closeMenu() {
 }
 
 toggle.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
-document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', closeMenu));
+document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu(); });
 
 /* ---- SATURN ANIMATION ---- */
