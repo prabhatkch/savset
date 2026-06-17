@@ -120,7 +120,6 @@
   .nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-  /* Mobile menu drawer */
   .mobile-menu {
     display: none;
     position: fixed;
@@ -208,7 +207,6 @@
     75%, 96%{transform:translateY(-3.15em);}
     100%{transform:translateY(-4.2em);}
   }
-
   .hero-sub{
     max-width:32ch;
     margin-top:2.5rem;
@@ -227,7 +225,6 @@
     opacity:0.55;
     line-height:1.7;
   }
-
   .blob{
     position:absolute;
     width:520px;height:520px;
@@ -255,11 +252,7 @@
     pointer-events: none;
     z-index: 1;
   }
-  #saturn-wrap svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
+  #saturn-wrap svg { width: 100%; height: 100%; overflow: visible; }
 
   /* ---------- SECTION SHARED ---------- */
   section{padding:7rem 4rem;}
@@ -299,291 +292,360 @@
     transition:background .35s ease, color .35s ease;
   }
   .service:last-child{border-right:none;}
-  .service:hover{
-    background:var(--teal);
-    color:var(--lavender);
-  }
-  .service-num{
-    font-size:0.8rem;
-    opacity:0.5;
-    margin-bottom:1.4rem;
-    display:block;
-  }
-  .service h3{
-    font-family:'Fraunces',serif;
-    font-weight:500;
-    font-size:1.4rem;
-    margin-bottom:0.7rem;
-  }
-  .service p{
-    font-size:0.9rem;
-    line-height:1.55;
-    opacity:0.7;
-  }
+  .service:hover{background:var(--teal);color:var(--lavender);}
+  .service-num{font-size:0.8rem;opacity:0.5;margin-bottom:1.4rem;display:block;}
+  .service h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.4rem;margin-bottom:0.7rem;}
+  .service p{font-size:0.9rem;line-height:1.55;opacity:0.7;}
 
   /* ---------- WORK ---------- */
-  #work{
-    background:var(--teal);
-    color:var(--lavender);
-    position:relative;
-  }
+  #work{background:var(--teal);color:var(--lavender);position:relative;}
   #work .section-head{border-bottom:1px solid rgba(219,217,255,0.15);}
   #work .section-head p{color:rgba(219,217,255,0.65);}
 
-  /* Filter tabs */
-  .work-filters {
+  .work-filters{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.5rem;}
+  .filter-btn{
+    font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;
+    letter-spacing:0.1em;text-transform:uppercase;
+    padding:0.5rem 1.2rem;border-radius:100px;
+    border:1px solid rgba(219,217,255,0.25);background:transparent;
+    color:var(--lavender);opacity:0.55;
+    transition:opacity .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .filter-btn:hover{opacity:0.85;border-color:rgba(219,217,255,0.5);}
+  .filter-btn.active{background:var(--lavender);color:var(--teal);border-color:var(--lavender);opacity:1;}
+
+  .work-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:1.5rem;}
+  .work-item{border-radius:4px;overflow:hidden;position:relative;background:#000;transition:opacity .35s ease, transform .35s ease;}
+  .work-item.hidden{display:none;}
+  .work-item-inner{position:relative;padding-bottom:56.25%;height:0;}
+  .work-item-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;}
+  .work-label{padding:1rem 1.2rem;background:rgba(0,37,42,0.6);display:flex;justify-content:space-between;align-items:center;}
+  .work-label .tag{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.6;color:var(--lavender);}
+  .work-label h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.1rem;color:var(--lavender);}
+  .work-empty{grid-column:1/-1;text-align:center;padding:4rem 0;opacity:0.4;font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;display:none;}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee-section{background:var(--teal);color:var(--lavender);padding:3.5rem 0;overflow:hidden;}
+  .marquee-track{
+    display:flex;white-space:nowrap;
+    animation:marquee 28s linear infinite;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+    font-size:clamp(1.8rem, 5vw, 3.2rem);
+  }
+  .marquee-track span{padding:0 2rem;opacity:0.85;}
+  .marquee-track span::after{content:'✦';font-style:normal;font-size:0.6em;margin-left:2rem;opacity:0.4;}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- APPROACH ---------- */
+  .approach{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;}
+  .approach-list{display:flex;flex-direction:column;}
+  .approach-row{
+    display:grid;grid-template-columns:3rem 1fr;gap:1.5rem;
+    padding:1.8rem 0;border-bottom:1px solid rgba(0,37,42,0.12);
+  }
+  .approach-row:first-child{border-top:1px solid rgba(0,37,42,0.12);}
+  .approach-row span.step{font-size:0.85rem;opacity:0.5;padding-top:0.3rem;}
+  .approach-row h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;margin-bottom:0.5rem;}
+  .approach-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;max-width:46ch;}
+
+  /* =====================================================
+     PRICING SECTION
+     ===================================================== */
+  #pricing {
+    background: var(--cream);
+    padding: 7rem 4rem;
+  }
+  #pricing .section-head {
+    border-bottom: 1px solid rgba(0,37,42,0.12);
+  }
+
+  /* Discipline tabs */
+  .pricing-tabs {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-bottom: 2.5rem;
+    gap: 0.5rem;
+    margin-bottom: 3.5rem;
   }
-  .filter-btn {
+  .ptab {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0.5rem 1.2rem;
+    padding: 0.55rem 1.4rem;
     border-radius: 100px;
-    border: 1px solid rgba(219,217,255,0.25);
+    border: 1px solid rgba(0,37,42,0.18);
     background: transparent;
-    color: var(--lavender);
-    opacity: 0.55;
-    transition: opacity .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .filter-btn:hover { opacity: 0.85; border-color: rgba(219,217,255,0.5); }
-  .filter-btn.active {
-    background: var(--lavender);
     color: var(--teal);
-    border-color: var(--lavender);
+    opacity: 0.5;
+    transition: all .25s ease;
+  }
+  .ptab:hover { opacity: 0.75; border-color: rgba(0,37,42,0.4); }
+  .ptab.active {
+    background: var(--teal);
+    color: var(--lavender);
+    border-color: var(--teal);
     opacity: 1;
   }
 
-  .work-grid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:1.5rem;
+  .pricing-panel { display: none; }
+  .pricing-panel.active { display: block; }
+
+  /* Cards grid */
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    border: 1.5px solid rgba(0,37,42,0.10);
+    border-radius: 6px;
+    overflow: hidden;
   }
-  .work-item{
-    border-radius:4px;
-    overflow:hidden;
-    position:relative;
-    background:#000;
-    transition: opacity .35s ease, transform .35s ease;
+
+  .pricing-card {
+    background: var(--cream);
+    padding: 2.8rem 2.2rem 2.6rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-right: 1.5px solid rgba(0,37,42,0.08);
   }
-  .work-item.hidden {
-    display: none;
+  .pricing-card:last-child { border-right: none; }
+
+  .pricing-card.featured {
+    background: var(--teal);
+    color: var(--lavender);
   }
-  .work-item-inner{
-    position:relative;
-    padding-bottom:56.25%;
-    height:0;
+  .pricing-card.featured .pc-tier,
+  .pricing-card.featured .pc-price,
+  .pricing-card.featured .pc-price-label,
+  .pricing-card.featured .pc-desc { color: var(--lavender); }
+  .pricing-card.featured .pc-list li { color: var(--lavender); opacity: 0.88; }
+  .pricing-card.featured .pc-list li::before { background: var(--lavender); opacity: 0.55; }
+  .pricing-card.featured .pc-divider { background: rgba(219,217,255,0.18); }
+  .pricing-card.featured .pc-badge { background: var(--lavender); color: var(--teal); }
+  .pricing-card.featured .pc-cta {
+    background: var(--lavender);
+    color: var(--teal);
+    border-color: var(--lavender);
   }
-  .work-item-inner iframe{
-    position:absolute;
-    top:0;left:0;
-    width:100%;height:100%;
-    border:0;
-    display:block;
+  .pricing-card.featured .pc-cta:hover {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
   }
-  .work-label{
-    padding:1rem 1.2rem;
-    background:rgba(0,37,42,0.6);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+
+  .pc-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--teal);
+    color: var(--lavender);
+    padding: 0.3rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 1.6rem;
+    width: fit-content;
   }
-  .work-label .tag{
-    font-size:0.75rem;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    opacity:0.6;
-    color:var(--lavender);
+  .pc-badge-placeholder { height: 1.65rem; margin-bottom: 1.6rem; }
+
+  .pc-tier {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.5rem;
+    color: var(--teal);
   }
-  .work-label h3{
-    font-family:'Fraunces',serif;
-    font-weight:500;
-    font-size:1.1rem;
-    color:var(--lavender);
-  }
-  .work-empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 4rem 0;
-    opacity: 0.4;
+  .pc-price {
     font-family: 'Fraunces', serif;
-    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(2.6rem, 5vw, 3.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--teal);
+    margin-bottom: 0.3rem;
+  }
+  .pc-price sup { font-size: 0.5em; font-weight: 400; vertical-align: super; }
+  .pc-price-label { font-size: 0.82rem; opacity: 0.45; color: var(--teal); margin-bottom: 1.5rem; }
+
+  .pc-divider { width: 100%; height: 1px; background: rgba(0,37,42,0.1); margin: 1.4rem 0; }
+
+  .pc-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    opacity: 0.6;
+    color: var(--teal);
+    margin-bottom: 1.4rem;
+  }
+
+  .pc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+    margin-bottom: 2.2rem;
+  }
+  .pc-list li {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    opacity: 0.75;
+    color: var(--teal);
+  }
+  .pc-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--teal);
+    opacity: 0.4;
+    flex-shrink: 0;
+    margin-top: 0.45em;
+  }
+
+  .pc-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem 1.4rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(0,37,42,0.22);
+    background: transparent;
+    color: var(--teal);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease;
+    margin-top: auto;
+  }
+  .pc-cta:hover {
+    background: var(--teal);
+    color: var(--lavender);
+    border-color: var(--teal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,37,42,0.14);
+  }
+
+  /* Guarantee strip */
+  .pricing-guarantee {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.6rem;
+    padding: 1.2rem 1.8rem;
+    border: 1px solid rgba(0,37,42,0.1);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--teal);
+    opacity: 0.6;
+  }
+  .pricing-guarantee svg { flex-shrink: 0; opacity: 0.5; }
+
+  /* Custom strip */
+  .pricing-custom {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.8rem 2.2rem;
+    background: var(--teal);
+    border-radius: 6px;
+    color: var(--lavender);
+  }
+  .pricing-custom p { font-size: 0.95rem; opacity: 0.8; max-width: 46ch; line-height: 1.5; }
+  .pricing-custom p strong {
+    display: block;
+    font-family: 'Fraunces', serif;
     font-size: 1.2rem;
-    display: none;
+    font-weight: 500;
+    opacity: 1;
+    margin-bottom: 0.3rem;
+    color: var(--lavender);
   }
+  .pricing-custom-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--lavender);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid rgba(219,217,255,0.35);
+    padding: 0.7rem 1.6rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .pricing-custom-link:hover { background: rgba(219,217,255,0.12); border-color: rgba(219,217,255,0.6); }
 
-  /* ---------- MARQUEE ---------- */
-  .marquee-section{
-    background:var(--teal);
-    color:var(--lavender);
-    padding:3.5rem 0;
-    overflow:hidden;
+  /* Podcast addon inside motion panel */
+  .podcast-addon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.8rem 2.2rem;
+    background: var(--teal);
+    border-radius: 6px;
+    color: var(--lavender);
+    margin-top: 1.5rem;
   }
-  .marquee-track{
-    display:flex;
-    white-space:nowrap;
-    animation:marquee 28s linear infinite;
-    font-family:'Fraunces',serif;
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(1.8rem, 5vw, 3.2rem);
-  }
-  .marquee-track span{padding:0 2rem;opacity:0.85;}
-  .marquee-track span::after{content:'✦';font-style:normal;font-size:0.6em;margin-left:2rem;opacity:0.4;}
-  @keyframes marquee{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-
-  /* ---------- APPROACH ---------- */
-  .approach{
-    display:grid;
-    grid-template-columns:1fr 1.4fr;
-    gap:4rem;
-    align-items:start;
-  }
-  .approach-list{display:flex;flex-direction:column;}
-  .approach-row{
-    display:grid;
-    grid-template-columns:3rem 1fr;
-    gap:1.5rem;
-    padding:1.8rem 0;
-    border-bottom:1px solid rgba(0,37,42,0.12);
-  }
-  .approach-row:first-child{border-top:1px solid rgba(0,37,42,0.12);}
-  .approach-row span.step{font-size:0.85rem;opacity:0.5;padding-top:0.3rem;}
-  .approach-row h4{
-    font-family:'Fraunces',serif;
-    font-weight:500;
-    font-size:1.3rem;
-    margin-bottom:0.5rem;
-  }
-  .approach-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;max-width:46ch;}
+  .podcast-addon p { font-size: 0.95rem; opacity: 0.8; max-width: 40ch; line-height: 1.5; }
+  .podcast-addon p strong { display: block; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 500; opacity: 1; margin-bottom: 0.3rem; color: var(--lavender); }
+  .podcast-addon-links { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
 
   /* ---------- CTA ---------- */
-  .cta{
-    background:var(--teal);
-    color:var(--lavender);
-    text-align:center;
-    padding:9rem 4rem;
-  }
-  .cta h2{
-    font-family:'Fraunces',serif;
-    font-weight:340;
-    font-style:italic;
-    font-size:clamp(2.4rem, 7vw, 5.5rem);
-    line-height:1.1;
-    margin-bottom:2.5rem;
-  }
-  .cta-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:1rem;
-    justify-content:center;
-    align-items:center;
-  }
+  .cta{background:var(--teal);color:var(--lavender);text-align:center;padding:9rem 4rem;}
+  .cta h2{font-family:'Fraunces',serif;font-weight:340;font-style:italic;font-size:clamp(2.4rem, 7vw, 5.5rem);line-height:1.1;margin-bottom:2.5rem;}
+  .cta-actions{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;}
   .cta-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:0.8rem;
-    background:var(--lavender);
-    color:var(--teal);
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:500;
-    font-size:1rem;
-    padding:1.1rem 2.2rem;
-    border-radius:100px;
-    text-decoration:none;
+    display:inline-flex;align-items:center;gap:0.8rem;
+    background:var(--lavender);color:var(--teal);
+    font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1rem;
+    padding:1.1rem 2.2rem;border-radius:100px;text-decoration:none;
     transition:transform .3s ease, box-shadow .3s ease;
   }
-  .cta-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 30px rgba(219,217,255,0.25);
-  }
-  .social-links{
-    display:flex;
-    flex-wrap:wrap;
-    gap:0.8rem;
-    justify-content:center;
-    margin-top:2rem;
-  }
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(219,217,255,0.25);}
+  .social-links{display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:2rem;}
   .social-link{
-    display:inline-flex;
-    align-items:center;
-    gap:0.45rem;
-    color:var(--lavender);
-    text-decoration:none;
-    font-size:0.88rem;
-    opacity:0.65;
-    border:1px solid rgba(219,217,255,0.25);
-    padding:0.5rem 1rem;
-    border-radius:100px;
+    display:inline-flex;align-items:center;gap:0.45rem;
+    color:var(--lavender);text-decoration:none;font-size:0.88rem;opacity:0.65;
+    border:1px solid rgba(219,217,255,0.25);padding:0.5rem 1rem;border-radius:100px;
     transition:opacity .2s ease, border-color .2s ease, transform .2s ease;
   }
   .social-link:hover{opacity:1;border-color:rgba(219,217,255,0.6);transform:translateY(-2px);}
 
   /* ---------- FOOTER ---------- */
-  footer{
-    padding:5rem 4rem 2.5rem;
-    background:var(--teal);
-    color:var(--lavender);
-  }
-  .footer-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    flex-wrap:wrap;
-    gap:2rem;
-    border-bottom:1px solid rgba(219,217,255,0.15);
-    padding-bottom:3rem;
-  }
-  .footer-logo{
-    font-family:'Fraunces',serif;
-    font-weight:700;
-    font-size:clamp(3rem, 12vw, 7rem);
-    letter-spacing:-0.03em;
-    line-height:1;
-  }
+  footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;border-bottom:1px solid rgba(219,217,255,0.15);padding-bottom:3rem;}
+  .footer-logo{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3rem, 12vw, 7rem);letter-spacing:-0.03em;line-height:1;}
   .footer-links{display:flex;gap:3rem;flex-wrap:wrap;}
-  .footer-col h5{
-    font-size:0.75rem;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    opacity:0.5;
-    margin-bottom:1rem;
-  }
-  .footer-col a{
-    display:block;
-    color:var(--lavender);
-    text-decoration:none;
-    font-size:0.95rem;
-    margin-bottom:0.6rem;
-    opacity:0.85;
-    transition:opacity .2s ease;
-  }
+  .footer-col h5{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:1rem;}
+  .footer-col a{display:block;color:var(--lavender);text-decoration:none;font-size:0.95rem;margin-bottom:0.6rem;opacity:0.85;transition:opacity .2s ease;}
   .footer-col a:hover{opacity:1;text-decoration:underline;}
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    padding-top:1.8rem;
-    font-size:0.8rem;
-    opacity:0.5;
-    flex-wrap:wrap;
-    gap:1rem;
-  }
+  .footer-bottom{display:flex;justify-content:space-between;padding-top:1.8rem;font-size:0.8rem;opacity:0.5;flex-wrap:wrap;gap:1rem;}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
     .approach{grid-template-columns:1fr;}
+    .pricing-cards { grid-template-columns: 1fr; }
+    .pricing-card { border-right: none; border-bottom: 1.5px solid rgba(0,37,42,0.08); }
+    .pricing-card:last-child { border-bottom: none; }
+    .pricing-card.featured { border-bottom-color: rgba(219,217,255,0.12); }
   }
 
   @media (max-width: 760px){
-    /* hide desktop nav, show burger */
     nav { padding:1.2rem 1.4rem; }
     nav.scrolled { padding:0.9rem 1.4rem; }
     .nav-links { display: none; }
@@ -591,26 +653,24 @@
     .mobile-menu { display: flex; }
 
     section { padding: 4.5rem 1.4rem; }
+    #pricing { padding: 4.5rem 1.4rem; }
     .hero { padding: 7rem 1.4rem 3rem; }
     .hero-meta { position:static; margin-top:3rem; text-align:left; }
 
     #saturn-wrap {
-      position: relative;
-      right: auto;
-      top: auto;
-      transform: none;
-      width: clamp(200px, 70vw, 300px);
-      height: clamp(200px, 70vw, 300px);
+      position: relative; right: auto; top: auto; transform: none;
+      width: clamp(200px, 70vw, 300px); height: clamp(200px, 70vw, 300px);
       margin: 2.5rem auto 0;
     }
 
     .section-head { flex-direction:column; align-items:flex-start; }
     .section-head p { text-align:left; max-width:100%; }
-
     .services { grid-template-columns: 1fr; }
     .service { border-right: none; }
-
     .work-grid { grid-template-columns: 1fr; }
+
+    .podcast-addon { flex-direction: column; }
+    .pricing-custom { flex-direction: column; }
 
     .cta { padding: 6rem 1.4rem; }
     footer { padding: 4rem 1.4rem 2rem; }
@@ -626,7 +686,6 @@
 </head>
 <body>
 
-<!-- Custom cursor -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
@@ -636,6 +695,7 @@
     <a href="#services">Services</a>
     <a href="#work">Work</a>
     <a href="#approach">Approach</a>
+    <a href="#pricing">Pricing</a>
     <a href="#contact">Contact</a>
   </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -643,55 +703,38 @@
   </button>
 </nav>
 
-<!-- Mobile drawer -->
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <a href="#services">Services</a>
   <a href="#work" class="mobile-link">Work</a>
   <a href="#approach" class="mobile-link">Approach</a>
+  <a href="#pricing" class="mobile-link">Pricing</a>
   <a href="#contact" class="mobile-link">Contact</a>
 </div>
 
 <header class="hero">
   <div class="blob" aria-hidden="true"></div>
 
-  <!-- Saturn SVG -->
   <div id="saturn-wrap" aria-hidden="true">
     <svg id="saturn-svg" viewBox="-120 -120 240 240" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- Clip the rings so they go behind the planet at the bottom -->
-        <clipPath id="ring-front-clip">
-          <rect x="-200" y="-200" width="400" height="200"/>
-        </clipPath>
-        <clipPath id="ring-back-clip">
-          <rect x="-200" y="0" width="400" height="200"/>
-        </clipPath>
+        <clipPath id="ring-front-clip"><rect x="-200" y="-200" width="400" height="200"/></clipPath>
+        <clipPath id="ring-back-clip"><rect x="-200" y="0" width="400" height="200"/></clipPath>
       </defs>
-
-      <!-- Back ring half (behind planet) -->
       <g clip-path="url(#ring-back-clip)" opacity="0.35">
         <ellipse cx="0" cy="12" rx="94" ry="22" fill="none" stroke="#DBD9FF" stroke-width="1.2"/>
         <ellipse cx="0" cy="12" rx="78" ry="18" fill="none" stroke="#DBD9FF" stroke-width="0.8"/>
         <ellipse cx="0" cy="12" rx="108" ry="26" fill="none" stroke="#DBD9FF" stroke-width="0.6"/>
       </g>
-
-      <!-- Planet body -->
-      <circle id="saturn-body" cx="0" cy="0" r="44"
-        fill="none" stroke="#DBD9FF" stroke-width="1.5"/>
-      <!-- latitude lines -->
+      <circle id="saturn-body" cx="0" cy="0" r="44" fill="none" stroke="#DBD9FF" stroke-width="1.5"/>
       <ellipse cx="0" cy="-16" rx="44" ry="10" fill="none" stroke="#DBD9FF" stroke-width="0.6" opacity="0.4"/>
-      <ellipse cx="0" cy="0"  rx="44" ry="14" fill="none" stroke="#DBD9FF" stroke-width="0.6" opacity="0.4"/>
+      <ellipse cx="0" cy="0" rx="44" ry="14" fill="none" stroke="#DBD9FF" stroke-width="0.6" opacity="0.4"/>
       <ellipse cx="0" cy="16" rx="44" ry="10" fill="none" stroke="#DBD9FF" stroke-width="0.6" opacity="0.4"/>
-      <!-- axial tilt line -->
       <line x1="-14" y1="-44" x2="14" y2="44" stroke="#DBD9FF" stroke-width="0.5" opacity="0.25"/>
-
-      <!-- Front ring half (over planet) -->
       <g clip-path="url(#ring-front-clip)" opacity="0.7">
         <ellipse cx="0" cy="12" rx="94" ry="22" fill="none" stroke="#DBD9FF" stroke-width="1.2"/>
         <ellipse cx="0" cy="12" rx="78" ry="18" fill="none" stroke="#DBD9FF" stroke-width="0.8"/>
         <ellipse cx="0" cy="12" rx="108" ry="26" fill="none" stroke="#DBD9FF" stroke-width="0.6"/>
       </g>
-
-      <!-- Small moons -->
       <circle id="moon1" cx="100" cy="0" r="3.5" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.5"/>
       <circle id="moon2" cx="-72" cy="-72" r="2.5" fill="none" stroke="#DBD9FF" stroke-width="0.8" opacity="0.35"/>
     </svg>
@@ -722,7 +765,7 @@
     <p>Four disciplines, one studio. We move between them depending on what the work actually needs.</p>
   </div>
   <div class="services">
-     <div class="service">
+    <div class="service">
       <span class="service-num">Motion</span>
       <h3>Motion &amp; Film</h3>
       <p>Short-form content, podcast editing, motion graphics, and video production crafted for today's social-first world.</p>
@@ -750,8 +793,6 @@
     <h2>Selected work</h2>
     <p>A handful of recent projects across brand, web, and motion.</p>
   </div>
-
-  <!-- Category filters -->
   <div class="work-filters" role="group" aria-label="Filter work by category">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="brand">Brand Identity</button>
@@ -759,7 +800,6 @@
     <button class="filter-btn" data-filter="motion">Motion</button>
     <button class="filter-btn" data-filter="strategy">Strategy</button>
   </div>
-
   <div class="work-grid" id="work-grid">
     <div class="work-item" data-category="brand">
       <div class="work-item-inner">
@@ -822,35 +862,248 @@
     <div class="approach-list">
       <div class="approach-row">
         <span class="step">01</span>
-        <div>
-          <h4>Discover</h4>
-          <p>We dig into the brand, the audience, and the competitive landscape before a single pixel moves.</p>
-        </div>
+        <div><h4>Discover</h4><p>We dig into the brand, the audience, and the competitive landscape before a single pixel moves.</p></div>
       </div>
       <div class="approach-row">
         <span class="step">02</span>
-        <div>
-          <h4>Define</h4>
-          <p>Strategy and direction get locked — positioning, tone, and the creative territory we'll explore.</p>
-        </div>
+        <div><h4>Define</h4><p>Strategy and direction get locked — positioning, tone, and the creative territory we'll explore.</p></div>
       </div>
       <div class="approach-row">
         <span class="step">03</span>
-        <div>
-          <h4>Design</h4>
-          <p>Concepts are developed, tested, and refined into a system that's ready to build.</p>
-        </div>
+        <div><h4>Design</h4><p>Concepts are developed, tested, and refined into a system that's ready to build.</p></div>
       </div>
       <div class="approach-row">
         <span class="step">04</span>
-        <div>
-          <h4>Deliver</h4>
-          <p>We build, launch, and hand off everything your team needs to keep it running.</p>
-        </div>
+        <div><h4>Deliver</h4><p>We build, launch, and hand off everything your team needs to keep it running.</p></div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ======================== PRICING ======================== -->
+<section id="pricing">
+  <div class="section-head">
+    <h2>Transparent pricing</h2>
+    <p>No hidden fees. No vague "starting from." Pick a discipline and see exactly what you get.</p>
+  </div>
+
+  <div class="pricing-tabs" role="tablist" aria-label="Pricing by discipline">
+    <button class="ptab active" data-panel="motion" role="tab" aria-selected="true">Motion &amp; Film</button>
+    <button class="ptab" data-panel="brand" role="tab" aria-selected="false">Brand Identity</button>
+    <button class="ptab" data-panel="web" role="tab" aria-selected="false">Web Design</button>
+    <button class="ptab" data-panel="strategy" role="tab" aria-selected="false">Strategy</button>
+  </div>
+
+  <!-- ── Motion & Film ── -->
+  <div class="pricing-panel active" id="panel-motion" role="tabpanel">
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pc-badge-placeholder"></div>
+        <p class="pc-tier">Starter</p>
+        <p class="pc-price"><sup>$</sup>149</p>
+        <p class="pc-price-label">per month</p>
+        <p class="pc-desc">For individuals and new creators who need consistent, polished content without the overhead.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>8 short-form videos (Reels / Shorts)</li>
+          <li>Clean cuts, captions, and pacing</li>
+          <li>1 revision per video</li>
+          <li>Delivered within 5 business days</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Starter%20Plan">Get started →</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pc-badge">Most popular</span>
+        <p class="pc-tier">Growth</p>
+        <p class="pc-price"><sup>$</sup>299</p>
+        <p class="pc-price-label">per month</p>
+        <p class="pc-desc">For personal brands and small businesses ready to show up everywhere, every week.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>16 short-form videos per month</li>
+          <li>Motion graphics &amp; transitions</li>
+          <li>Hook optimisation + caption styling</li>
+          <li>2 revisions per video</li>
+          <li>Priority turnaround</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Growth%20Plan">Get started →</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pc-badge-placeholder"></div>
+        <p class="pc-tier">Authority</p>
+        <p class="pc-price"><sup>$</sup>599</p>
+        <p class="pc-price-label">per month</p>
+        <p class="pc-desc">For active founders, creators, and agencies who need volume without sacrificing quality.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>30 short-form videos per month</li>
+          <li>Podcast clips &amp; repurposed content</li>
+          <li>Advanced motion design</li>
+          <li>Dedicated editor assigned</li>
+          <li>48-hour rush delivery available</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Authority%20Plan">Get started →</a>
+      </div>
+    </div>
+
+    <div class="podcast-addon">
+      <p>
+        <strong>Need podcast editing too?</strong>
+        Full episode editing — audio, video, noise reduction, colour correction — with 3–5 shorts included per episode. Available standalone or bundled with any plan.
+      </p>
+      <div class="podcast-addon-links">
+        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Essentials">$199 / episode →</a>
+        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Growth%20Plan">$399 / month — up to 2 eps + 12 shorts →</a>
+      </div>
+    </div>
+
+    <div class="pricing-guarantee">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Month-to-month. No contracts. Cancel anytime — we keep your business by doing good work, not by locking you in.
+    </div>
+  </div>
+
+  <!-- ── Brand Identity ── -->
+  <div class="pricing-panel" id="panel-brand" role="tabpanel">
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pc-badge-placeholder"></div>
+        <p class="pc-tier">Essentials</p>
+        <p class="pc-price"><sup>$</sup>249</p>
+        <p class="pc-price-label">one-time</p>
+        <p class="pc-desc">A focused identity for early-stage brands that need to look the part fast.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>Primary logo design</li>
+          <li>Colour palette &amp; rationale</li>
+          <li>Typography system</li>
+          <li>All source files included</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Essentials">Start the project →</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pc-badge">Most popular</span>
+        <p class="pc-tier">Complete Identity</p>
+        <p class="pc-price"><sup>$</sup>499</p>
+        <p class="pc-price-label">one-time</p>
+        <p class="pc-desc">A full identity system built to scale — everything your team needs to stay on-brand across every channel.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>Logo suite — primary, secondary &amp; icon mark</li>
+          <li>Full brand guidelines document</li>
+          <li>Social media kit (profile + post templates)</li>
+          <li>Colour, type &amp; usage rules</li>
+          <li>2 rounds of revisions</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Complete%20Brand%20Identity">Start the project →</a>
+      </div>
+    </div>
+
+    <div class="pricing-guarantee">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Full ownership of every file on delivery. We don't hold assets hostage.
+    </div>
+  </div>
+
+  <!-- ── Web Design ── -->
+  <div class="pricing-panel" id="panel-web" role="tabpanel">
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pc-badge-placeholder"></div>
+        <p class="pc-tier">Landing Page</p>
+        <p class="pc-price"><sup>$</sup>199</p>
+        <p class="pc-price-label">one-time</p>
+        <p class="pc-desc">One focused page that turns visitors into leads, bookings, or buyers.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>Single-page custom design</li>
+          <li>Mobile-first &amp; fully responsive</li>
+          <li>Copy structure guidance</li>
+          <li>Delivered in 7 business days</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Landing%20Page">Start the project →</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pc-badge">Best value</span>
+        <p class="pc-tier">Business Website</p>
+        <p class="pc-price" style="font-size:clamp(1.9rem,4vw,2.7rem);">$399–699</p>
+        <p class="pc-price-label">one-time · scope-dependent</p>
+        <p class="pc-desc">A multi-page site that positions you credibly, communicates clearly, and works hard even when you're not.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>3–5 custom pages</li>
+          <li>On-brand design system</li>
+          <li>Basic SEO setup &amp; meta tags</li>
+          <li>Contact forms &amp; integrations</li>
+          <li>CMS handoff if needed</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Business%20Website">Start the project →</a>
+      </div>
+    </div>
+
+    <div class="pricing-guarantee">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Every site is tested across all major devices and browsers before we hand the keys over.
+    </div>
+  </div>
+
+  <!-- ── Strategy ── -->
+  <div class="pricing-panel" id="panel-strategy" role="tabpanel">
+    <div class="pricing-cards">
+      <div class="pricing-card featured">
+        <span class="pc-badge">Recommended first step</span>
+        <p class="pc-tier">Brand Strategy Session</p>
+        <p class="pc-price"><sup>$</sup>149</p>
+        <p class="pc-price-label">one-time</p>
+        <p class="pc-desc">Two focused hours to clarify what your brand stands for and how to say it — before you spend a dollar on design.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>Positioning clarity workshop</li>
+          <li>Messaging framework (written deliverable)</li>
+          <li>Content direction plan</li>
+          <li>Recorded session + full notes</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Strategy%20Session">Book a session →</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pc-badge-placeholder"></div>
+        <p class="pc-tier">Strategy + Identity Bundle</p>
+        <p class="pc-price"><sup>$</sup>599</p>
+        <p class="pc-price-label">one-time</p>
+        <p class="pc-desc">Strategy first, design second. The right order — and the best result. For brands starting from a blank page.</p>
+        <div class="pc-divider"></div>
+        <ul class="pc-list">
+          <li>Everything in the Strategy Session</li>
+          <li>Complete Identity package</li>
+          <li>Design informed by strategy outcomes</li>
+          <li>Priority scheduling</li>
+        </ul>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Strategy%20%2B%20Identity%20Bundle">Book the bundle →</a>
+      </div>
+    </div>
+
+    <div class="pricing-guarantee">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      If the session doesn't give you clarity you can act on, we'll refund it. No questions.
+    </div>
+  </div>
+
+  <!-- Universal custom strip -->
+  <div class="pricing-custom">
+    <p>
+      <strong>Working at scale?</strong>
+      Retainers, multi-discipline partnerships, and full campaign work are all available. Tell us what you're building and we'll put together something that actually fits.
+    </p>
+    <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Custom%20Project%20Inquiry">Let's talk →</a>
+  </div>
+
+</section>
+<!-- ==================== END PRICING ==================== -->
 
 <section class="cta" id="contact">
   <h2>Got a project<br>worth talking about?</h2>
@@ -894,6 +1147,7 @@
         <a href="#services">Services</a>
         <a href="#work">Work</a>
         <a href="#approach">Approach</a>
+        <a href="#pricing">Pricing</a>
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
@@ -958,24 +1212,14 @@ document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu(); });
 
 /* ---- SATURN ANIMATION ---- */
-const saturnWrap = document.getElementById('saturn-wrap');
 const saturnSvg = document.getElementById('saturn-svg');
-
-let saturnAngle = 0;          // global rotation
-let moon1Angle = 0;
-let moon2Angle = 0;
-let mouseInfluenceX = 0;      // extra tilt from mouse
-let mouseInfluenceY = 0;
-let targetInfluenceX = 0;
-let targetInfluenceY = 0;
-
-// Hero bounds for mouse tracking
 const hero = document.querySelector('.hero');
+let saturnAngle = 0, moon1Angle = 0, moon2Angle = 0;
+let mouseInfluenceX = 0, mouseInfluenceY = 0, targetInfluenceX = 0, targetInfluenceY = 0;
 
 document.addEventListener('mousemove', e => {
   if (!hero) return;
   const rect = hero.getBoundingClientRect();
-  // Only react when mouse is in the viewport
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
   targetInfluenceX = ((e.clientX - cx) / (rect.width / 2)) * 18;
@@ -983,37 +1227,17 @@ document.addEventListener('mousemove', e => {
 });
 
 function animateSaturn(ts) {
-  saturnAngle = ts * 0.018; // slow global rotation in degrees
+  saturnAngle = ts * 0.018;
   moon1Angle = ts * 0.04;
   moon2Angle = ts * 0.025;
-
-  // Smooth mouse influence
   mouseInfluenceX += (targetInfluenceX - mouseInfluenceX) * 0.05;
   mouseInfluenceY += (targetInfluenceY - mouseInfluenceY) * 0.05;
-
-  const totalRotateZ = saturnAngle + mouseInfluenceX;
-  const tiltX = mouseInfluenceY;
-
-  saturnSvg.style.transform =
-    `rotateX(${tiltX}deg) rotateZ(${totalRotateZ}deg)`;
+  saturnSvg.style.transform = `rotateX(${mouseInfluenceY}deg) rotateZ(${saturnAngle + mouseInfluenceX}deg)`;
   saturnSvg.style.transformOrigin = '50% 50%';
-
-  // Moon orbits (in SVG space, counter-rotate so they stay fixed in world)
   const m1 = document.getElementById('moon1');
   const m2 = document.getElementById('moon2');
-  if (m1) {
-    const m1x = Math.cos(moon1Angle * Math.PI / 180) * 100;
-    const m1y = Math.sin(moon1Angle * Math.PI / 180) * 38;
-    m1.setAttribute('cx', m1x);
-    m1.setAttribute('cy', m1y);
-  }
-  if (m2) {
-    const m2x = Math.cos((moon2Angle + 120) * Math.PI / 180) * 115;
-    const m2y = Math.sin((moon2Angle + 120) * Math.PI / 180) * 44;
-    m2.setAttribute('cx', m2x);
-    m2.setAttribute('cy', m2y);
-  }
-
+  if (m1) { m1.setAttribute('cx', Math.cos(moon1Angle * Math.PI / 180) * 100); m1.setAttribute('cy', Math.sin(moon1Angle * Math.PI / 180) * 38); }
+  if (m2) { m2.setAttribute('cx', Math.cos((moon2Angle + 120) * Math.PI / 180) * 115); m2.setAttribute('cy', Math.sin((moon2Angle + 120) * Math.PI / 180) * 44); }
   requestAnimationFrame(animateSaturn);
 }
 requestAnimationFrame(animateSaturn);
@@ -1021,81 +1245,61 @@ requestAnimationFrame(animateSaturn);
 /* ---- CUSTOM CURSOR ---- */
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
-
-// Positions for smooth lag
-let dotX = 0, dotY = 0;
-let ringX = 0, ringY = 0;
-let mouseX = 0, mouseY = 0;
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
+let dotX=0,dotY=0,ringX=0,ringY=0,mouseX=0,mouseY=0;
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
 function animateCursor() {
-  // Dot snaps instantly
-  dotX = mouseX;
-  dotY = mouseY;
-  // Ring lags behind
+  dotX = mouseX; dotY = mouseY;
   ringX += (mouseX - ringX) * 0.12;
   ringY += (mouseY - ringY) * 0.12;
-
-  dot.style.left = dotX + 'px';
-  dot.style.top = dotY + 'px';
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-
+  dot.style.left = dotX + 'px'; dot.style.top = dotY + 'px';
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
   requestAnimationFrame(animateCursor);
 }
 requestAnimationFrame(animateCursor);
 
-// Hover states
-const hoverables = document.querySelectorAll('a, button, .service, .work-item, .cta-btn');
-hoverables.forEach(el => {
+document.querySelectorAll('a, button, .service, .work-item, .cta-btn, .pricing-card, .ptab, .pc-cta').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
-const textEls = document.querySelectorAll('p, h1, h2, h3, h4');
-textEls.forEach(el => {
+document.querySelectorAll('p, h1, h2, h3, h4').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-text'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-text'));
 });
+document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
+document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
+if (window.matchMedia('(hover: none)').matches) { dot.style.display='none'; ring.style.display='none'; document.body.style.cursor=''; }
 
 /* ---- WORK FILTERS ---- */
 const filterBtns = document.querySelectorAll('.filter-btn');
 const workItems = document.querySelectorAll('.work-item');
 const workEmpty = document.getElementById('work-empty');
-
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const filter = btn.dataset.filter;
-
-    // Update active state
     filterBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
-    // Show/hide items
     let visible = 0;
     workItems.forEach(item => {
       const match = filter === 'all' || item.dataset.category === filter;
       item.classList.toggle('hidden', !match);
       if (match) visible++;
     });
-
     workEmpty.style.display = visible === 0 ? 'block' : 'none';
   });
 });
 
-// Hide cursor when it leaves window
-document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
-document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
-
-// Disable custom cursor on touch devices
-if (window.matchMedia('(hover: none)').matches) {
-  dot.style.display = 'none';
-  ring.style.display = 'none';
-  document.body.style.cursor = '';
-}
+/* ---- PRICING TABS ---- */
+const ptabs = document.querySelectorAll('.ptab');
+const ppanels = document.querySelectorAll('.pricing-panel');
+ptabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const panel = tab.dataset.panel;
+    ptabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+    ppanels.forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + panel).classList.add('active');
+  });
+});
 </script>
 
 </body>
