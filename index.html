@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Calendly widget -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
   :root{
     --lavender:#DBD9FF;
@@ -85,7 +88,7 @@
   .logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.02em;}
   .logo-link{color:inherit;text-decoration:none;display:inline-block;transition:opacity .2s ease;}
   .logo-link:hover{opacity:0.8;}
-  .nav-links{display:flex;gap:2.4rem;font-size:0.9rem;}
+  .nav-links{display:flex;gap:2.4rem;font-size:0.9rem;align-items:center;}
   .nav-links a{color:inherit;text-decoration:none;position:relative;}
   .nav-links a::after{
     content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
@@ -93,6 +96,32 @@
   }
   .nav-links a:hover::after{width:100%;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--lavender);outline-offset:4px;}
+
+  /* Nav Book a Call button */
+  .nav-book-btn {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.48rem 1.1rem;
+    border-radius: 100px;
+    border: 1.5px solid currentColor;
+    background: transparent;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity .2s ease, background .2s ease, color .2s ease;
+    white-space: nowrap;
+  }
+  .nav-book-btn::after { display: none !important; }
+  nav:not(.scrolled) .nav-book-btn:hover {
+    opacity: 1;
+    background: rgba(255,255,255,0.12);
+  }
+  nav.scrolled .nav-book-btn:hover {
+    opacity: 1;
+    background: rgba(219,217,255,0.12);
+  }
 
   /* ---------- BURGER ---------- */
   .nav-toggle {
@@ -113,7 +142,7 @@
     display: block;
     width: 22px;
     height: 1.5px;
-    background: currentColor;
+    background: #fff;
     border-radius: 2px;
     transition: transform .35s cubic-bezier(.65,0,.35,1), opacity .2s ease, width .3s ease;
     transform-origin: center;
@@ -152,6 +181,17 @@
     transition: opacity .2s ease, transform .2s ease;
   }
   .mobile-menu a:hover { opacity: 1; transform: translateX(6px); }
+  .mobile-menu .mobile-book-btn {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    border: 1.5px solid var(--teal);
+    padding: 0.7rem 2rem;
+    border-radius: 100px;
+    opacity: 0.75;
+  }
+  .mobile-menu .mobile-book-btn:hover { opacity: 1; transform: none; }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -217,6 +257,46 @@
     color:var(--lavender);
     opacity:0.85;
   }
+
+  /* Hero CTA buttons */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .hero-btn-primary {
+    background: var(--lavender);
+    color: var(--teal);
+    border: 1.5px solid var(--lavender);
+  }
+  .hero-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(219,217,255,0.22);
+  }
+  .hero-btn-secondary {
+    background: transparent;
+    color: var(--lavender);
+    border: 1.5px solid rgba(219,217,255,0.35);
+  }
+  .hero-btn-secondary:hover {
+    border-color: rgba(219,217,255,0.7);
+    background: rgba(219,217,255,0.07);
+    transform: translateY(-2px);
+  }
+
   .hero-meta{
     position:absolute;
     bottom:3rem;
@@ -329,13 +409,22 @@
   /* ---------- MARQUEE ---------- */
   .marquee-section{background:var(--teal);color:var(--lavender);padding:3.5rem 0;overflow:hidden;}
   .marquee-track{
-    display:flex;white-space:nowrap;
+    display:flex;white-space:nowrap;align-items:center;
     animation:marquee 28s linear infinite;
     font-family:'Fraunces',serif;font-style:italic;font-weight:400;
     font-size:clamp(1.8rem, 5vw, 3.2rem);
   }
-  .marquee-track span{padding:0 2rem;opacity:0.85;}
-  .marquee-track span::after{content:'✦';font-style:normal;font-size:0.6em;margin-left:2rem;opacity:0.4;}
+  .marquee-track span{padding:0 2rem;opacity:0.85;display:inline-flex;align-items:center;gap:2rem;}
+  .marquee-track span .marquee-sep {
+    display:inline-flex;
+    align-items:center;
+    opacity:0.4;
+    flex-shrink:0;
+  }
+  .marquee-track span .marquee-sep svg {
+    width: 0.5em;
+    height: 0.5em;
+  }
   @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   /* ---------- APPROACH ---------- */
@@ -344,11 +433,25 @@
   .approach-row{
     display:grid;grid-template-columns:3rem 1fr;gap:1.5rem;
     padding:1.8rem 0;border-bottom:1px solid rgba(0,37,42,0.12);
+    transition: background .35s ease, color .35s ease, padding .2s ease;
+    border-radius: 0;
+    cursor: default;
   }
   .approach-row:first-child{border-top:1px solid rgba(0,37,42,0.12);}
-  .approach-row span.step{font-size:0.85rem;opacity:0.5;padding-top:0.3rem;}
-  .approach-row h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;margin-bottom:0.5rem;}
-  .approach-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;max-width:46ch;}
+  .approach-row:hover {
+    background: var(--teal);
+    color: var(--lavender);
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    border-radius: 4px;
+    border-bottom-color: transparent;
+  }
+  .approach-row:hover .step { color: var(--lavender); opacity: 0.5; }
+  .approach-row:hover h4 { color: var(--lavender); }
+  .approach-row:hover p { color: var(--lavender); opacity: 0.72; }
+  .approach-row span.step{font-size:0.85rem;opacity:0.5;padding-top:0.3rem;transition:color .35s ease;}
+  .approach-row h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;margin-bottom:0.5rem;transition:color .35s ease;}
+  .approach-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;max-width:46ch;transition:color .35s ease, opacity .35s ease;}
 
   /* =====================================================
      PRICING SECTION
@@ -619,6 +722,26 @@
     transition:transform .3s ease, box-shadow .3s ease;
   }
   .cta-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(219,217,255,0.25);}
+  .cta-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: transparent;
+    color: var(--lavender);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 1.1rem 2.2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1.5px solid rgba(219,217,255,0.4);
+    transition: transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .cta-btn-outline:hover {
+    transform: translateY(-3px);
+    border-color: rgba(219,217,255,0.75);
+    background: rgba(219,217,255,0.07);
+  }
   .social-links{display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:2rem;}
   .social-link{
     display:inline-flex;align-items:center;gap:0.45rem;
@@ -699,6 +822,9 @@
     .footer-links { gap: 2rem; }
     .footer-illustration { padding: 2.2rem 0 0.5rem; }
     .footer-illustration svg { max-width: 380px; }
+
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .hero-btn { width: 100%; justify-content: center; }
   }
 
   @media (max-width: 480px) {
@@ -720,6 +846,7 @@
     <a href="#approach">Approach</a>
     <a href="#pricing">Pricing</a>
     <a href="#contact">Contact</a>
+    <a href="#" class="nav-book-btn" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;margin-top:-1px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a call</a>
   </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -732,6 +859,7 @@
   <a href="#approach" class="mobile-link">Approach</a>
   <a href="#pricing" class="mobile-link">Pricing</a>
   <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#" class="mobile-link mobile-book-btn" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;margin-top:-2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a call</a>
 </div>
 
 <header class="hero" id="home">
@@ -775,10 +903,22 @@
     </span>
   </h1>
   <p class="hero-sub">A small studio for brands that refuse to look like everyone else. Strategy, identity, and digital design — built on ideas worth noticing.</p>
+
+  <div class="hero-actions">
+    <a class="hero-btn hero-btn-primary" href="mailto:savsetsystems@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email us
+    </a>
+    <a class="hero-btn hero-btn-secondary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Book a call
+    </a>
+  </div>
+
   <div class="hero-meta">
     Based in Kathmandu<br>
     Working worldwide<br>
-    Est. 2024
+    Est. 2023
   </div>
 </header>
 
@@ -864,10 +1004,27 @@
   </div>
 </section>
 
+<!-- Saturn separator SVG template (inline, reused in JS) -->
+<template id="saturn-sep-tpl">
+  <svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <clipPath id="ms-ring-front"><rect x="-30" y="-30" width="60" height="30"/></clipPath>
+      <clipPath id="ms-ring-back"><rect x="-30" y="0" width="60" height="30"/></clipPath>
+    </defs>
+    <g clip-path="url(#ms-ring-back)" opacity="0.4">
+      <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    </g>
+    <circle cx="0" cy="0" r="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+    <g clip-path="url(#ms-ring-front)" opacity="0.85">
+      <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    </g>
+  </svg>
+</template>
+
 <div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Go Creative</span><span>Strategy</span><span>Identity</span><span>Web</span><span>Motion</span>
-    <span>Go Creative</span><span>Strategy</span><span>Identity</span><span>Web</span><span>Motion</span>
+  <div class="marquee-track" id="marquee-track">
+    <span>Go Creative<span class="marquee-sep"></span></span><span>Strategy<span class="marquee-sep"></span></span><span>Identity<span class="marquee-sep"></span></span><span>Web<span class="marquee-sep"></span></span><span>Motion<span class="marquee-sep"></span></span>
+    <span>Go Creative<span class="marquee-sep"></span></span><span>Strategy<span class="marquee-sep"></span></span><span>Identity<span class="marquee-sep"></span></span><span>Web<span class="marquee-sep"></span></span><span>Motion<span class="marquee-sep"></span></span>
   </div>
 </div>
 
@@ -933,7 +1090,7 @@
           <li>1 revision per video</li>
           <li>Delivered within 5 business days</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Starter%20Plan">Get started →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Starter%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
 
       <div class="pricing-card featured">
@@ -950,7 +1107,7 @@
           <li>2 revisions per video</li>
           <li>Priority turnaround</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Growth%20Plan">Get started →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Growth%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
 
       <div class="pricing-card">
@@ -967,7 +1124,7 @@
           <li>Dedicated editor assigned</li>
           <li>48-hour rush delivery available</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Authority%20Plan">Get started →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Authority%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
     </div>
 
@@ -977,8 +1134,8 @@
         Full episode editing — audio, video, noise reduction, colour correction — with 3–5 shorts included per episode. Available standalone or bundled with any plan.
       </p>
       <div class="podcast-addon-links">
-        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Essentials">$199 / episode →</a>
-        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Growth%20Plan">$399 / month — up to 2 eps + 12 shorts →</a>
+        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Essentials"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> $199 / episode</a>
+        <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Growth%20Plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> $399 / month — up to 2 eps + 12 shorts</a>
       </div>
     </div>
 
@@ -1004,7 +1161,7 @@
           <li>Typography system</li>
           <li>All source files included</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Essentials">Start the project →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Essentials"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
 
       <div class="pricing-card featured">
@@ -1021,7 +1178,7 @@
           <li>Colour, type &amp; usage rules</li>
           <li>2 rounds of revisions</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Complete%20Brand%20Identity">Start the project →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Complete%20Brand%20Identity"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
     </div>
 
@@ -1047,7 +1204,7 @@
           <li>Copy structure guidance</li>
           <li>Delivered in 7 business days</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Landing%20Page">Start the project →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Landing%20Page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
 
       <div class="pricing-card featured">
@@ -1064,7 +1221,7 @@
           <li>Contact forms &amp; integrations</li>
           <li>CMS handoff if needed</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Business%20Website">Start the project →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Business%20Website"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
     </div>
 
@@ -1090,7 +1247,7 @@
           <li>Content direction plan</li>
           <li>Recorded session + full notes</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Strategy%20Session">Book a session →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Strategy%20Session"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a session</a>
       </div>
 
       <div class="pricing-card">
@@ -1106,7 +1263,7 @@
           <li>Design informed by strategy outcomes</li>
           <li>Priority scheduling</li>
         </ul>
-        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Strategy%20%2B%20Identity%20Bundle">Book the bundle →</a>
+        <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Strategy%20%2B%20Identity%20Bundle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book the bundle</a>
       </div>
     </div>
 
@@ -1122,7 +1279,7 @@
       <strong>Working at scale?</strong>
       Retainers, multi-discipline partnerships, and full campaign work are all available. Tell us what you're building and we'll put together something that actually fits.
     </p>
-    <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Custom%20Project%20Inquiry">Let's talk →</a>
+    <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Custom%20Project%20Inquiry"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Let's talk</a>
   </div>
 
 </section>
@@ -1131,7 +1288,8 @@
 <section class="cta" id="contact">
   <h2>Got a project<br>worth talking about?</h2>
   <div class="cta-actions">
-    <a class="cta-btn" href="mailto:savsetsystems@gmail.com">Start a project →</a>
+    <a class="cta-btn" href="mailto:savsetsystems@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start a project</a>
+    <a class="cta-btn-outline" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a call</a>
   </div>
   <div class="social-links">
     <a class="social-link" href="https://www.instagram.com/savsetsystems" target="_blank" rel="noopener">
@@ -1350,6 +1508,27 @@ function animateSaturn(ts) {
 }
 requestAnimationFrame(animateSaturn);
 
+/* ---- MARQUEE SATURN SEPARATORS ---- */
+const saturnSVG = `<svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:0.5em;height:0.5em;display:inline-block;vertical-align:middle;">
+  <defs>
+    <clipPath id="msr-f"><rect x="-30" y="-30" width="60" height="30"/></clipPath>
+    <clipPath id="msr-b"><rect x="-30" y="0" width="60" height="30"/></clipPath>
+  </defs>
+  <g clip-path="url(#msr-b)" opacity="0.4">
+    <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    <ellipse cx="0" cy="3.5" rx="11" ry="2.5" fill="none" stroke="currentColor" stroke-width="0.6"/>
+  </g>
+  <circle cx="0" cy="0" r="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  <g clip-path="url(#msr-f)" opacity="0.85">
+    <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    <ellipse cx="0" cy="3.5" rx="11" ry="2.5" fill="none" stroke="currentColor" stroke-width="0.6"/>
+  </g>
+</svg>`;
+
+document.querySelectorAll('.marquee-sep').forEach(sep => {
+  sep.innerHTML = saturnSVG;
+});
+
 /* ---- FOOTER ILLUSTRATION PARALLAX ---- */
 const footerArt = document.getElementById('footer-art');
 if (footerArt) {
@@ -1405,7 +1584,7 @@ function animateCursor() {
 }
 requestAnimationFrame(animateCursor);
 
-document.querySelectorAll('a, button, .service, .work-item, .cta-btn, .pricing-card, .ptab, .pc-cta').forEach(el => {
+document.querySelectorAll('a, button, .service, .work-item, .cta-btn, .cta-btn-outline, .pricing-card, .ptab, .pc-cta, .approach-row, .hero-btn').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
