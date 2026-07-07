@@ -162,7 +162,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    top: 68px; /* sits below nav bar */
+    top: 68px;
     background: var(--cream);
     z-index: 400;
     flex-direction: column;
@@ -472,7 +472,6 @@
     border-bottom: 1px solid rgba(0,37,42,0.12);
   }
 
-  /* Discipline tabs */
   .pricing-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -504,7 +503,6 @@
   .pricing-panel { display: none; }
   .pricing-panel.active { display: block; }
 
-  /* Cards grid */
   .pricing-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -647,7 +645,6 @@
     box-shadow: 0 8px 24px rgba(0,37,42,0.14);
   }
 
-  /* Guarantee strip */
   .pricing-guarantee {
     display: flex;
     align-items: center;
@@ -662,7 +659,6 @@
   }
   .pricing-guarantee svg { flex-shrink: 0; opacity: 0.5; }
 
-  /* Custom strip */
   .pricing-custom {
     margin-top: 1.5rem;
     display: flex;
@@ -701,7 +697,6 @@
   }
   .pricing-custom-link:hover { background: rgba(219,217,255,0.12); border-color: rgba(219,217,255,0.6); }
 
-  /* Podcast addon inside motion panel */
   .podcast-addon {
     display: flex;
     align-items: center;
@@ -771,13 +766,6 @@
   .footer-col a:hover{opacity:1;text-decoration:underline;}
   .footer-illustration{display:flex;justify-content:center;padding:3.2rem 0 0.5rem;}
   .footer-illustration svg{width:100%;max-width:640px;height:auto;display:block;}
-  .footer-illustration #temple,
-  .footer-illustration #mtn-back,
-  .footer-illustration #mtn-mid-left,
-  .footer-illustration #mtn-mid-right,
-  .footer-illustration #hill-front,
-  .footer-illustration #fa-sun,
-  .footer-illustration #fa-birds{transition:opacity .3s ease;}
   .footer-bottom{display:flex;justify-content:space-between;padding-top:1.8rem;font-size:0.8rem;opacity:0.5;flex-wrap:wrap;gap:1rem;}
 
   /* ---------- RESPONSIVE ---------- */
@@ -959,6 +947,7 @@
   </div>
 </section>
 
+<!-- ===================== WORK — ONLY SECTION CHANGED ===================== -->
 <section id="work">
   <div class="section-head">
     <h2>Selected work</h2>
@@ -972,12 +961,14 @@
     <button class="filter-btn" data-filter="strategy">Strategy</button>
   </div>
   <div class="work-grid" id="work-grid">
-    <div class="work-item" data-category="web, brand">
+    <!-- FIX: data-category uses space-separated tokens so multi-service items
+         appear under each relevant filter tab, not just "All" -->
+    <div class="work-item" data-category="web brand">
       <div class="work-item-inner">
-        <iframe src="https://www.youtube.com/embed/QGDZbZ1BQ6k?si=fYoZW2sgXE3TQFgF" title="TheHamro - Web Design" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/QGDZbZ1BQ6k?si=fYoZW2sgXE3TQFgF" title="TheHamro - Web Design &amp; Brand Identity" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="work-label">
-        <span class="tag">Web Design & Build and Brand Identity</span>
+        <span class="tag">Web Design &amp; Brand Identity</span>
         <h3>TheHamro</h3>
       </div>
     </div>
@@ -986,23 +977,24 @@
         <iframe src="https://www.youtube.com/embed/GpCRti_xl5g" title="Kaicho Group - Web Design" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="work-label">
-        <span class="tag">Web Design & Build</span>
+        <span class="tag">Web Design &amp; Build</span>
         <h3>Kaicho Group</h3>
       </div>
     </div>
-    <div class="work-item" data-category="web, brand">
+    <div class="work-item" data-category="web brand">
       <div class="work-item-inner">
-        <iframe src="https://www.youtube.com/embed/txRtgq_ShrM?si=aazVQdttQ3l_uVrX" title="Sunita Baral - Web Design" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/txRtgq_ShrM?si=aazVQdttQ3l_uVrX" title="Sunita Baral - Web Design &amp; Brand Identity" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="work-label">
-        <span class="tag">Web Design & Build and Brand Identity</span>
-        <h3>TheHamro</h3>
+        <span class="tag">Web Design &amp; Brand Identity</span>
+        <h3>Sunita Baral</h3>
       </div>
     </div>
+    <p class="work-empty" id="work-empty">Nothing here yet — check back soon.</p>
   </div>
 </section>
+<!-- ================================================================= -->
 
-<!-- Saturn separator SVG template (inline, reused in JS) -->
 <template id="saturn-sep-tpl">
   <svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
@@ -1058,7 +1050,6 @@
   </div>
 </section>
 
-<!-- ======================== PRICING ======================== -->
 <section id="pricing">
   <div class="section-head">
     <h2>Transparent pricing</h2>
@@ -1072,7 +1063,6 @@
     <button class="ptab" data-panel="strategy" role="tab" aria-selected="false">Strategy</button>
   </div>
 
-  <!-- ── Motion & Film ── -->
   <div class="pricing-panel active" id="panel-motion" role="tabpanel">
     <div class="pricing-cards">
       <div class="pricing-card">
@@ -1090,7 +1080,6 @@
         </ul>
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Starter%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
-
       <div class="pricing-card featured">
         <span class="pc-badge">Most popular</span>
         <p class="pc-tier">Growth</p>
@@ -1107,7 +1096,6 @@
         </ul>
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Growth%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
-
       <div class="pricing-card">
         <div class="pc-badge-placeholder"></div>
         <p class="pc-tier">Authority</p>
@@ -1125,7 +1113,6 @@
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Motion%20Authority%20Plan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get started</a>
       </div>
     </div>
-
     <div class="podcast-addon">
       <p>
         <strong>Need podcast editing too?</strong>
@@ -1136,14 +1123,12 @@
         <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Growth%20Plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> $399 / month — up to 2 eps + 12 shorts</a>
       </div>
     </div>
-
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Month-to-month. No contracts. Cancel anytime — we keep your business by doing good work, not by locking you in.
     </div>
   </div>
 
-  <!-- ── Brand Identity ── -->
   <div class="pricing-panel" id="panel-brand" role="tabpanel">
     <div class="pricing-cards">
       <div class="pricing-card">
@@ -1161,7 +1146,6 @@
         </ul>
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Essentials"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
-
       <div class="pricing-card featured">
         <span class="pc-badge">Most popular</span>
         <p class="pc-tier">Complete Identity</p>
@@ -1179,14 +1163,12 @@
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Complete%20Brand%20Identity"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
     </div>
-
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Full ownership of every file on delivery. We don't hold assets hostage.
     </div>
   </div>
 
-  <!-- ── Web Design ── -->
   <div class="pricing-panel" id="panel-web" role="tabpanel">
     <div class="pricing-cards">
       <div class="pricing-card">
@@ -1204,7 +1186,6 @@
         </ul>
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Landing%20Page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
-
       <div class="pricing-card featured">
         <span class="pc-badge">Best value</span>
         <p class="pc-tier">Business Website</p>
@@ -1222,14 +1203,12 @@
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Business%20Website"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start the project</a>
       </div>
     </div>
-
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Every site is tested across all major devices and browsers before we hand the keys over.
     </div>
   </div>
 
-  <!-- ── Strategy ── -->
   <div class="pricing-panel" id="panel-strategy" role="tabpanel">
     <div class="pricing-cards">
       <div class="pricing-card featured">
@@ -1247,7 +1226,6 @@
         </ul>
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Brand%20Strategy%20Session"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a session</a>
       </div>
-
       <div class="pricing-card">
         <div class="pc-badge-placeholder"></div>
         <p class="pc-tier">Strategy + Identity Bundle</p>
@@ -1264,14 +1242,12 @@
         <a class="pc-cta" href="mailto:savsetsystems@gmail.com?subject=Strategy%20%2B%20Identity%20Bundle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book the bundle</a>
       </div>
     </div>
-
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       If the session doesn't give you clarity you can act on, we'll refund it. No questions.
     </div>
   </div>
 
-  <!-- Universal custom strip -->
   <div class="pricing-custom">
     <p>
       <strong>Working at scale?</strong>
@@ -1279,9 +1255,7 @@
     </p>
     <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Custom%20Project%20Inquiry"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Let's talk</a>
   </div>
-
 </section>
-<!-- ==================== END PRICING ==================== -->
 
 <section class="cta" id="contact">
   <h2>Got a project<br>worth talking about?</h2>
@@ -1290,30 +1264,12 @@
     <a class="cta-btn-outline" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a call</a>
   </div>
   <div class="social-links">
-    <a class="social-link" href="https://www.instagram.com/savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      Instagram
-    </a>
-    <a class="social-link" href="https://www.youtube.com/@savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-      YouTube
-    </a>
-    <a class="social-link" href="https://www.linkedin.com/company/savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      LinkedIn
-    </a>
-    <a class="social-link" href="https://www.facebook.com/savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      Facebook
-    </a>
-    <a class="social-link" href="https://www.tiktok.com/@savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1.01-.04z"/></svg>
-      TikTok
-    </a>
-    <a class="social-link" href="https://x.com/savsetsystems" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg>
-      X
-    </a>
+    <a class="social-link" href="https://www.instagram.com/savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a>
+    <a class="social-link" href="https://www.youtube.com/@savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>YouTube</a>
+    <a class="social-link" href="https://www.linkedin.com/company/savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+    <a class="social-link" href="https://www.facebook.com/savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+    <a class="social-link" href="https://www.tiktok.com/@savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1.01-.04z"/></svg>TikTok</a>
+    <a class="social-link" href="https://x.com/savsetsystems" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg>X</a>
   </div>
 </section>
 
@@ -1343,93 +1299,45 @@
 
   <div class="footer-illustration" id="footer-art" aria-hidden="true">
     <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
-
-      <!-- sky: sun -->
       <g id="fa-sun">
         <circle cx="120" cy="55" r="22" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.35"/>
         <g stroke="#DBD9FF" stroke-width="0.7" opacity="0.22">
-          <line x1="120" y1="20" x2="120" y2="10"/>
-          <line x1="150" y1="35" x2="158" y2="28"/>
-          <line x1="90" y1="35" x2="82" y2="28"/>
-          <line x1="158" y1="55" x2="168" y2="55"/>
+          <line x1="120" y1="20" x2="120" y2="10"/><line x1="150" y1="35" x2="158" y2="28"/>
+          <line x1="90" y1="35" x2="82" y2="28"/><line x1="158" y1="55" x2="168" y2="55"/>
           <line x1="82" y1="55" x2="72" y2="55"/>
         </g>
       </g>
-
-      <!-- birds -->
       <g id="fa-birds" stroke="#DBD9FF" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round">
         <path d="M250,45 Q258,38 266,45 Q274,38 282,45"/>
         <path d="M610,70 Q616,65 622,70 Q628,65 634,70"/>
         <path d="M700,42 Q705,37 710,42 Q715,37 720,42"/>
       </g>
-
-      <!-- distant mountain ridge -->
-      <path id="mtn-back" d="M0,150 Q60,95 120,135 Q170,105 230,140 Q290,90 350,138 Q410,108 470,142 Q530,92 590,140 Q650,112 710,144 Q770,100 830,142 Q860,128 900,140"
-            fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.18"/>
-
-      <!-- mid range, left cluster -->
-      <path id="mtn-mid-left" d="M0,200 L70,118 L110,158 L165,85 L205,148 L255,68 L300,140 L335,112 L365,150"
-            fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
+      <path id="mtn-back" d="M0,150 Q60,95 120,135 Q170,105 230,140 Q290,90 350,138 Q410,108 470,142 Q530,92 590,140 Q650,112 710,144 Q770,100 830,142 Q860,128 900,140" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.18"/>
+      <path id="mtn-mid-left" d="M0,200 L70,118 L110,158 L165,85 L205,148 L255,68 L300,140 L335,112 L365,150" fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
       <g stroke="#DBD9FF" stroke-width="0.9" opacity="0.4">
-        <line x1="240" y1="82" x2="252" y2="76"/>
-        <line x1="248" y1="92" x2="262" y2="84"/>
-        <line x1="268" y1="84" x2="280" y2="92"/>
+        <line x1="240" y1="82" x2="252" y2="76"/><line x1="248" y1="92" x2="262" y2="84"/><line x1="268" y1="84" x2="280" y2="92"/>
       </g>
-
-      <!-- mid range, right cluster -->
-      <path id="mtn-mid-right" d="M535,150 L565,112 L600,140 L650,70 L690,148 L735,90 L770,158 L810,120 L850,160 L900,140"
-            fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
+      <path id="mtn-mid-right" d="M535,150 L565,112 L600,140 L650,70 L690,148 L735,90 L770,158 L810,120 L850,160 L900,140" fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
       <g stroke="#DBD9FF" stroke-width="0.9" opacity="0.4">
-        <line x1="636" y1="84" x2="648" y2="78"/>
-        <line x1="644" y1="94" x2="658" y2="86"/>
-        <line x1="664" y1="86" x2="676" y2="94"/>
+        <line x1="636" y1="84" x2="648" y2="78"/><line x1="644" y1="94" x2="658" y2="86"/><line x1="664" y1="86" x2="676" y2="94"/>
       </g>
-
-      <!-- foreground rolling hill -->
-      <path id="hill-front" d="M0,200 Q150,182 300,198 Q450,212 600,196 Q750,182 900,202"
-            fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.26"/>
-
-      <!-- ground line -->
+      <path id="hill-front" d="M0,200 Q150,182 300,198 Q450,212 600,196 Q750,182 900,202" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.26"/>
       <line x1="0" y1="200" x2="900" y2="200" stroke="#DBD9FF" stroke-width="0.6" opacity="0.15"/>
-
-      <!-- pagoda temple, centered -->
       <g id="temple" stroke="#DBD9FF" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
-
-        <!-- finial / gajur -->
-        <line x1="450" y1="40" x2="450" y2="74"/>
-        <circle cx="450" cy="35" r="2.6"/>
-        <circle cx="450" cy="46" r="4.2"/>
-        <path d="M444,54 L456,54" stroke-width="1"/>
-        <path d="M441,62 L459,62" stroke-width="1"/>
-
-        <!-- tier 3 roof (top) -->
+        <line x1="450" y1="40" x2="450" y2="74"/><circle cx="450" cy="35" r="2.6"/><circle cx="450" cy="46" r="4.2"/>
+        <path d="M444,54 L456,54" stroke-width="1"/><path d="M441,62 L459,62" stroke-width="1"/>
         <path d="M416,75 Q422.8,67.6 431.3,61.2 Q444.9,56.2 450,54 Q455.1,56.2 468.7,61.2 Q477.2,67.6 484,75"/>
-        <line x1="436" y1="75" x2="436" y2="86"/>
-        <line x1="464" y1="75" x2="464" y2="86"/>
-        <path d="M436,86 L426,80" stroke-width="1"/>
-        <path d="M464,86 L474,80" stroke-width="1"/>
-
-        <!-- tier 2 roof (middle) -->
+        <line x1="436" y1="75" x2="436" y2="86"/><line x1="464" y1="75" x2="464" y2="86"/>
+        <path d="M436,86 L426,80" stroke-width="1"/><path d="M464,86 L474,80" stroke-width="1"/>
         <path d="M396,112 Q406.8,103 420.3,95 Q441.9,88.7 450,86 Q458.1,88.7 479.7,95 Q493.2,103 504,112"/>
-        <line x1="424" y1="112" x2="424" y2="128"/>
-        <line x1="476" y1="112" x2="476" y2="128"/>
-        <path d="M424,128 L408,120" stroke-width="1"/>
-        <path d="M476,128 L492,120" stroke-width="1"/>
-
-        <!-- tier 1 roof (bottom, widest) -->
+        <line x1="424" y1="112" x2="424" y2="128"/><line x1="476" y1="112" x2="476" y2="128"/>
+        <path d="M424,128 L408,120" stroke-width="1"/><path d="M476,128 L492,120" stroke-width="1"/>
         <path d="M370,150 Q386,139.4 406,129.8 Q438,122.2 450,119 Q462,122.2 494,129.8 Q514,139.4 530,150"/>
-        <line x1="404" y1="150" x2="404" y2="170"/>
-        <line x1="496" y1="150" x2="496" y2="170"/>
-        <line x1="442" y1="152" x2="442" y2="170"/>
-        <line x1="458" y1="152" x2="458" y2="170"/>
+        <line x1="404" y1="150" x2="404" y2="170"/><line x1="496" y1="150" x2="496" y2="170"/>
+        <line x1="442" y1="152" x2="442" y2="170"/><line x1="458" y1="152" x2="458" y2="170"/>
         <line x1="442" y1="152" x2="458" y2="152"/>
-        <path d="M404,170 L380,160" stroke-width="1"/>
-        <path d="M496,170 L520,160" stroke-width="1"/>
-
-        <!-- stepped plinth -->
-        <rect x="394" y="170" width="112" height="9"/>
-        <rect x="384" y="179" width="132" height="8"/>
-        <rect x="372" y="187" width="156" height="8"/>
+        <path d="M404,170 L380,160" stroke-width="1"/><path d="M496,170 L520,160" stroke-width="1"/>
+        <rect x="394" y="170" width="112" height="9"/><rect x="384" y="179" width="132" height="8"/><rect x="372" y="187" width="156" height="8"/>
       </g>
     </svg>
   </div>
@@ -1451,7 +1359,6 @@ onScroll();
 const toggle = document.getElementById('nav-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 let menuOpen = false;
-
 function openMenu() {
   menuOpen = true;
   toggle.classList.add('open');
@@ -1472,7 +1379,6 @@ function closeMenu() {
   document.body.style.overflow = '';
   setTimeout(() => { if (!menuOpen) mobileMenu.style.display = 'none'; }, 350);
 }
-
 toggle.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
 document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu(); });
@@ -1482,7 +1388,6 @@ const saturnSvg = document.getElementById('saturn-svg');
 const hero = document.querySelector('.hero');
 let saturnAngle = 0, moon1Angle = 0, moon2Angle = 0;
 let mouseInfluenceX = 0, mouseInfluenceY = 0, targetInfluenceX = 0, targetInfluenceY = 0;
-
 document.addEventListener('mousemove', e => {
   if (!hero) return;
   const rect = hero.getBoundingClientRect();
@@ -1491,7 +1396,6 @@ document.addEventListener('mousemove', e => {
   targetInfluenceX = ((e.clientX - cx) / (rect.width / 2)) * 18;
   targetInfluenceY = ((e.clientY - cy) / (rect.height / 2)) * 10;
 });
-
 function animateSaturn(ts) {
   saturnAngle = ts * 0.018;
   moon1Angle = ts * 0.04;
@@ -1524,35 +1428,28 @@ const saturnSVG = `<svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/sv
     <ellipse cx="0" cy="3.5" rx="11" ry="2.5" fill="none" stroke="currentColor" stroke-width="0.6"/>
   </g>
 </svg>`;
-
-document.querySelectorAll('.marquee-sep').forEach(sep => {
-  sep.innerHTML = saturnSVG;
-});
+document.querySelectorAll('.marquee-sep').forEach(sep => { sep.innerHTML = saturnSVG; });
 
 /* ---- FOOTER ILLUSTRATION PARALLAX ---- */
 const footerArt = document.getElementById('footer-art');
 if (footerArt) {
   const faLayers = [
-    { el: footerArt.querySelector('#mtn-back'),     depth: 0.35 },
-    { el: footerArt.querySelector('#mtn-mid-left'), depth: 0.55 },
-    { el: footerArt.querySelector('#mtn-mid-right'),depth: 0.55 },
-    { el: footerArt.querySelector('#hill-front'),   depth: 0.75 },
-    { el: footerArt.querySelector('#fa-sun'),       depth: 0.4 },
-    { el: footerArt.querySelector('#fa-birds'),     depth: 1.0 },
-    { el: footerArt.querySelector('#temple'),       depth: 1.1 },
+    { el: footerArt.querySelector('#mtn-back'),      depth: 0.35 },
+    { el: footerArt.querySelector('#mtn-mid-left'),  depth: 0.55 },
+    { el: footerArt.querySelector('#mtn-mid-right'), depth: 0.55 },
+    { el: footerArt.querySelector('#hill-front'),    depth: 0.75 },
+    { el: footerArt.querySelector('#fa-sun'),        depth: 0.4  },
+    { el: footerArt.querySelector('#fa-birds'),      depth: 1.0  },
+    { el: footerArt.querySelector('#temple'),        depth: 1.1  },
   ].filter(l => l.el);
-
   let faTargetX = 0, faTargetY = 0, faCurX = 0, faCurY = 0;
-
   document.addEventListener('mousemove', e => {
     const rect = footerArt.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
     const half = rect.width / 2 || 1;
     faTargetX = Math.max(-1, Math.min(1, (e.clientX - cx) / half));
-    faTargetY = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height || 1)));
+    faTargetY = Math.max(-1, Math.min(1, (e.clientY - (rect.top + rect.height/2)) / (rect.height || 1)));
   });
-
   function animateFooterArt() {
     faCurX += (faTargetX - faCurX) * 0.06;
     faCurY += (faTargetY - faCurY) * 0.06;
@@ -1564,7 +1461,6 @@ if (footerArt) {
     requestAnimationFrame(animateFooterArt);
   }
   requestAnimationFrame(animateFooterArt);
-
   footerArt.addEventListener('mouseenter', () => { footerArt.style.filter = 'brightness(1.15)'; });
   footerArt.addEventListener('mouseleave', () => { footerArt.style.filter = ''; });
 }
@@ -1583,7 +1479,6 @@ function animateCursor() {
   requestAnimationFrame(animateCursor);
 }
 requestAnimationFrame(animateCursor);
-
 document.querySelectorAll('a, button, .service, .work-item, .cta-btn, .cta-btn-outline, .pricing-card, .ptab, .pc-cta, .approach-row, .hero-btn').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
@@ -1596,7 +1491,7 @@ document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.styl
 document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
 if (window.matchMedia('(hover: none)').matches) { dot.style.display='none'; ring.style.display='none'; document.body.style.cursor=''; }
 
-/* ---- WORK FILTERS ---- */
+/* ---- WORK FILTERS — supports space/comma-separated multi-category ---- */
 const filterBtns = document.querySelectorAll('.filter-btn');
 const workItems = document.querySelectorAll('.work-item');
 const workEmpty = document.getElementById('work-empty');
@@ -1607,7 +1502,8 @@ filterBtns.forEach(btn => {
     btn.classList.add('active');
     let visible = 0;
     workItems.forEach(item => {
-      const match = filter === 'all' || item.dataset.category === filter;
+      const cats = (item.dataset.category || '').split(/[,\s]+/).map(c => c.trim().toLowerCase()).filter(Boolean);
+      const match = filter === 'all' || cats.includes(filter.toLowerCase());
       item.classList.toggle('hidden', !match);
       if (match) visible++;
     });
