@@ -827,6 +827,195 @@
     .social-links { gap: 0.5rem; }
     .social-link { font-size: 0.78rem; padding: 0.45rem 0.75rem; }
   }
+
+  /* ---------- PRODUCTS ---------- */
+  #products { background: var(--cream); }
+  #products .section-head { border-bottom: 1px solid rgba(0,37,42,0.12); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    max-width: 600px;
+  }
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.8rem 2.4rem 2.4rem;
+    border: 1.5px solid rgba(0,37,42,0.1);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--teal);
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    transition: background .35s ease, color .35s ease, border-color .35s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--teal);
+    transform: translateY(101%);
+    transition: transform .45s cubic-bezier(.65,0,.35,1);
+    z-index: 0;
+  }
+  .product-card:hover::before { transform: translateY(0); }
+  .product-card:hover { color: var(--lavender); border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,37,42,0.14); }
+  .product-card > * { position: relative; z-index: 1; }
+
+  .product-card-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    display: block;
+    margin-bottom: 0.8rem;
+    transition: opacity .35s ease;
+  }
+  .product-card:hover .product-card-tag { opacity: 0.6; }
+
+  .product-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+  }
+  .product-card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    opacity: 0.65;
+    max-width: 36ch;
+    transition: opacity .35s ease;
+  }
+  .product-card:hover p { opacity: 0.8; }
+
+  .product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(0,37,42,0.1);
+    transition: border-color .35s ease;
+  }
+  .product-card:hover .product-card-footer { border-top-color: rgba(219,217,255,0.2); }
+
+  .product-card-cta {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .product-card-arrow {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,37,42,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .35s ease, transform .3s ease, background .35s ease;
+    flex-shrink: 0;
+  }
+  .product-card:hover .product-card-arrow {
+    border-color: rgba(219,217,255,0.4);
+    background: rgba(219,217,255,0.1);
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 760px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- NAV PRODUCTS DROPDOWN ---------- */
+  .nav-products-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-products-wrap > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .nav-products-wrap > a svg {
+    transition: transform .25s ease;
+  }
+  .nav-products-wrap:hover > a svg {
+    transform: rotate(180deg);
+  }
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    border: 1px solid rgba(219,217,255,0.12);
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-6px);
+    transition: opacity .22s ease, transform .22s ease;
+    z-index: 999;
+    box-shadow: 0 12px 32px rgba(0,37,42,0.35);
+  }
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    background: var(--teal);
+    border-left: 1px solid rgba(219,217,255,0.12);
+    border-top: 1px solid rgba(219,217,255,0.12);
+    clip-path: polygon(0 100%, 100% 0, 0 0);
+    rotate: 45deg;
+  }
+  .nav-products-wrap:hover .nav-dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .nav-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    color: var(--lavender);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: background .18s ease;
+  }
+  .nav-dropdown a::after { display: none !important; }
+  .nav-dropdown a:hover { background: rgba(219,217,255,0.1); }
+  .nav-dropdown-icon {
+    width: 28px; height: 28px;
+    border-radius: 5px;
+    background: rgba(219,217,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-dropdown-text strong {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--lavender);
+  }
+  .nav-dropdown-text span {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    color: var(--lavender);
+  }
 </style>
 </head>
 <body>
@@ -837,6 +1026,22 @@
 <nav id="main-nav">
   <a href="#home" class="logo-link" aria-label="Savset — back to home"><div class="logo">Savset</div></a>
   <div class="nav-links">
+    <div class="nav-products-wrap">
+      <a href="#products">Products
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="contrast-studio.html">
+          <span class="nav-dropdown-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" opacity="0.6"/></svg>
+          </span>
+          <span class="nav-dropdown-text">
+            <strong>Contrast Studio</strong>
+            <span>Design &amp; accessibility tool</span>
+          </span>
+        </a>
+      </div>
+    </div>
     <a href="#services">Services</a>
     <a href="#work">Work</a>
     <a href="#approach">Approach</a>
@@ -850,6 +1055,7 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="#products" class="mobile-link">Products</a>
   <a href="#services" class="mobile-link">Services</a>
   <a href="#work" class="mobile-link">Work</a>
   <a href="#approach" class="mobile-link">Approach</a>
@@ -917,6 +1123,31 @@
     Est. 2023
   </div>
 </header>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-head">
+    <h2>Our products</h2>
+    <p>Standalone tools and platforms built by the Savset team.</p>
+  </div>
+  <div class="products-grid">
+
+    <a class="product-card" href="contrast-studio.html">
+      <div>
+        <span class="product-card-tag">Creative Tool · Design</span>
+        <h3>Contrast Studio</h3>
+        <p>A precision design environment built for creative teams who care about craft. Accessibility checks, colour systems, and visual QA — all in one place.</p>
+      </div>
+      <div class="product-card-footer">
+        <span class="product-card-cta">Explore product</span>
+        <span class="product-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+  </div>
+</section>
 
 <section id="services">
   <div class="section-head">
@@ -1279,7 +1510,23 @@
     <div class="footer-links">
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="#services">Services</a>
+        <div class="nav-products-wrap">
+      <a href="#products">Products
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="contrast-studio.html">
+          <span class="nav-dropdown-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" opacity="0.6"/></svg>
+          </span>
+          <span class="nav-dropdown-text">
+            <strong>Contrast Studio</strong>
+            <span>Design &amp; accessibility tool</span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <a href="#services">Services</a>
         <a href="#work">Work</a>
         <a href="#approach">Approach</a>
         <a href="#pricing">Pricing</a>
