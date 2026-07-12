@@ -408,6 +408,8 @@
   .work-item{border-radius:4px;overflow:hidden;position:relative;background:#000;transition:opacity .35s ease, transform .35s ease;}
   .work-item.hidden{display:none;}
   .work-item-inner{position:relative;padding-bottom:56.25%;height:0;}
+  .work-item[data-format="shorts"] .work-item-inner{padding-bottom:177.78%;} /* 9:16 */
+  .work-item[data-format="shorts"]{max-width:320px;margin:0 auto;}
   .work-item-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;}
   .work-label{padding:1rem 1.2rem;background:rgba(0,37,42,0.6);display:flex;justify-content:space-between;align-items:center;}
   .work-label .tag{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.6;color:var(--lavender);}
@@ -834,9 +836,8 @@
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    max-width: 600px;
   }
   .product-card {
     display: flex;
@@ -930,7 +931,7 @@
   }
 
   @media (max-width: 760px) {
-    .products-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; gap: 1rem; }
   }
 
   /* ---------- NAV PRODUCTS DROPDOWN ---------- */
@@ -1045,7 +1046,16 @@
           </span>
           <span class="nav-dropdown-text">
             <strong>Contrast Studio</strong>
-            <span>Design &amp; accessibility tool</span>
+            <span>Colour accessibility checker</span>
+          </span>
+        </a>
+        <a href="typeclash.html">
+          <span class="nav-dropdown-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          </span>
+          <span class="nav-dropdown-text">
+            <strong>TypeClash</strong>
+            <span>Font pairing scorer</span>
           </span>
         </a>
       </div>
@@ -1142,9 +1152,23 @@
 
     <a class="product-card" href="contrast-studio.html">
       <div>
-        <span class="product-card-tag">Creative Tool · Design</span>
+        <span class="product-card-tag">Creative Tool · Accessibility</span>
         <h3>Contrast Studio</h3>
-        <p>A precision design environment built for creative teams who care about craft. Accessibility checks, colour systems, and visual QA — all in one place.</p>
+        <p>Instantly check any colour pair against WCAG 2.1. Make every design decision defensible — AA, AAA, live preview included.</p>
+      </div>
+      <div class="product-card-footer">
+        <span class="product-card-cta">Explore product</span>
+        <span class="product-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <a class="product-card" href="typeclash.html">
+      <div>
+        <span class="product-card-tag">Creative Tool · Typography</span>
+        <h3>TypeClash</h3>
+        <p>Score any font pairing in seconds. Find out if your typefaces clash or harmonise — then get recommendations that actually work.</p>
       </div>
       <div class="product-card-footer">
         <span class="product-card-cta">Explore product</span>
@@ -1211,7 +1235,7 @@
         <h3>TheHamro</h3>
       </div>
     </div>
-    <div class="work-item" data-category="web">
+    <div class="work-item" data-category="web"> %data-format="shorts"%
       <div class="work-item-inner">
         <iframe src="https://www.youtube.com/embed/GpCRti_xl5g" title="Kaicho Group - Web Design" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -1529,7 +1553,16 @@
           </span>
           <span class="nav-dropdown-text">
             <strong>Contrast Studio</strong>
-            <span>Design &amp; accessibility tool</span>
+            <span>Colour accessibility checker</span>
+          </span>
+        </a>
+        <a href="type-clash.html">
+          <span class="nav-dropdown-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          </span>
+          <span class="nav-dropdown-text">
+            <strong>TypeClash</strong>
+            <span>Font pairing scorer</span>
           </span>
         </a>
       </div>
