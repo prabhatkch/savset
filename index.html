@@ -952,20 +952,28 @@
   }
   .nav-dropdown {
     position: absolute;
-    top: calc(100% + 12px);
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-6px);
     background: var(--teal);
     border: 1px solid rgba(219,217,255,0.12);
     border-radius: 8px;
     padding: 0.5rem;
-    min-width: 200px;
+    padding-top: 1rem;  /* extra top pad — content sits below the bridge */
+    min-width: 210px;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) translateY(-6px);
     transition: opacity .22s ease, transform .22s ease;
     z-index: 999;
     box-shadow: 0 12px 32px rgba(0,37,42,0.35);
+  }
+  /* invisible bridge fills the gap between trigger and dropdown */
+  .nav-dropdown::after {
+    content: '';
+    position: absolute;
+    top: -14px;
+    left: 0; right: 0;
+    height: 14px;
   }
   .nav-dropdown::before {
     content: '';
@@ -983,7 +991,7 @@
   .nav-products-wrap:hover .nav-dropdown {
     opacity: 1;
     pointer-events: all;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(8px);
   }
   .nav-dropdown a {
     display: flex;
