@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
@@ -97,7 +96,6 @@
   .nav-links a:hover::after{width:100%;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--lavender);outline-offset:4px;}
 
-  /* Nav Book a Call button */
   .nav-book-btn {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.82rem;
@@ -201,18 +199,22 @@
   }
   .mobile-menu .mobile-book-btn:hover { opacity: 1; transform: none; }
 
-  /* ---------- HERO ---------- */
+  /* ---------- HERO — centered layout ---------- */
   .hero{
     min-height:100vh;
     background:var(--teal);
     color:var(--lavender);
     display:flex;
     flex-direction:column;
+    align-items:center;
     justify-content:center;
+    text-align:center;
     padding:8rem 4rem 4rem;
     position:relative;
     overflow:hidden;
   }
+  .hero > *:not(#saturn-wrap):not(.blob) { position: relative; z-index: 1; }
+
   .hero-eyebrow{
     font-size:0.85rem;
     letter-spacing:0.25em;
@@ -225,9 +227,10 @@
     font-family:'Fraunces',serif;
     font-weight:340;
     font-style:italic;
-    line-height:0.98;
-    font-size:clamp(3.5rem, 11vw, 9.5rem);
+    line-height:1.05;
+    font-size:clamp(2.8rem, 7vw, 6.5rem);
     letter-spacing:-0.02em;
+    max-width:20ch;
   }
   .hero h1 .cycle-wrap{
     display:inline-block;
@@ -238,7 +241,7 @@
     height:1.05em;
     overflow:hidden;
     vertical-align:top;
-    min-width:6.2ch;
+    min-width:5ch;
   }
   .cycle-list{
     display:flex;
@@ -258,8 +261,8 @@
     100%{transform:translateY(-4.2em);}
   }
   .hero-sub{
-    max-width:32ch;
-    margin-top:2.5rem;
+    max-width:42ch;
+    margin-top:2rem;
     font-size:1.05rem;
     line-height:1.6;
     color:var(--lavender);
@@ -272,6 +275,7 @@
     flex-wrap: wrap;
     gap: 0.8rem;
     margin-top: 2rem;
+    justify-content: center;
   }
   .hero-btn {
     display: inline-flex;
@@ -306,15 +310,29 @@
   }
 
   .hero-meta{
-    position:absolute;
-    bottom:3rem;
-    right:4rem;
-    text-align:right;
-    font-size:0.85rem;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size:0.82rem;
     color:var(--lavender);
-    opacity:0.55;
+    opacity:0.45;
     line-height:1.7;
+    letter-spacing: 0.04em;
   }
+
+  /* ---------- SATURN — centered below buttons ---------- */
+  #saturn-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(420px, 62vw, 820px);
+    height: clamp(420px, 62vw, 820px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.13;
+  }
+  #saturn-wrap svg { width: 100%; height: 100%; overflow: visible; }
+
   .blob{
     position:absolute;
     width:520px;height:520px;
@@ -330,19 +348,6 @@
     0%,100%{transform:translate(0,0) scale(1);}
     50%{transform:translate(-60px,80px) scale(1.15);}
   }
-
-  /* ---------- SATURN ---------- */
-  #saturn-wrap {
-    position: absolute;
-    right: 4vw;
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(300px, 40vw, 580px);
-    height: clamp(300px, 40vw, 580px);
-    pointer-events: none;
-    z-index: 1;
-  }
-  #saturn-wrap svg { width: 100%; height: 100%; overflow: visible; }
 
   /* ---------- SECTION SHARED ---------- */
   section{padding:7rem 4rem;}
@@ -408,7 +413,7 @@
   .work-item{border-radius:4px;overflow:hidden;position:relative;background:#000;transition:opacity .35s ease, transform .35s ease;}
   .work-item.hidden{display:none;}
   .work-item-inner{position:relative;padding-bottom:56.25%;height:0;}
-  .work-item[data-format="shorts"] .work-item-inner{padding-bottom:177.78%;} /* 9:16 */
+  .work-item[data-format="shorts"] .work-item-inner{padding-bottom:177.78%;}
   .work-item[data-format="shorts"]{max-width:320px;margin:0 auto;}
   .work-item-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;}
   .work-label{padding:1rem 1.2rem;background:rgba(0,37,42,0.6);display:flex;justify-content:space-between;align-items:center;}
@@ -463,9 +468,7 @@
   .approach-row h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;margin-bottom:0.5rem;transition:color .35s ease;}
   .approach-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;max-width:46ch;transition:color .35s ease, opacity .35s ease;}
 
-  /* =====================================================
-     PRICING SECTION
-     ===================================================== */
+  /* ---------- PRICING ---------- */
   #pricing {
     background: var(--cream);
     padding: 7rem 4rem;
@@ -789,12 +792,11 @@
     section { padding: 4.5rem 1.4rem; }
     #pricing { padding: 4.5rem 1.4rem; }
     .hero { padding: 7rem 1.4rem 3rem; }
-    .hero-meta { position:static; margin-top:3rem; text-align:left; }
+    .hero-meta { margin-top: 1.2rem; }
 
     #saturn-wrap {
-      position: relative; right: auto; top: auto; transform: none;
-      width: clamp(230px, 78vw, 360px); height: clamp(230px, 78vw, 360px);
-      margin: 2.5rem auto 0;
+      width: clamp(320px, 90vw, 520px);
+      height: clamp(320px, 90vw, 520px);
     }
 
     .section-head { flex-direction:column; align-items:flex-start; }
@@ -821,7 +823,7 @@
     .footer-illustration { padding: 2.2rem 0 0.5rem; }
     .footer-illustration svg { max-width: 380px; }
 
-    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .hero-actions { flex-direction: column; align-items: center; }
     .hero-btn { width: 100%; justify-content: center; }
   }
 
@@ -960,7 +962,7 @@
     border: 1px solid rgba(219,217,255,0.12);
     border-radius: 8px;
     padding: 0.5rem;
-    padding-top: 1rem;  /* extra top pad — content sits below the bridge */
+    padding-top: 1rem;
     min-width: 210px;
     opacity: 0;
     pointer-events: none;
@@ -968,7 +970,6 @@
     z-index: 999;
     box-shadow: 0 12px 32px rgba(0,37,42,0.35);
   }
-  /* invisible bridge fills the gap between trigger and dropdown */
   .nav-dropdown::after {
     content: '';
     position: absolute;
@@ -1185,8 +1186,6 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-
-  <!-- Products accordion -->
   <div class="mobile-accordion">
     <button class="mobile-accordion-trigger" aria-expanded="false" id="mob-products-trigger">
       Products
@@ -1203,8 +1202,6 @@
       </a>
     </div>
   </div>
-
-  <!-- Services accordion -->
   <div class="mobile-accordion">
     <button class="mobile-accordion-trigger" aria-expanded="false" id="mob-services-trigger">
       Services
@@ -1229,7 +1226,6 @@
       </a>
     </div>
   </div>
-
   <a href="#work" class="mobile-link">Work</a>
   <a href="#approach" class="mobile-link">Approach</a>
   <a href="#pricing" class="mobile-link">Pricing</a>
@@ -1237,9 +1233,39 @@
   <a href="#" class="mobile-link mobile-book-btn" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;margin-top:-2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a call</a>
 </div>
 
+<!-- ============================================================
+     HERO — centered, text + buttons above Saturn
+     ============================================================ -->
 <header class="hero" id="home">
   <div class="blob" aria-hidden="true"></div>
 
+  <p class="hero-eyebrow">Savset Systems</p>
+
+  <h1>The Creative Engine<br>Behind Modern
+    <span class="cycle-wrap">
+      <span class="cycle-list" aria-hidden="true">
+        <span>Brands.</span>
+        <span>Ideas.</span>
+        <span>Voices.</span>
+        <span>Brands.</span>
+      </span>
+    </span>
+  </h1>
+
+  <p class="hero-sub">A small studio for brands that refuse to look like everyone else. Strategy, identity, and digital design — built on ideas worth noticing.</p>
+
+  <div class="hero-actions">
+    <a class="hero-btn hero-btn-secondary" href="mailto:savsetsystems@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email us
+    </a>
+    <a class="hero-btn hero-btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Book a call
+    </a>
+  </div>
+
+  <!-- Saturn sits below the text, centered -->
   <div id="saturn-wrap" aria-hidden="true">
     <svg id="saturn-svg" viewBox="-120 -120 240 240" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1263,37 +1289,33 @@
       </g>
       <circle id="moon1" cx="100" cy="0" r="3.5" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.5"/>
       <circle id="moon2" cx="-72" cy="-72" r="2.5" fill="none" stroke="#DBD9FF" stroke-width="0.8" opacity="0.35"/>
+      <!-- Asteroids — small irregular bodies orbiting at different radii -->
+      <g id="asteroid1">
+        <ellipse cx="0" cy="0" rx="4.5" ry="2.8" fill="none" stroke="#DBD9FF" stroke-width="0.9" opacity="0.7"/>
+        <line x1="-3" y1="-1" x2="3" y2="1" stroke="#DBD9FF" stroke-width="0.5" opacity="0.4"/>
+        <line x1="0" y1="-2.5" x2="1" y2="2.5" stroke="#DBD9FF" stroke-width="0.4" opacity="0.3"/>
+      </g>
+      <g id="asteroid2">
+        <ellipse cx="0" cy="0" rx="3" ry="1.8" fill="none" stroke="#DBD9FF" stroke-width="0.8" opacity="0.6"/>
+        <line x1="-2" y1="0" x2="2" y2="0.5" stroke="#DBD9FF" stroke-width="0.4" opacity="0.35"/>
+      </g>
+      <g id="asteroid3">
+        <ellipse cx="0" cy="0" rx="2.2" ry="1.4" fill="none" stroke="#DBD9FF" stroke-width="0.7" opacity="0.55"/>
+        <line x1="-1.5" y1="-0.5" x2="1.5" y2="0.8" stroke="#DBD9FF" stroke-width="0.4" opacity="0.3"/>
+      </g>
+      <g id="asteroid4">
+        <ellipse cx="0" cy="0" rx="3.8" ry="2.2" fill="none" stroke="#DBD9FF" stroke-width="0.8" opacity="0.5"/>
+        <line x1="-2.5" y1="0.5" x2="2.5" y2="-0.5" stroke="#DBD9FF" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0.5" y1="-2" x2="-0.5" y2="2" stroke="#DBD9FF" stroke-width="0.4" opacity="0.25"/>
+      </g>
+      <g id="asteroid5">
+        <ellipse cx="0" cy="0" rx="1.8" ry="1.1" fill="none" stroke="#DBD9FF" stroke-width="0.6" opacity="0.5"/>
+      </g>
     </svg>
   </div>
 
-  <p class="hero-eyebrow">Savset Systems</p>
-  <h1>Go
-    <span class="cycle-wrap">
-      <span class="cycle-list" aria-hidden="true">
-        <span>Creative</span>
-        <span>Bold</span>
-        <span>Loud</span>
-        <span>Creative</span>
-      </span>
-    </span>
-  </h1>
-  <p class="hero-sub">A small studio for brands that refuse to look like everyone else. Strategy, identity, and digital design — built on ideas worth noticing.</p>
-
-  <div class="hero-actions">
-    <a class="hero-btn hero-btn-secondary" href="mailto:savsetsystems@gmail.com">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      Email us
-    </a>
-    <a class="hero-btn hero-btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      Book a call
-    </a>
-  </div>
-
   <div class="hero-meta">
-    Based in Kathmandu<br>
-    Working worldwide<br>
-    Est. 2023
+    Based in Kathmandu &nbsp;·&nbsp; Working worldwide &nbsp;·&nbsp; Est. 2023
   </div>
 </header>
 
@@ -1304,7 +1326,6 @@
     <p>Standalone tools and platforms built by the Savset team.</p>
   </div>
   <div class="products-grid">
-
     <a class="product-card" href="contrast-studio.html">
       <div>
         <span class="product-card-tag">Creative Tool · Accessibility</span>
@@ -1318,7 +1339,6 @@
         </span>
       </div>
     </a>
-
     <a class="product-card" href="type-clash.html">
       <div>
         <span class="product-card-tag">Creative Tool · Typography</span>
@@ -1332,7 +1352,6 @@
         </span>
       </div>
     </a>
-
   </div>
 </section>
 
@@ -1365,7 +1384,6 @@
   </div>
 </section>
 
-<!-- ===================== WORK ===================== -->
 <section id="work">
   <div class="section-head">
     <h2>Selected work</h2>
@@ -1397,7 +1415,7 @@
         <h3>Kaicho Group</h3>
       </div>
     </div>
-    <div class="work-item" data-category="web brand"> <!--data-format="shorts"-->
+    <div class="work-item" data-category="web brand">
       <div class="work-item-inner">
         <iframe src="https://www.youtube.com/embed/txRtgq_ShrM?si=aazVQdttQ3l_uVrX" title="Sunita Baral - Web Design &amp; Brand Identity" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -1409,23 +1427,6 @@
     <p class="work-empty" id="work-empty">Nothing here yet — check back soon.</p>
   </div>
 </section>
-<!-- ================================================================= -->
-
-<template id="saturn-sep-tpl">
-  <svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <clipPath id="ms-ring-front"><rect x="-30" y="-30" width="60" height="30"/></clipPath>
-      <clipPath id="ms-ring-back"><rect x="-30" y="0" width="60" height="30"/></clipPath>
-    </defs>
-    <g clip-path="url(#ms-ring-back)" opacity="0.4">
-      <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
-    </g>
-    <circle cx="0" cy="0" r="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
-    <g clip-path="url(#ms-ring-front)" opacity="0.85">
-      <ellipse cx="0" cy="3.5" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="0.9"/>
-    </g>
-  </svg>
-</template>
 
 <div class="marquee-section" aria-hidden="true">
   <div class="marquee-track" id="marquee-track">
@@ -1532,7 +1533,7 @@
     <div class="podcast-addon">
       <p>
         <strong>Need podcast editing too?</strong>
-        Full episode editing — audio, video, noise reduction, colour correction — with 3–5 shorts included per episode. Available standalone or bundled with any plan.
+        Full episode editing — audio, video, noise reduction, colour correction — with 3–5 shorts included per episode.
       </p>
       <div class="podcast-addon-links">
         <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Podcast%20Essentials"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> $199 / episode</a>
@@ -1541,7 +1542,7 @@
     </div>
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Month-to-month. No contracts. Cancel anytime — we keep your business by doing good work, not by locking you in.
+      Month-to-month. No contracts. Cancel anytime.
     </div>
   </div>
 
@@ -1567,12 +1568,12 @@
         <p class="pc-tier">Complete Identity</p>
         <p class="pc-price"><sup>$</sup>499</p>
         <p class="pc-price-label">one-time</p>
-        <p class="pc-desc">A full identity system built to scale — everything your team needs to stay on-brand across every channel.</p>
+        <p class="pc-desc">A full identity system built to scale — everything your team needs to stay on-brand.</p>
         <div class="pc-divider"></div>
         <ul class="pc-list">
           <li>Logo suite — primary, secondary &amp; icon mark</li>
           <li>Full brand guidelines document</li>
-          <li>Social media kit (profile + post templates)</li>
+          <li>Social media kit</li>
           <li>Colour, type &amp; usage rules</li>
           <li>2 rounds of revisions</li>
         </ul>
@@ -1581,7 +1582,7 @@
     </div>
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Full ownership of every file on delivery. We don't hold assets hostage.
+      Full ownership of every file on delivery.
     </div>
   </div>
 
@@ -1621,7 +1622,7 @@
     </div>
     <div class="pricing-guarantee">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Every site is tested across all major devices and browsers before we hand the keys over.
+      Tested across all major devices and browsers before handoff.
     </div>
   </div>
 
@@ -1632,7 +1633,7 @@
         <p class="pc-tier">Brand Strategy Session</p>
         <p class="pc-price"><sup>$</sup>149</p>
         <p class="pc-price-label">one-time</p>
-        <p class="pc-desc">Two focused hours to clarify what your brand stands for and how to say it — before you spend a dollar on design.</p>
+        <p class="pc-desc">Two focused hours to clarify what your brand stands for and how to say it.</p>
         <div class="pc-divider"></div>
         <ul class="pc-list">
           <li>Positioning clarity workshop</li>
@@ -1647,7 +1648,7 @@
         <p class="pc-tier">Strategy + Identity Bundle</p>
         <p class="pc-price"><sup>$</sup>599</p>
         <p class="pc-price-label">one-time</p>
-        <p class="pc-desc">Strategy first, design second. The right order — and the best result. For brands starting from a blank page.</p>
+        <p class="pc-desc">Strategy first, design second. The right order — and the best result.</p>
         <div class="pc-divider"></div>
         <ul class="pc-list">
           <li>Everything in the Strategy Session</li>
@@ -1667,7 +1668,7 @@
   <div class="pricing-custom">
     <p>
       <strong>Working at scale?</strong>
-      Retainers, multi-discipline partnerships, and full campaign work are all available. Tell us what you're building and we'll put together something that actually fits.
+      Retainers, multi-discipline partnerships, and full campaign work are all available.
     </p>
     <a class="pricing-custom-link" href="mailto:savsetsystems@gmail.com?subject=Custom%20Project%20Inquiry"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Let's talk</a>
   </div>
@@ -1695,32 +1696,7 @@
     <div class="footer-links">
       <div class="footer-col">
         <h5>Company</h5>
-        <div class="nav-products-wrap">
-      <a href="#products">Products
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </a>
-      <div class="nav-dropdown">
-        <a href="contrast-studio.html">
-          <span class="nav-dropdown-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" opacity="0.6"/></svg>
-          </span>
-          <span class="nav-dropdown-text">
-            <strong>Contrast Studio</strong>
-            <span>Colour accessibility checker</span>
-          </span>
-        </a>
-        <a href="type-clash.html">
-          <span class="nav-dropdown-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-          </span>
-          <span class="nav-dropdown-text">
-            <strong>TypeClash</strong>
-            <span>Font pairing scorer</span>
-          </span>
-        </a>
-      </div>
-    </div>
-    <a href="#services">Motion &amp; Film</a>
+        <a href="#services">Motion &amp; Film</a>
         <a href="#services">Brand Identity</a>
         <a href="#services">Web Design</a>
         <a href="#services">Strategy</a>
@@ -1787,7 +1763,7 @@
   </div>
 
   <div class="footer-bottom">
-    <span>© 2026 Savset. All rights reserved.</span>
+    <span>&copy; 2026 Savset. All rights reserved.</span>
     <span>Go Creative.</span>
   </div>
 </footer>
@@ -1827,31 +1803,79 @@ toggle.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
 document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu(); });
 
-/* ---- SATURN ANIMATION ---- */
+/* ---- SATURN + ASTEROID ANIMATION ---- */
 const saturnSvg = document.getElementById('saturn-svg');
+const saturnWrap = document.getElementById('saturn-wrap');
 const hero = document.querySelector('.hero');
 let saturnAngle = 0, moon1Angle = 0, moon2Angle = 0;
 let mouseInfluenceX = 0, mouseInfluenceY = 0, targetInfluenceX = 0, targetInfluenceY = 0;
+// Cursor-driven wrap translate (parallax behind content)
+let wrapCurX = 0, wrapCurY = 0, wrapTgtX = 0, wrapTgtY = 0;
+
 document.addEventListener('mousemove', e => {
   if (!hero) return;
   const rect = hero.getBoundingClientRect();
+  if (e.clientY < rect.top || e.clientY > rect.bottom) return;
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
-  targetInfluenceX = ((e.clientX - cx) / (rect.width / 2)) * 18;
-  targetInfluenceY = ((e.clientY - cy) / (rect.height / 2)) * 10;
+  const nx = (e.clientX - cx) / (rect.width / 2);
+  const ny = (e.clientY - cy) / (rect.height / 2);
+  targetInfluenceX = nx * 18;
+  targetInfluenceY = ny * 10;
+  // Wrap drifts gently with cursor — max 28px off-center
+  wrapTgtX = nx * 28;
+  wrapTgtY = ny * 18;
 });
+
+// Asteroid orbit params: [radius, yScale, speed, phase, tilt]
+const asteroidDefs = [
+  { id: 'asteroid1', r: 148, ys: 0.32, spd: 0.022, phase: 0,    tilt: 12  },
+  { id: 'asteroid2', r: 168, ys: 0.28, spd: 0.031, phase: 80,   tilt: -8  },
+  { id: 'asteroid3', r: 132, ys: 0.35, spd: 0.017, phase: 160,  tilt: 20  },
+  { id: 'asteroid4', r: 182, ys: 0.25, spd: 0.026, phase: 240,  tilt: -15 },
+  { id: 'asteroid5', r: 155, ys: 0.30, spd: 0.038, phase: 310,  tilt: 5   },
+];
+const asteroidEls = asteroidDefs.map(d => ({ ...d, el: document.getElementById(d.id) })).filter(d => d.el);
+
 function animateSaturn(ts) {
   saturnAngle = ts * 0.018;
-  moon1Angle = ts * 0.04;
-  moon2Angle = ts * 0.025;
+  moon1Angle  = ts * 0.04;
+  moon2Angle  = ts * 0.025;
+
   mouseInfluenceX += (targetInfluenceX - mouseInfluenceX) * 0.05;
   mouseInfluenceY += (targetInfluenceY - mouseInfluenceY) * 0.05;
-  saturnSvg.style.transform = `rotateX(${mouseInfluenceY}deg) rotateZ(${saturnAngle + mouseInfluenceX}deg)`;
+  wrapCurX += (wrapTgtX - wrapCurX) * 0.04;
+  wrapCurY += (wrapTgtY - wrapCurY) * 0.04;
+
+  // Move the whole wrap with cursor (behind-content parallax)
+  saturnWrap.style.transform =
+    `translate(calc(-50% + ${wrapCurX.toFixed(2)}px), calc(-50% + ${wrapCurY.toFixed(2)}px))`;
+
+  // Rotate the SVG itself (existing spin + mouse tilt)
+  saturnSvg.style.transform =
+    `rotateX(${mouseInfluenceY.toFixed(2)}deg) rotateZ(${(saturnAngle + mouseInfluenceX).toFixed(2)}deg)`;
   saturnSvg.style.transformOrigin = '50% 50%';
+
   const m1 = document.getElementById('moon1');
   const m2 = document.getElementById('moon2');
-  if (m1) { m1.setAttribute('cx', Math.cos(moon1Angle * Math.PI / 180) * 100); m1.setAttribute('cy', Math.sin(moon1Angle * Math.PI / 180) * 38); }
-  if (m2) { m2.setAttribute('cx', Math.cos((moon2Angle + 120) * Math.PI / 180) * 115); m2.setAttribute('cy', Math.sin((moon2Angle + 120) * Math.PI / 180) * 44); }
+  if (m1) {
+    m1.setAttribute('cx', (Math.cos(moon1Angle * Math.PI / 180) * 100).toFixed(2));
+    m1.setAttribute('cy', (Math.sin(moon1Angle * Math.PI / 180) * 38).toFixed(2));
+  }
+  if (m2) {
+    m2.setAttribute('cx', (Math.cos((moon2Angle + 120) * Math.PI / 180) * 115).toFixed(2));
+    m2.setAttribute('cy', (Math.sin((moon2Angle + 120) * Math.PI / 180) * 44).toFixed(2));
+  }
+
+  // Animate asteroids in their own elliptical orbits
+  asteroidEls.forEach(d => {
+    const a = (ts * d.spd + d.phase) * Math.PI / 180;
+    const x = Math.cos(a) * d.r;
+    const y = Math.sin(a) * d.r * d.ys;
+    const rotDeg = (a * 180 / Math.PI) + d.tilt;
+    d.el.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)}) rotate(${rotDeg.toFixed(1)})`);
+  });
+
   requestAnimationFrame(animateSaturn);
 }
 requestAnimationFrame(animateSaturn);
@@ -1935,7 +1959,7 @@ document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.styl
 document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
 if (window.matchMedia('(hover: none)').matches) { dot.style.display='none'; ring.style.display='none'; document.body.style.cursor=''; }
 
-/* ---- WORK FILTERS — supports space/comma-separated multi-category ---- */
+/* ---- WORK FILTERS ---- */
 const filterBtns = document.querySelectorAll('.filter-btn');
 const workItems = document.querySelectorAll('.work-item');
 const workEmpty = document.getElementById('work-empty');
@@ -1973,13 +1997,11 @@ document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger => {
   trigger.addEventListener('click', e => {
     e.stopPropagation();
     const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-    // Close all first
     document.querySelectorAll('.mobile-accordion-trigger').forEach(t => {
       t.setAttribute('aria-expanded', 'false');
       const p = document.getElementById(t.id.replace('trigger', 'panel'));
       if (p) { p.classList.remove('open'); p.setAttribute('aria-hidden', 'true'); }
     });
-    // Open clicked if it was closed
     if (!isOpen) {
       trigger.setAttribute('aria-expanded', 'true');
       const panel = document.getElementById(trigger.id.replace('trigger', 'panel'));
@@ -1987,7 +2009,6 @@ document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger => {
     }
   });
 });
-// Sub-links close the whole mobile menu
 document.querySelectorAll('.mob-sub-link').forEach(a => a.addEventListener('click', () => closeMenu()));
 </script>
 
