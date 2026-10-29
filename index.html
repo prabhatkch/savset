@@ -111,16 +111,15 @@
   .shorts-arrow:hover{background:rgba(219,217,255,0.15);border-color:rgba(219,217,255,0.65);opacity:1;}
   .shorts-arrow.disabled{opacity:0.2;pointer-events:none;}
   .shorts-slider-wrap{position:relative;overflow:hidden;}
-  .shorts-slider{display:flex;gap:1.2rem;}
-  .short-item{flex:0 0 calc((100% - 2.4rem) / 3);border-radius:8px;overflow:hidden;background:#000;position:relative;height:clamp(300px,48vh,520px);}
-  .short-item-inner{position:relative;width:100%;height:100%;background:#111;}
+  .shorts-slider{display:flex;gap:1.5rem;}
+.short-item{flex:0 0 calc((100% - 4.5rem) / 4);aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#000;position:relative;}  .short-item-inner{position:relative;width:100%;height:100%;background:#111;}
   .short-thumb img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s ease;}
   .short-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,0.65);border:2px solid rgba(219,217,255,0.5);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background .2s ease,transform .2s ease,border-color .2s ease;}
   .short-play-btn svg{width:22px;height:22px;margin-left:3px;}
   .short-play-btn:hover{background:rgba(219,217,255,0.18);border-color:var(--lavender);transform:translate(-50%,-50%) scale(1.1);}
   .short-item-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;z-index:3;}
-  @media(max-width:760px){.short-item{flex:0 0 calc((100% - 1.2rem)/2);height:clamp(260px,44vh,420px);}}
-  @media(max-width:480px){.short-item{flex:0 0 75%;height:clamp(280px,55vh,480px);}}
+   @media(max-width:1000px){.short-item{flex:0 0 calc((100% - 3rem)/3);}}
+   @media(max-width:760px){.short-item{flex:0 0 calc((100% - 1.5rem)/2);}}
 
   .work-filters{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.5rem;}
   .filter-btn{font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:100px;border:1px solid rgba(219,217,255,0.25);background:transparent;color:var(--lavender);opacity:0.55;transition:opacity .2s ease,background .2s ease,border-color .2s ease;}
@@ -396,7 +395,7 @@
 <section id="work">
   <div class="section-head">
     <h2>Selected work</h2>
-    <p>A handful of recent projects across brand, web, and motion. <a href="works.html" style="color:var(--lavender);opacity:0.7;font-size:0.85rem;display:block;margin-top:0.4rem;">See all works →</a></p>
+    <p>A handful of recent projects across brand, web, and motion. <span style="display:block;margin-top:1rem;"><a href="works.html" class="hero-btn hero-btn-secondary">See all works →</a></span></p>
   </div>
 
   <!-- ============================================================ SHORTS / REELS SLIDER ============================================================ -->
@@ -688,7 +687,7 @@ document.querySelectorAll('.mob-sub-link').forEach(a=>a.addEventListener('click'
   const btnPrev=document.getElementById('shorts-prev');
   const btnNext=document.getElementById('shorts-next');
   if(!slider||!btnPrev||!btnNext)return;
-  function visibleCount(){if(window.innerWidth<=480)return 1;if(window.innerWidth<=760)return 2;return 3;}
+  function visibleCount(){if(window.innerWidth<=760)return 2;if(window.innerWidth<=1000)return 3;return 4;}
   function itemWidth(){const items=slider.querySelectorAll('.short-item');if(!items.length)return 0;const gap=parseFloat(getComputedStyle(slider).gap)||19.2;return items[0].offsetWidth+gap;}
   let currentIndex=0;
   function totalItems(){return slider.querySelectorAll('.short-item').length;}
