@@ -199,6 +199,35 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
 @media(max-width:900px){.approach{grid-template-columns:1fr;}.pricing-cards{grid-template-columns:1fr;}.pricing-card{border-right:none;border-bottom:1.5px solid rgba(0,37,42,.08);}.pricing-card:last-child{border-bottom:none;}.pricing-card.featured{border-bottom-color:rgba(219,217,255,.12);}}
 @media(max-width:760px){nav{padding:1.2rem 1.4rem;}nav.scrolled{padding:.9rem 1.4rem;}.nav-links{display:none;}.nav-toggle{display:flex;}.mobile-menu{display:flex;}section{padding:4.5rem 1.4rem;}#pricing{padding:4.5rem 1.4rem;}.hero{padding:7rem 1.4rem 3rem;}.hero-meta{margin-top:1.2rem;}#saturn-wrap{width:clamp(320px,90vw,520px);height:clamp(320px,90vw,520px);}.section-head{flex-direction:column;align-items:flex-start;}.section-head p{text-align:left;max-width:100%;}.services{grid-template-columns:1fr;}.service{border-right:none;}.work-grid{grid-template-columns:1fr;}.podcast-addon{flex-direction:column;}.podcast-addon-links{width:100%;}.pricing-custom{flex-direction:column;}.pricing-custom-link,.podcast-addon-links .pricing-custom-link{width:100%;white-space:normal;text-align:center;justify-content:center;}.cta{padding:6rem 1.4rem;}footer{padding:4rem 1.4rem 2rem;}.footer-top{flex-direction:column;align-items:flex-start;}.footer-links{gap:2rem;}.footer-illustration{padding:2.2rem 0 .5rem;}.footer-illustration svg{max-width:380px;}.hero-actions{flex-direction:column;align-items:center;}.hero-btn{width:100%;justify-content:center;}}
 @media(max-width:480px){.social-links{gap:.5rem;}.social-link{font-size:.78rem;padding:.45rem .75rem;}}
+.contact-form{max-width:680px;margin:0 auto 2.2rem;text-align:left;display:grid;gap:1.4rem;}
+.contact-form fieldset{border:none;padding:0;min-width:0;}
+.contact-form legend,.contact-form .field label{display:block;font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:.7rem;padding:0;}
+.svc-chips{display:flex;flex-wrap:wrap;gap:.6rem;}
+.svc-chip{position:relative;display:inline-flex;}
+.svc-chip input{position:absolute;inset:0;opacity:0;margin:0;pointer-events:none;}
+.svc-chip span{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.55rem 1.15rem;border-radius:100px;border:1px solid rgba(219,217,255,.25);color:var(--lavender);opacity:.7;transition:opacity .2s,background .2s,border-color .2s,color .2s;}
+.svc-chip:hover span{opacity:1;border-color:rgba(219,217,255,.55);}
+.svc-chip input:checked+span{background:var(--lavender);color:var(--teal);border-color:var(--lavender);opacity:1;}
+.svc-chip input:focus-visible+span{outline:2px solid var(--lavender);outline-offset:3px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.contact-form .field input,.contact-form .field textarea{width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--lavender);background:rgba(219,217,255,.06);border:1px solid rgba(219,217,255,.25);border-radius:14px;padding:.9rem 1.1rem;outline:none;transition:border-color .2s,background .2s;cursor:none;}
+.contact-form .field textarea{resize:vertical;min-height:120px;line-height:1.5;}
+.contact-form .field input::placeholder,.contact-form .field textarea::placeholder{color:rgba(219,217,255,.35);}
+.contact-form .field input:focus,.contact-form .field textarea:focus{border-color:var(--lavender);background:rgba(219,217,255,.1);}
+.form-foot{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+.form-submit{border:none;}
+.form-submit[disabled]{opacity:.6;pointer-events:none;}
+.form-status{font-size:.88rem;line-height:1.5;opacity:.85;}
+.form-status.err{color:#ffb4b4;opacity:1;}
+.form-status a{color:inherit;}
+.form-success{display:none;max-width:680px;margin:0 auto 2.2rem;padding:2.4rem 2rem;border:1px solid rgba(219,217,255,.25);border-radius:14px;background:rgba(219,217,255,.06);text-align:center;}
+.form-success.show{display:block;}
+.form-success h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.7rem;margin-bottom:.6rem;}
+.form-success p{opacity:.75;font-size:.95rem;line-height:1.6;}
+.form-again{margin-top:1.3rem;background:none;border:none;color:var(--lavender);font-family:'Space Grotesk',sans-serif;font-size:.88rem;text-decoration:underline;opacity:.7;transition:opacity .2s;}
+.form-again:hover{opacity:1;}
+.form-or{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.4;margin:0 0 1.2rem;}
+@media(max-width:640px){.field-row{grid-template-columns:1fr;}.form-foot{flex-direction:column;align-items:stretch;}.form-submit{justify-content:center;}}
 #products{background:var(--cream);}
 #products .section-head{border-bottom:1px solid rgba(0,37,42,.12);}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
@@ -444,6 +473,35 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
 </section>
 <section class="cta" id="contact">
   <h2>Got a project<br>worth talking about?</h2>
+  <form class="contact-form" id="contact-form" novalidate>
+    <fieldset>
+      <legend>What do you need?</legend>
+      <div class="svc-chips">
+        <label class="svc-chip"><input type="radio" name="service" value="Motion & Film" required><span>Motion &amp; Film</span></label>
+        <label class="svc-chip"><input type="radio" name="service" value="Web Design & Build"><span>Web Design &amp; Build</span></label>
+        <label class="svc-chip"><input type="radio" name="service" value="Meta & Google Ads"><span>Meta &amp; Google Ads</span></label>
+        <label class="svc-chip"><input type="radio" name="service" value="Social Media Management"><span>Social Media</span></label>
+        <label class="svc-chip"><input type="radio" name="service" value="Something else"><span>Something else</span></label>
+      </div>
+    </fieldset>
+    <div class="field-row">
+      <div class="field"><label for="cf-name">Your name</label><input type="text" id="cf-name" name="name" placeholder="Aarav Sharma" autocomplete="name" required maxlength="80"></div>
+      <div class="field"><label for="cf-business">Business</label><input type="text" id="cf-business" name="business" placeholder="Company or brand" autocomplete="organization" required maxlength="80"></div>
+    </div>
+    <div class="field"><label for="cf-phone">Phone number</label><input type="tel" id="cf-phone" name="phone" placeholder="+977 98XXXXXXXX" autocomplete="tel" inputmode="tel" required maxlength="25"></div>
+    <div class="field"><label for="cf-message">Short message</label><textarea id="cf-message" name="message" placeholder="Tell us a little about what you're building…" required maxlength="600"></textarea></div>
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+    <div class="form-foot">
+      <button type="submit" class="cta-btn form-submit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg><span class="form-submit-label">Send message</span></button>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <div class="form-success" id="form-success" role="status">
+    <h3>Message sent — thank you.</h3>
+    <p>We've received your details and will get back to you soon.</p>
+    <button type="button" class="form-again" id="form-again">Send another message</button>
+  </div>
+  <p class="form-or">or reach us directly</p>
   <div class="cta-actions">
     <a class="cta-btn" href="mailto:savsetsystems@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Start a project</a>
     <a class="cta-btn-outline" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a call</a>
@@ -525,6 +583,40 @@ const ppanels=document.querySelectorAll('.pricing-panel');
 ptabs.forEach(tab=>{tab.addEventListener('click',()=>{const panel=tab.dataset.panel;ptabs.forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false');});tab.classList.add('active');tab.setAttribute('aria-selected','true');ppanels.forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+panel).classList.add('active');});});
 document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger=>{trigger.addEventListener('click',e=>{e.stopPropagation();const isOpen=trigger.getAttribute('aria-expanded')==='true';document.querySelectorAll('.mobile-accordion-trigger').forEach(t=>{t.setAttribute('aria-expanded','false');const p=document.getElementById(t.id.replace('trigger','panel'));if(p){p.classList.remove('open');p.setAttribute('aria-hidden','true');}});if(!isOpen){trigger.setAttribute('aria-expanded','true');const panel=document.getElementById(trigger.id.replace('trigger','panel'));if(panel){panel.classList.add('open');panel.setAttribute('aria-hidden','false');}}});});
 document.querySelectorAll('.mob-sub-link').forEach(a=>a.addEventListener('click',()=>closeMenu()));
+(function(){
+  const form=document.getElementById('contact-form');
+  if(!form)return;
+  const ENDPOINT='https://formsubmit.co/ajax/savsetsystems@gmail.com';
+  const btn=form.querySelector('.form-submit'),label=btn.querySelector('.form-submit-label');
+  const status=document.getElementById('form-status'),success=document.getElementById('form-success');
+  document.querySelectorAll('.svc-chip,.contact-form input,.contact-form textarea,.form-again').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));});
+  function setStatus(msg,isErr){status.className='form-status'+(isErr?' err':'');status.innerHTML=msg;}
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(form.elements._honey.value)return;
+    const service=form.elements.service.value,name=form.elements.name.value.trim(),phone=form.elements.phone.value.trim();
+    if(!service){setStatus('Please choose a service.',true);return;}
+    if(!name){setStatus('Please enter your name.',true);form.elements.name.focus();return;}
+    if(!/^[+\d][\d\s()\-]{5,}$/.test(phone)){setStatus('Please enter a valid phone number.',true);form.elements.phone.focus();return;}
+    const business=form.elements.business.value.trim(),message=form.elements.message.value.trim();
+    if(!business){setStatus('Please enter your business name.',true);form.elements.business.focus();return;}
+    if(!message){setStatus('Please add a short message.',true);form.elements.message.focus();return;}
+    btn.disabled=true;label.textContent='Sending…';setStatus('',false);
+    try{
+      const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+        service:service,name:name,business:business,phone:phone,message:message,
+        _subject:'New enquiry — '+service+' ('+name+')',_template:'table',_captcha:'false'
+      })});
+      const data=await res.json().catch(()=>({}));
+      if(res.ok&&(data.success===true||data.success==='true')){
+        form.style.display='none';success.classList.add('show');form.reset();
+      }else{throw new Error(data.message||'Request failed');}
+    }catch(err){
+      setStatus('Something went wrong. Please try again, or email us at <a href="mailto:savsetsystems@gmail.com">savsetsystems@gmail.com</a>.',true);
+    }finally{btn.disabled=false;label.textContent='Send message';}
+  });
+  document.getElementById('form-again').addEventListener('click',()=>{success.classList.remove('show');form.style.display='grid';setStatus('',false);});
+})();
 (function(){
   const slider=document.getElementById('shorts-slider');
   const btnPrev=document.getElementById('shorts-prev');
