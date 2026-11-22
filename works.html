@@ -48,7 +48,7 @@ nav.menu-open .nav-toggle span{background:var(--lavender);}
 .nav-products-wrap>a{display:inline-flex;align-items:center;gap:0.3rem;}
 .nav-products-wrap>a svg{transition:transform .25s ease;}
 .nav-products-wrap:hover>a svg{transform:rotate(180deg);}
-.nav-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:var(--teal);border:1px solid rgba(219,217,255,0.12);border-radius:8px;padding:1rem 0.5rem 0.5rem;min-width:210px;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:999;box-shadow:0 12px 32px rgba(0,37,42,0.35);}
+.nav-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:var(--teal);border:1px solid rgba(219,217,255,0.12);border-radius:8px;padding:1rem 0.5rem 0.5rem;min-width:250px;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:999;box-shadow:0 12px 32px rgba(0,37,42,0.35);}
 .nav-dropdown::after{content:'';position:absolute;top:-14px;left:0;right:0;height:14px;}
 .nav-products-wrap:hover .nav-dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(8px);}
 .nav-dropdown a{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:5px;color:var(--lavender);text-decoration:none;font-size:0.88rem;transition:background .18s ease;}
@@ -104,12 +104,14 @@ nav.menu-open .nav-toggle span{background:var(--lavender);}
 /* SECTIONS */
 .works-section{padding:5rem 4rem 1rem;}
 .works-section.hidden{display:none;}
+.works-section.empty:not(.show-empty){display:none;}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:2.5rem;border-bottom:1px solid rgba(219,217,255,0.15);padding-bottom:1.5rem;}
 .section-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.01em;}
 .section-head p{max-width:30ch;font-size:0.95rem;color:rgba(219,217,255,0.65);text-align:right;}
 .grid{display:grid;gap:1.5rem;}
 .grid.shorts{grid-template-columns:repeat(4,1fr);}
 .grid.wide{grid-template-columns:repeat(2,1fr);}
+.work-empty{grid-column:1/-1;text-align:center;padding:3rem 0;opacity:0.4;font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;}
 .work-item{border-radius:4px;overflow:hidden;background:#000;animation:rise .5s ease both;}
 @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 .thumb{position:relative;width:100%;background:#111;overflow:hidden;}
@@ -193,6 +195,8 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
       <div class="nav-dropdown">
         <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4L7 10"/><path d="M3 6h18M3 12h12M3 18h8"/></svg></span><span class="nav-dropdown-text"><strong>Motion &amp; Film</strong><span>Short-form, podcast, motion</span></span></a>
         <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dropdown-text"><strong>Web Design &amp; Build</strong><span>Sites that convert</span></span></a>
+        <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg></span><span class="nav-dropdown-text"><strong>Meta &amp; Google Ads</strong><span>Paid social &amp; search</span></span></a>
+        <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span><span class="nav-dropdown-text"><strong>Social Media Management</strong><span>Pages, content &amp; growth</span></span></a>
       </div>
     </div>
     <a href="works.html" class="current">Works</a>
@@ -217,6 +221,8 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
     <div class="mobile-accordion-panel" id="mob-services-panel" aria-hidden="true">
       <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 10l-4 4L7 10"/><path d="M3 6h18M3 12h12M3 18h8"/></svg></span>Motion &amp; Film</a>
       <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>Web Design &amp; Build</a>
+      <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg></span>Meta &amp; Google Ads</a>
+      <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>Social Media Management</a>
     </div>
   </div>
   <a href="works.html">Work</a>
@@ -231,7 +237,7 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
   <div class="hero-text">
   <p class="hero-eyebrow">Savset Systems</p>
   <h1>Selected <b>works</b>,<br>all in one place.</h1>
-  <p class="lead">Short-form edits, motion films, and websites we've shipped for brands, creators, and businesses. Press play on anything.</p>
+  <p class="lead">Short-form edits, motion films, websites, ad campaigns, and social pages we've shipped for brands, creators, and businesses. Press play on anything.</p>
   </div>
   <div class="mouse3d" id="mouse3d" aria-hidden="true">
     <div class="mouse-stage" id="mouse-stage"></div>
@@ -244,6 +250,8 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
     <button class="filter-btn" data-filter="shorts">Shorts &amp; Reels</button>
     <button class="filter-btn" data-filter="web">Web Design &amp; Build</button>
     <button class="filter-btn" data-filter="motion">Motion &amp; Film</button>
+    <button class="filter-btn" data-filter="ads">Meta &amp; Google Ads</button>
+    <button class="filter-btn" data-filter="social">Social Media</button>
   </div>
 </div>
 
@@ -263,7 +271,7 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
     <div class="footer-links">
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="index.html#services">Motion &amp; Film</a><a href="index.html#services">Web Design &amp; Build</a><a href="works.html">Work</a><a href="index.html#approach">Approach</a><a href="index.html#pricing">Pricing</a>
+        <a href="index.html#services">Motion &amp; Film</a><a href="index.html#services">Web Design &amp; Build</a><a href="index.html#services">Meta &amp; Google Ads</a><a href="index.html#services">Social Media</a><a href="works.html">Work</a><a href="index.html#approach">Approach</a><a href="index.html#pricing">Pricing</a>
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
@@ -302,8 +310,10 @@ footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);bor
 
 <script>
 /* ============ ADD YOUR WORKS HERE ============
-   id   = YouTube video ID
-   Each category shows `step` items at first and `step` more per "Load more" click. */
+   id   = YouTube video ID  (shows a play button)
+   img  = image URL instead of a video (for ad creatives / social posts) — use {img:'...',title:'...',tag:'...'}
+   Each category shows `step` items at first and `step` more per "Load more" click.
+   Categories with no items stay hidden under "All" and show a "check back soon" note when filtered. */
 const WORKS=[
   {key:'shorts',title:'Shorts & Reels',blurb:'Fast, vertical edits built for Reels, Shorts and TikTok.',type:'shorts',step:4,items:[
     {id:'9sTibVY3wXQ',title:'Savset Systems',tag:'Short-form'},
@@ -322,6 +332,12 @@ const WORKS=[
   ]},
   {key:'motion',title:'Motion & Film',blurb:'Product films, podcasts and motion graphics.',type:'wide',step:2,items:[
     {id:'3zC5WcW4HLc',title:'Kawach Pad Vending Machine',tag:'Product Video'}
+  ]},
+  {key:'ads',title:'Meta & Google Ads',blurb:'Paid campaigns and creatives built to turn ad spend into results.',type:'wide',step:2,items:[
+    /* e.g. {id:'YOUTUBE_ID',title:'Client name',tag:'Meta Ads'}  or  {img:'ads/client.jpg',title:'Client name',tag:'Google Ads'} */
+  ]},
+  {key:'social',title:'Social Media Management',blurb:'Pages and profiles we run end-to-end — content, community, and growth.',type:'wide',step:2,items:[
+    /* e.g. {img:'social/client.jpg',title:'Client name',tag:'Instagram & Facebook'}  or  {id:'YOUTUBE_ID',title:'Client name',tag:'Content Reel'} */
   ]}
 ];
 
@@ -339,21 +355,32 @@ WORKS.forEach(cat=>{
   root.appendChild(sec);
   const grid=sec.querySelector('.grid'),row=sec.querySelector('.more-row'),count=sec.querySelector('.more-count'),btn=sec.querySelector('.more-btn');
   let shown=0;
+  if(!cat.items.length){
+    sec.classList.add('empty');
+    grid.innerHTML='<p class="work-empty">Nothing here yet — check back soon.</p>';
+    row.style.display='none';
+    return;
+  }
   function render(){
     const next=cat.items.slice(shown,shown+cat.step);
     next.forEach(w=>{
       const el=document.createElement('div');el.className='work-item';
+      const isVid=!!w.id;
       const thumb=cat.type==='shorts'?'hqdefault':'maxresdefault';
-      el.innerHTML=`<div class="thumb" data-vid="${w.id}"><img src="https://i.ytimg.com/vi/${w.id}/${thumb}.jpg" alt="${esc(w.title)}" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${w.id}/hqdefault.jpg'"><button class="play-btn" aria-label="Play ${esc(w.title)}">${PLAY}</button></div>
+      const src=isVid?`https://i.ytimg.com/vi/${w.id}/${thumb}.jpg`:w.img;
+      const fallback=isVid?` onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${w.id}/hqdefault.jpg'"`:'';
+      el.innerHTML=`<div class="thumb"${isVid?` data-vid="${w.id}"`:''}><img src="${src}" alt="${esc(w.title)}" loading="lazy"${fallback}>${isVid?`<button class="play-btn" aria-label="Play ${esc(w.title)}">${PLAY}</button>`:''}</div>
         <div class="work-label"><h3>${esc(w.title)}</h3>${cat.type==='wide'?`<span class="tag">${esc(w.tag)}</span>`:''}</div>`;
       grid.appendChild(el);
-      el.querySelector('.play-btn').addEventListener('click',()=>{
-        const t=el.querySelector('.thumb'),f=document.createElement('iframe');
-        f.src=`https://www.youtube-nocookie.com/embed/${w.id}?autoplay=1&rel=0&playsinline=1`;
-        f.title=w.title;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;
-        t.querySelectorAll('img,button').forEach(n=>n.remove());t.appendChild(f);
-      });
-      bindHover(el.querySelector('.play-btn'));
+      if(isVid){
+        el.querySelector('.play-btn').addEventListener('click',()=>{
+          const t=el.querySelector('.thumb'),f=document.createElement('iframe');
+          f.src=`https://www.youtube-nocookie.com/embed/${w.id}?autoplay=1&rel=0&playsinline=1`;
+          f.title=w.title;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;
+          t.querySelectorAll('img,button').forEach(n=>n.remove());t.appendChild(f);
+        });
+        bindHover(el.querySelector('.play-btn'));
+      }
     });
     shown+=next.length;
     count.textContent=`Showing ${shown} of ${cat.items.length}`;
@@ -370,7 +397,10 @@ const filterBtns=document.querySelectorAll('.filter-btn');
 filterBtns.forEach(b=>b.addEventListener('click',()=>{
   filterBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
   const f=b.dataset.filter;
-  document.querySelectorAll('.works-section').forEach(s=>s.classList.toggle('hidden',f!=='all'&&s.dataset.cat!==f));
+  document.querySelectorAll('.works-section').forEach(s=>{
+    s.classList.toggle('hidden',f!=='all'&&s.dataset.cat!==f);
+    s.classList.toggle('show-empty',s.dataset.cat===f);
+  });
 }));
 
 /* 3D line mouse */
