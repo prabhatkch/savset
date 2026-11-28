@@ -3,426 +3,488 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdMath | Break-even calculator for Google &amp; Meta Ads | Savset</title>
+<title>AdMath — Savset</title>
 <meta name="description" content="Find the maximum cost per click, cost per lead and break-even ROAS you can afford on Google and Meta Ads.">
 <link rel="icon" type="image/x-icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap" rel="stylesheet">
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
-:root{--lavender:#DBD9FF;--teal:#00252A;--teal-soft:#0A3940;--cream:#F7F6FF;--ink:#0A0A12;}
+:root{
+  --lavender:#DBD9FF;
+  --teal:#00252A;
+  --teal-2:#0A3940;
+  --cream:#F7F6FF;
+  --good:#00e591;
+  --warn:#d4c600;
+  --bad:#ff6b6b;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--teal);color:var(--lavender);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none;}
-a,button{cursor:none;}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+body{background:var(--cream);color:var(--teal);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none;}
+a,button,input{cursor:none;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 a:focus-visible,button:focus-visible{outline:2px solid var(--lavender);outline-offset:4px;}
 
-#cursor-dot{width:8px;height:8px;background:var(--lavender);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,background .2s ease,opacity .2s ease;mix-blend-mode:difference;}
-#cursor-ring{width:36px;height:36px;border:1.5px solid rgba(219,217,255,0.55);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.65,0,.35,1),height .35s cubic-bezier(.65,0,.35,1),border-color .3s ease,opacity .2s ease;mix-blend-mode:difference;}
-body.cursor-hover #cursor-dot{width:12px;height:12px;background:#fff;}
-body.cursor-hover #cursor-ring{width:56px;height:56px;border-color:rgba(255,255,255,0.5);}
+/* CURSOR */
+#cursor-dot{width:8px;height:8px;background:var(--lavender);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s,background .2s,opacity .2s;}
+#cursor-ring{width:36px;height:36px;border:1.5px solid rgba(219,217,255,.55);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .35s cubic-bezier(.65,0,.35,1),height .35s cubic-bezier(.65,0,.35,1),border-color .3s;}
+body.cur-hover #cursor-dot{width:12px;height:12px;background:#fff;}
+body.cur-hover #cursor-ring{width:56px;height:56px;border-color:rgba(255,255,255,.5);}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 4rem;z-index:500;color:#fff;background:transparent;transition:background .35s ease,backdrop-filter .35s ease,padding .35s ease,box-shadow .35s ease,color .35s ease;}
-nav.scrolled{background:rgba(0,37,42,0.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:1.1rem 4rem;box-shadow:0 1px 0 rgba(219,217,255,0.08);color:var(--lavender);}
-.logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.02em;}
-.logo-link{color:inherit;text-decoration:none;display:inline-block;transition:opacity .2s ease;}
-.logo-link:hover{opacity:0.8;}
-.nav-links{display:flex;gap:2.4rem;font-size:0.9rem;align-items:center;}
-.nav-links a{color:inherit;text-decoration:none;position:relative;}
-.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;background:currentColor;transition:width .3s ease;}
-.nav-links a:hover::after,.nav-links a.current::after{width:100%;}
-.nav-book-btn{font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.05em;padding:0.48rem 1.1rem;border-radius:100px;border:1.5px solid var(--lavender);background:var(--lavender);color:var(--teal)!important;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;}
-.nav-book-btn::after{display:none!important;}
-.nav-book-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(219,217,255,0.28);background:#fff;border-color:#fff;}
-nav.menu-open{background:var(--teal)!important;backdrop-filter:none!important;color:var(--lavender)!important;box-shadow:none!important;}
-nav.menu-open .nav-toggle span{background:var(--lavender);}
-.nav-toggle{display:none;background:none;border:none;width:40px;height:40px;position:relative;z-index:600;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:6px;}
-.nav-toggle span{display:block;width:22px;height:1.5px;background:#fff;border-radius:2px;transition:transform .35s cubic-bezier(.65,0,.35,1),opacity .2s ease,width .3s ease;transform-origin:center;}
-.nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.nav-toggle.open span:nth-child(2){opacity:0;width:0;}
-.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.nav-products-wrap{position:relative;display:inline-flex;align-items:center;}
-.nav-products-wrap>a{display:inline-flex;align-items:center;gap:0.3rem;}
-.nav-products-wrap>a svg{transition:transform .25s ease;}
-.nav-products-wrap:hover>a svg{transform:rotate(180deg);}
-.nav-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:var(--teal);border:1px solid rgba(219,217,255,0.12);border-radius:8px;padding:1rem 0.5rem 0.5rem;min-width:210px;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:999;box-shadow:0 12px 32px rgba(0,37,42,0.35);}
-.nav-dropdown::after{content:'';position:absolute;top:-14px;left:0;right:0;height:14px;}
-.nav-products-wrap:hover .nav-dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(8px);}
-.nav-dropdown a{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:5px;color:var(--lavender);text-decoration:none;font-size:0.88rem;transition:background .18s ease;}
-.nav-dropdown a::after{display:none!important;}
-.nav-dropdown a:hover{background:rgba(219,217,255,0.1);}
-.nav-dropdown-icon{width:28px;height:28px;border-radius:5px;background:rgba(219,217,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.nav-dropdown-text strong{display:block;font-weight:600;font-size:0.85rem;}
-.nav-dropdown-text span{font-size:0.75rem;opacity:0.5;}
-.mobile-menu{display:none;position:fixed;inset:0;top:68px;background:var(--cream);z-index:400;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;opacity:0;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease;pointer-events:none;}
-.mobile-menu.open{opacity:1;transform:translateY(0);pointer-events:all;}
-.mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(1.3rem,5vw,1.8rem);font-style:italic;color:var(--teal);text-decoration:none;opacity:0.8;transition:opacity .2s ease,transform .2s ease;}
-.mobile-menu a:hover{opacity:1;transform:translateX(6px);}
-.mobile-menu .mobile-book-btn{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-style:normal;font-weight:500;border:1.5px solid var(--teal);padding:0.7rem 2rem;border-radius:100px;opacity:0.75;}
-.mobile-menu .mobile-book-btn:hover{opacity:1;transform:none;}
-.mobile-accordion{width:100%;max-width:280px;text-align:center;}
-.mobile-accordion-trigger{display:inline-flex;align-items:center;gap:0.4rem;background:none;border:none;font-family:'Fraunces',serif;font-size:clamp(1.3rem,5vw,1.8rem);font-style:italic;color:var(--teal);opacity:0.8;transition:opacity .2s ease;}
-.mobile-accordion-trigger:hover,.mobile-accordion-trigger[aria-expanded="true"]{opacity:1;}
-.mob-chevron{transition:transform .3s cubic-bezier(.65,0,.35,1);opacity:0.5;margin-top:0.15em;}
-.mobile-accordion-trigger[aria-expanded="true"] .mob-chevron{transform:rotate(180deg);}
-.mobile-accordion-panel{display:flex;flex-direction:column;max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.65,0,.35,1);}
-.mobile-accordion-panel.open{max-height:300px;margin-top:0.6rem;}
-.mob-sub-link{display:inline-flex;align-items:center;gap:0.55rem;justify-content:center;font-family:'Space Grotesk',sans-serif!important;font-size:0.9rem!important;font-style:normal!important;opacity:0.6!important;padding:0.45rem 0;}
-.mob-sub-link:hover{opacity:1!important;transform:none!important;}
-.mob-sub-icon{width:22px;height:22px;border-radius:4px;background:rgba(0,37,42,0.08);display:flex;align-items:center;justify-content:center;}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 4rem;z-index:500;background:rgba(0,37,42,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(219,217,255,.08);}
+.nav-left{display:flex;align-items:center;gap:1.6rem;}
+.nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--lavender);text-decoration:none;transition:opacity .2s;}
+.nav-logo:hover{opacity:.75;}
+.nav-sep{width:1px;height:18px;background:rgba(219,217,255,.22);}
+.nav-product{font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--lavender);opacity:.45;}
+.nav-back{display:flex;align-items:center;gap:.4rem;font-size:.84rem;color:var(--lavender);text-decoration:none;opacity:.55;transition:opacity .2s;border:1px solid rgba(219,217,255,.2);padding:.45rem 1rem;border-radius:100px;}
+.nav-back:hover{opacity:1;border-color:rgba(219,217,255,.45);}
 
+/* HERO */
+.hero{min-height:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5.5rem 4rem 2.8rem;position:relative;overflow:hidden;background:var(--teal);color:var(--lavender);gap:0;}
+.hero-bg-word{position:absolute;right:-.02em;top:50%;transform:translateY(-50%);font-family:'Fraunces',serif;font-weight:700;font-style:italic;font-size:clamp(5rem,16vw,14rem);color:var(--lavender);opacity:.04;line-height:1;pointer-events:none;user-select:none;white-space:nowrap;letter-spacing:-.04em;}
+.hero-bar{position:absolute;top:0;left:0;right:0;padding:.7rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(219,217,255,.12);z-index:2;}
+.hero-bar-dots{display:flex;gap:.38rem;}
+.hero-bar-dot{width:9px;height:9px;border-radius:50%;background:var(--lavender);opacity:.22;}
+.hero-bar-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.35;color:var(--lavender);}
+.hero-left{position:relative;z-index:1;}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;opacity:.45;margin-bottom:.6rem;}
+.hero h1{font-family:'Fraunces',serif;font-weight:600;font-style:italic;font-size:clamp(2.4rem,4.5vw,4.4rem);letter-spacing:-.02em;line-height:.96;}
+.hero h1 em{font-style:normal;font-weight:300;}
+.hero-sub{max-width:40ch;margin-top:.9rem;font-size:.9rem;line-height:1.55;opacity:.72;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:.38rem .95rem;border-radius:100px;width:fit-content;opacity:.6;border:1px solid rgba(219,217,255,.35);color:var(--lavender);}
+.hero-cta-strip{display:flex;align-items:center;gap:1rem;margin-top:1.6rem;flex-wrap:wrap;}
+.hero-cta-main{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.5rem;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;text-decoration:none;background:var(--lavender);color:var(--teal);transition:transform .25s ease,box-shadow .25s ease;}
+.hero-cta-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.hero-cta-sub{font-size:.8rem;color:var(--lavender);opacity:.55;text-decoration:none;transition:opacity .2s;}
+.hero-cta-sub:hover{opacity:.9;}
+.hero-right{position:relative;z-index:1;padding-left:3rem;border-left:1px solid rgba(219,217,255,.18);}
+.hero-preview-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:.8rem;}
+.hero-live-num{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1;letter-spacing:-.03em;color:var(--lavender);}
+.hero-live-cap{font-size:.78rem;opacity:.5;margin-top:.4rem;letter-spacing:.06em;}
+.hero-live-text{font-size:.9rem;line-height:1.6;opacity:.72;margin-top:.9rem;max-width:42ch;min-height:3.2em;}
+.hero-score-row{display:flex;align-items:center;gap:.6rem;margin-top:1rem;}
 
-body{background:var(--cream);color:var(--teal);}
-input,select{cursor:none;}
-.blob{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--lavender),transparent 70%);opacity:0.12;filter:blur(40px);top:-120px;right:-100px;pointer-events:none;animation:drift 22s ease-in-out infinite;}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-60px,80px) scale(1.15);}}
-.prod-hero{background:var(--teal);color:var(--lavender);padding:11rem 4rem 4.5rem;position:relative;overflow:hidden;}
-.prod-hero>*{position:relative;}
-.prod-hero .blob{position:absolute;}
-.hero-eyebrow{font-size:0.85rem;letter-spacing:0.25em;text-transform:uppercase;opacity:0.6;margin-bottom:1.2rem;}
-.prod-hero h1{font-family:'Fraunces',serif;font-weight:340;font-style:italic;line-height:1.05;font-size:clamp(2.8rem,7vw,6rem);letter-spacing:-0.02em;}
-.prod-hero h1 b{font-weight:700;font-style:normal;color:var(--cream);}
-.prod-hero .lead{max-width:50ch;margin-top:1.6rem;font-size:1.05rem;line-height:1.6;opacity:0.85;}
+/* VERDICT PILLS */
+.vpill{display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.32rem .9rem;border-radius:100px;border:1px solid;transition:background .3s,color .3s,border-color .3s;}
+.v-idle{background:rgba(219,217,255,.08);color:var(--lavender);border-color:rgba(219,217,255,.22);}
+.v-ok{background:rgba(0,229,145,.14);color:#00e591;border-color:rgba(0,229,145,.24);}
+.v-tight{background:rgba(212,198,0,.14);color:#d4c600;border-color:rgba(212,198,0,.24);}
+.v-bad{background:rgba(255,107,107,.12);color:#ff6b6b;border-color:rgba(255,107,107,.2);}
 
-.calc{padding:5rem 4rem 3rem;}
-.calc-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:1.5rem;align-items:stretch;}
-.inputs-card{border:1.5px solid rgba(0,37,42,0.1);border-radius:6px;padding:2.4rem 2.2rem;background:var(--cream);}
-.pc-tier{font-size:0.78rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:1.2rem;}
-.platforms{display:flex;gap:0.5rem;margin-bottom:1.8rem;flex-wrap:wrap;}
-.ptab{font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.55rem 1.4rem;border-radius:100px;border:1px solid rgba(0,37,42,0.18);background:transparent;color:var(--teal);opacity:0.5;transition:all .25s ease;}
-.ptab:hover{opacity:0.75;border-color:rgba(0,37,42,0.4);}
+/* TOOL */
+.tool{padding:4rem;max-width:1020px;margin:0 auto;}
+.section-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:1.1rem;}
+.platforms{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.ptab{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border-radius:100px;border:1px solid rgba(0,37,42,.18);background:transparent;color:var(--teal);opacity:.5;transition:all .25s ease;}
+.ptab:hover{opacity:.75;border-color:rgba(0,37,42,.4);}
 .ptab.active{background:var(--teal);color:var(--lavender);border-color:var(--teal);opacity:1;}
-.field{margin-bottom:1.3rem;}
-.field label{display:block;font-size:0.85rem;font-weight:500;margin-bottom:0.2rem;}
-.field small{display:block;font-size:0.78rem;opacity:0.55;margin-bottom:0.55rem;}
-.input-wrap{display:flex;align-items:center;border:1.5px solid rgba(0,37,42,0.2);border-radius:100px;padding:0 1.2rem;background:#fff;transition:border-color .2s ease,box-shadow .2s ease;}
-.input-wrap:focus-within{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,37,42,0.07);}
-.input-wrap span{opacity:0.5;font-size:0.95rem;}
-.input-wrap input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--teal);padding:0.85rem 0.5rem;}
-.input-wrap input::placeholder{color:rgba(0,37,42,0.3);}
-.optional{margin-top:1.8rem;padding-top:1.6rem;border-top:1px solid rgba(0,37,42,0.1);}
+.inputs-group{margin-bottom:2rem;}
+.inputs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.field label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.2rem;}
+.field small{display:block;font-size:.76rem;opacity:.55;margin-bottom:.55rem;line-height:1.4;min-height:2.1em;}
+.input-wrap{display:flex;align-items:center;border:1.5px solid rgba(0,37,42,.2);border-radius:100px;padding:0 1.2rem;background:#fff;transition:border-color .2s ease,box-shadow .2s ease;}
+.input-wrap:focus-within{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,37,42,.07);}
+.input-wrap span{opacity:.5;font-size:.95rem;}
+.input-wrap input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--teal);padding:.85rem .5rem;}
+.input-wrap input::placeholder{color:rgba(0,37,42,.3);}
 
-.results{background:var(--teal);color:var(--lavender);border-radius:6px;padding:2.4rem 2.2rem;display:flex;flex-direction:column;}
-.verdict{display:flex;align-items:flex-start;gap:0.9rem;padding-bottom:1.6rem;border-bottom:1px solid rgba(219,217,255,0.15);}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--lavender);margin-top:0.55rem;flex-shrink:0;}
-.results[data-state=tight] .dot{background:#F2D48A;}
-.results[data-state=bad] .dot{background:#FF9B8A;}
-.results[data-state=idle] .dot{opacity:0.3;}
-.verdict h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.6rem;line-height:1.2;}
-.verdict p{font-size:0.92rem;line-height:1.55;opacity:0.7;margin-top:0.35rem;max-width:46ch;}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(219,217,255,0.15);border:1px solid rgba(219,217,255,0.15);border-radius:6px;overflow:hidden;margin-top:1.6rem;}
-.stat{background:var(--teal);padding:1.5rem 1.2rem;}
-.stat-label{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;opacity:0.55;min-height:2.2em;}
-.stat-val{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.9rem,3.4vw,2.8rem);letter-spacing:-0.02em;color:var(--cream);margin:0.6rem 0 0.4rem;line-height:1;word-break:break-all;}
-.stat-sub{font-size:0.78rem;opacity:0.5;line-height:1.4;}
-.mini{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:1.4rem;font-size:0.82rem;}
-.mini span{opacity:0.55;display:block;letter-spacing:0.08em;text-transform:uppercase;font-size:0.7rem;margin-bottom:0.2rem;}
-.mini strong{font-family:'Fraunces',serif;font-weight:500;font-size:1.2rem;}
-.tip{margin-top:1.4rem;font-size:0.85rem;line-height:1.55;opacity:0.65;}
-.audit{display:none;margin-top:1.6rem;background:var(--lavender);color:var(--teal);border-radius:6px;padding:1.8rem;}
-.results[data-state=tight] .audit,.results[data-state=bad] .audit{display:block;animation:rise .5s ease both;}
-@keyframes rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-.audit h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.4rem;margin-bottom:0.4rem;}
-.audit p{font-size:0.9rem;line-height:1.55;opacity:0.75;max-width:46ch;margin-bottom:1.2rem;}
-.audit-actions{display:flex;flex-wrap:wrap;gap:0.7rem;}
-.abtn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.8rem 1.6rem;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:0.92rem;font-weight:500;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,background .25s ease;border:1.5px solid var(--teal);}
+/* RESULT PANEL */
+.score-panel{background:var(--teal);border-radius:8px;display:flex;flex-wrap:wrap;overflow:hidden;margin-bottom:1.5rem;}
+.score-main{flex:1;min-width:240px;padding:2.8rem 3rem;border-right:1px solid rgba(219,217,255,.1);}
+.score-num{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3.6rem,8vw,6.4rem);color:var(--lavender);line-height:1;letter-spacing:-.03em;}
+.score-label{font-size:.78rem;color:var(--lavender);opacity:.45;margin-top:.5rem;letter-spacing:.1em;}
+.score-main .vpill{margin-top:1.4rem;padding:.5rem 1.4rem;font-size:.72rem;letter-spacing:.18em;}
+.score-text{font-size:.88rem;line-height:1.55;color:var(--lavender);opacity:.65;margin-top:1.1rem;max-width:38ch;min-height:2.8em;}
+.score-checks{flex:1;min-width:240px;padding:2.8rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;}
+.check-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.check-label{font-size:.78rem;color:var(--lavender);opacity:.5;letter-spacing:.04em;}
+.check-val{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;color:var(--lavender);text-align:right;}
+.check-pill{font-size:.66rem;font-weight:700;letter-spacing:.12em;padding:.22rem .72rem;border-radius:100px;border:1px solid transparent;white-space:nowrap;}
+.pill-pass{background:rgba(0,229,145,.12);color:#00e591;border-color:rgba(0,229,145,.2);}
+.pill-warn{background:rgba(212,198,0,.12);color:#d4c600;border-color:rgba(212,198,0,.2);}
+.pill-fail{background:rgba(255,107,107,.1);color:#ff6b6b;border-color:rgba(255,107,107,.18);}
+.pill-idle{background:rgba(219,217,255,.08);color:var(--lavender);border-color:rgba(219,217,255,.18);}
+.tip{font-size:.85rem;line-height:1.55;opacity:.6;margin-bottom:1.5rem;min-height:1.3em;}
+
+/* AUDIT CTA */
+.audit{background:var(--lavender);color:var(--teal);border-radius:8px;padding:2.2rem 2.4rem;margin-bottom:3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.audit h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;margin-bottom:.4rem;line-height:1.2;}
+.audit p{font-size:.9rem;line-height:1.55;opacity:.75;max-width:50ch;}
+.audit-actions{display:flex;flex-wrap:wrap;gap:.7rem;}
+.abtn{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.6rem;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:500;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,background .25s ease;border:1.5px solid var(--teal);}
 .abtn-primary{background:var(--teal);color:var(--lavender);}
-.abtn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,37,42,0.25);}
+.abtn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,37,42,.25);}
 .abtn-outline{background:transparent;color:var(--teal);}
-.abtn-outline:hover{background:rgba(0,37,42,0.08);transform:translateY(-2px);}
+.abtn-outline:hover{background:rgba(0,37,42,.08);transform:translateY(-2px);}
 
-.how{padding:3rem 4rem 7rem;}
-.how .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:2rem;border-bottom:1px solid rgba(0,37,42,0.12);padding-bottom:1.5rem;}
-.how h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.01em;}
-.how .section-head p{max-width:30ch;font-size:0.95rem;color:rgba(0,37,42,0.65);text-align:right;}
-.how-row{display:grid;grid-template-columns:3rem 1fr 1.2fr;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid rgba(0,37,42,0.12);transition:background .35s ease,color .35s ease,padding .2s ease;}
-.how-row:hover{background:var(--teal);color:var(--lavender);padding-left:1.2rem;padding-right:1.2rem;border-radius:4px;border-bottom-color:transparent;}
-.how-row .step{font-size:0.85rem;opacity:0.5;padding-top:0.3rem;}
-.how-row h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;}
-.how-row p{font-size:0.92rem;line-height:1.6;opacity:0.7;}
-@media(max-width:900px){.calc-grid{grid-template-columns:1fr;}.how-row{grid-template-columns:2.5rem 1fr;}.how-row p{grid-column:2;}}
-@media(max-width:760px){
-  .prod-hero{padding:8rem 1.4rem 3rem;}
-  .calc{padding:3rem 1.4rem 2rem;}.how{padding:2rem 1.4rem 4.5rem;}
-  .inputs-card,.results{padding:1.8rem 1.4rem;}
-  .stats{grid-template-columns:1fr;}.stat-label{min-height:0;}
-  .how .section-head{flex-direction:column;align-items:flex-start;}.how .section-head p{text-align:left;}
-}
-/* CTA + FOOTER */
-.cta{text-align:center;padding:9rem 4rem;}
-.cta h2{font-family:'Fraunces',serif;font-weight:340;font-style:italic;font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.1;margin-bottom:2.5rem;}
-.cta-actions{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
-.cta-btn,.cta-btn-outline{display:inline-flex;align-items:center;gap:0.8rem;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1rem;padding:1.1rem 2.2rem;border-radius:100px;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background .3s ease;}
-.cta-btn{background:var(--lavender);color:var(--teal);}
-.cta-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(219,217,255,0.25);}
-.cta-btn-outline{border:1.5px solid rgba(219,217,255,0.4);color:var(--lavender);}
-.cta-btn-outline:hover{transform:translateY(-3px);border-color:rgba(219,217,255,0.75);background:rgba(219,217,255,0.07);}
-footer{padding:5rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);border-top:1px solid rgba(219,217,255,0.1);}
-.footer-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;border-bottom:1px solid rgba(219,217,255,0.15);padding-bottom:3rem;}
-.footer-logo{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3rem,12vw,7rem);letter-spacing:-0.03em;line-height:1;}
-.footer-logo-link{color:inherit;text-decoration:none;display:inline-block;transition:opacity .2s ease;}
-.footer-logo-link:hover{opacity:0.82;}
-.footer-links{display:flex;gap:3rem;flex-wrap:wrap;}
-.footer-col h5{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:1rem;}
-.footer-col a{display:block;color:var(--lavender);text-decoration:none;font-size:0.95rem;margin-bottom:0.6rem;opacity:0.85;transition:opacity .2s ease;}
-.footer-col a:hover{opacity:1;text-decoration:underline;}
-.footer-illustration{display:flex;justify-content:center;padding:3.2rem 0 0.5rem;}
-.footer-illustration svg{width:100%;max-width:640px;height:auto;display:block;}
-.footer-bottom{display:flex;justify-content:space-between;padding-top:1.8rem;font-size:0.8rem;opacity:0.5;flex-wrap:wrap;gap:1rem;}
+/* THE MATH */
+.traits-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid rgba(0,37,42,.1);border-radius:8px;overflow:hidden;margin-bottom:3rem;}
+.trait-card{padding:1.8rem 1.5rem;border-right:1.5px solid rgba(0,37,42,.08);transition:background .3s;}
+.trait-card:last-child{border-right:none;}
+.trait-card:hover{background:rgba(0,37,42,.03);}
+.trait-step{font-size:.72rem;letter-spacing:.16em;opacity:.38;margin-bottom:.5rem;}
+.trait-name{font-family:'Fraunces',serif;font-weight:500;font-size:1.1rem;margin-bottom:.4rem;}
+.trait-desc{font-size:.8rem;line-height:1.55;opacity:.55;}
 
-@media(max-width:1000px){.grid.shorts{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:760px){
-  nav{padding:1.2rem 1.4rem;}nav.scrolled{padding:0.9rem 1.4rem;}
-  .nav-links{display:none;}.nav-toggle{display:flex;}.mobile-menu{display:flex;}
-  .page-hero{padding:8rem 1.4rem 2.5rem;}
-  .works-bar{padding:0.8rem 1.4rem;top:56px;overflow-x:auto;}
-  .work-filters{flex-wrap:nowrap;}.filter-btn{white-space:nowrap;}
-  .works-section{padding:3.5rem 1.4rem 0.5rem;}
-  .section-head{flex-direction:column;align-items:flex-start;}.section-head p{text-align:left;max-width:100%;}
-  .grid.shorts{grid-template-columns:repeat(2,1fr);gap:1rem;}
-  .grid.wide{grid-template-columns:1fr;}
-  .cta{padding:6rem 1.4rem;}
-  footer{padding:4rem 1.4rem 2rem;}.footer-top{flex-direction:column;align-items:flex-start;}.footer-links{gap:2rem;}
-  .footer-illustration svg{max-width:380px;}
+/* PRESETS */
+.presets-section{padding:3rem 4rem;border-top:1px solid rgba(0,37,42,.08);}
+.presets-row{display:flex;flex-wrap:wrap;gap:.7rem;max-width:1020px;margin:0 auto;}
+.preset{display:flex;align-items:center;gap:.55rem;padding:.5rem 1rem;border-radius:100px;border:1.5px solid rgba(0,37,42,.12);background:transparent;color:var(--teal);font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:500;transition:border-color .2s,background .2s,transform .2s;}
+.preset:hover{border-color:rgba(0,37,42,.3);background:rgba(0,37,42,.04);transform:translateY(-1px);}
+.preset.active{border-color:rgba(0,37,42,.5);background:rgba(0,37,42,.08);}
+.preset-fonts{font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;opacity:.6;}
+
+/* FOOTER */
+footer{padding:3rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(219,217,255,.12);padding-top:2rem;}
+.footer-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--lavender);text-decoration:none;transition:opacity .2s;}
+.footer-brand:hover{opacity:.75;}
+.footer-product{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.38;margin-top:.35rem;}
+.footer-back{font-size:.82rem;color:var(--lavender);text-decoration:none;opacity:.5;transition:opacity .2s;}
+.footer-back:hover{opacity:1;}
+.footer-note{font-size:.78rem;opacity:.38;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  nav{padding:1.1rem 1.4rem;}
+  .nav-back span{display:none;}
+  .hero{grid-template-columns:1fr;padding:6rem 1.4rem 2.5rem;}
+  .hero-right{padding-left:0;border-left:none;margin-top:1.5rem;}
+  .tool{padding:3rem 1.4rem;}
+  .inputs-grid{grid-template-columns:1fr;gap:1.1rem;}
+  .field small{min-height:0;}
+  .score-panel{flex-direction:column;}
+  .score-main{border-right:none;border-bottom:1px solid rgba(219,217,255,.1);padding:2.2rem 1.6rem;}
+  .score-checks{padding:2rem 1.6rem;}
+  .audit{padding:1.8rem 1.4rem;}
+  .traits-grid{grid-template-columns:1fr;}
+  .trait-card{border-right:none;border-bottom:1.5px solid rgba(0,37,42,.08);}
+  .trait-card:last-child{border-bottom:none;}
+  .presets-section{padding:2.5rem 1.4rem;}
+  footer{padding:2.5rem 1.4rem 2rem;}
 }
 </style>
 </head>
 <body>
+
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
-<nav id="main-nav">
-  <a href="index.html#home" class="logo-link" aria-label="Savset — back to home"><div class="logo">Savset</div></a>
-  <div class="nav-links">
-    <div class="nav-products-wrap">
-      <a href="index.html#products">Products<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>
-      <div class="nav-dropdown">
-        <a href="contrast-studio.html"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" opacity="0.6"/></svg></span><span class="nav-dropdown-text"><strong>Contrast Studio</strong><span>Colour accessibility checker</span></span></a>
-        <a href="type-clash.html"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span><span class="nav-dropdown-text"><strong>TypeClash</strong><span>Font pairing scorer</span></span></a>
-      </div>
-    </div>
-    <div class="nav-products-wrap">
-      <a href="index.html#services">Services<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>
-      <div class="nav-dropdown">
-        <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4L7 10"/><path d="M3 6h18M3 12h12M3 18h8"/></svg></span><span class="nav-dropdown-text"><strong>Motion &amp; Film</strong><span>Short-form, podcast, motion</span></span></a>
-        <a href="index.html#services"><span class="nav-dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dropdown-text"><strong>Web Design &amp; Build</strong><span>Sites that convert</span></span></a>
-      </div>
-    </div>
-    <a href="works.html">Work</a>
-    <a href="index.html#approach">Approach</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#contact">Contact</a>
-    <a href="#" class="nav-book-btn" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;margin-top:-1px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a call</a>
+<nav>
+  <div class="nav-left">
+    <a href="https://www.savset.com" class="nav-logo">Savset</a>
+    <div class="nav-sep"></div>
+    <span class="nav-product">AdMath</span>
   </div>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <a href="https://www.savset.com" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    <span>Back to Savset</span>
+  </a>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-  <div class="mobile-accordion">
-    <button class="mobile-accordion-trigger" aria-expanded="false" id="mob-products-trigger">Products<svg class="mob-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-    <div class="mobile-accordion-panel" id="mob-products-panel" aria-hidden="true">
-      <a href="contrast-studio.html" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" opacity="0.6"/></svg></span>Contrast Studio</a>
-      <a href="type-clash.html" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span>TypeClash</a>
+<!-- HERO — live result -->
+<header class="hero">
+  <div class="hero-bar">
+    <div class="hero-bar-dots">
+      <div class="hero-bar-dot"></div><div class="hero-bar-dot"></div><div class="hero-bar-dot"></div>
+    </div>
+    <div class="hero-bar-title">admath — live result</div>
+  </div>
+  <div class="hero-bg-word" aria-hidden="true">Math</div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Savset · Product</p>
+    <h1>Ad<em>Math</em></h1>
+    <p class="hero-sub">Enter your price, cost and conversion rate. See the most you can pay per click and per lead on Google and Meta Ads, before you spend a cent.</p>
+    <div class="hero-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+      Google Ads · Meta Ads · Break-even
+    </div>
+    <div class="hero-cta-strip">
+      <a class="hero-cta-main" href="https://www.savset.com#contact">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Want us to run your ads?
+      </a>
+      <a class="hero-cta-sub" href="https://www.savset.com#services">We manage Google &amp; Meta campaigns →</a>
     </div>
   </div>
-  <div class="mobile-accordion">
-    <button class="mobile-accordion-trigger" aria-expanded="false" id="mob-services-trigger">Services<svg class="mob-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-    <div class="mobile-accordion-panel" id="mob-services-panel" aria-hidden="true">
-      <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 10l-4 4L7 10"/><path d="M3 6h18M3 12h12M3 18h8"/></svg></span>Motion &amp; Film</a>
-      <a href="index.html#services" class="mob-sub-link"><span class="mob-sub-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>Web Design &amp; Build</a>
-    </div>
+
+  <div class="hero-right" aria-live="polite">
+    <p class="hero-preview-label">Live result</p>
+    <div class="hero-live-num" id="hero-num">—</div>
+    <div class="hero-live-cap">max cost per click</div>
+    <div class="hero-live-text" id="hero-text">Enter your numbers below to see what you can afford to pay.</div>
+    <div class="hero-score-row"><span class="vpill v-idle" id="hero-pill">Enter numbers</span></div>
   </div>
-  <a href="works.html">Work</a>
-  <a href="index.html#approach">Approach</a>
-  <a href="index.html#pricing">Pricing</a>
-  <a href="index.html#contact">Contact</a>
-  <a href="#" class="mobile-book-btn" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;">Book a call</a>
-</div>
-
-
-<header class="prod-hero">
-  <div class="blob" aria-hidden="true"></div>
-  <p class="hero-eyebrow">Savset Products · Free tool</p>
-  <h1>Ad<b>Math</b>,<br>know your break-even.</h1>
-  <p class="lead">Enter your price, cost and conversion rate. See the most you can pay per click and per lead on Google and Meta Ads, and the ROAS you need before an ad earns a cent.</p>
 </header>
 
-<section class="calc">
-  <div class="calc-grid">
-    <div class="inputs-card">
-      <p class="pc-tier">Your numbers</p>
-      <div class="platforms" role="tablist" aria-label="Ad platform">
-        <button class="ptab active" data-p="google" role="tab" aria-selected="true">Google Ads</button>
-        <button class="ptab" data-p="meta" role="tab" aria-selected="false">Meta Ads</button>
-      </div>
-      <div class="field"><label for="price">Product price</label><small>What the customer pays you</small><div class="input-wrap"><span>$</span><input id="price" type="number" inputmode="decimal" min="0" step="any" value="49"></div></div>
-      <div class="field"><label for="cost">Cost per sale</label><small>Product, shipping, fees, anything you pay per order</small><div class="input-wrap"><span>$</span><input id="cost" type="number" inputmode="decimal" min="0" step="any" value="18"></div></div>
-      <div class="field"><label for="cr">Conversion rate</label><small>Share of clicks that become a sale</small><div class="input-wrap"><input id="cr" type="number" inputmode="decimal" min="0" max="100" step="any" value="2.5"><span>%</span></div></div>
-      <div class="optional">
-        <p class="pc-tier">Optional</p>
-        <div class="field"><label for="close">Lead-to-sale close rate</label><small>For lead gen and service businesses</small><div class="input-wrap"><input id="close" type="number" inputmode="decimal" min="0" max="100" step="any" value="20"><span>%</span></div></div>
-        <div class="field"><label for="ecpc">Expected cost per click</label><small>What you're paying, or expect to pay, per click</small><div class="input-wrap"><span>$</span><input id="ecpc" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 0.80"></div></div>
-      </div>
-    </div>
+<!-- TOOL -->
+<div class="tool">
 
-    <div class="results" id="results" data-state="idle" aria-live="polite">
-      <div class="verdict"><span class="dot"></span><div><h2 id="v-title">Enter your numbers</h2><p id="v-text"></p></div></div>
-      <div class="stats">
-        <div class="stat"><div class="stat-label">Max cost per click</div><div class="stat-val" id="o-cpc">—</div><div class="stat-sub">Pay more and you lose money</div></div>
-        <div class="stat"><div class="stat-label">Max cost per lead</div><div class="stat-val" id="o-cpl">—</div><div class="stat-sub" id="o-cpl-sub">At your close rate</div></div>
-        <div class="stat"><div class="stat-label">Break-even ROAS</div><div class="stat-val" id="o-roas">—</div><div class="stat-sub" id="o-roas-sub">Revenue ÷ ad spend</div></div>
-      </div>
-      <div class="mini">
-        <div><span>Profit per sale</span><strong id="o-profit">—</strong></div>
-        <div><span>Max cost per sale</span><strong id="o-cpa">—</strong></div>
-        <div><span>Margin</span><strong id="o-margin">—</strong></div>
-      </div>
-      <p class="tip" id="tip"></p>
-      <div class="audit">
-        <h3>Numbers not working yet?</h3>
-        <p>That doesn't always mean ads are off the table. Let us look at your offer, funnel and targeting, free.</p>
-        <div class="audit-actions">
-          <a class="abtn abtn-primary" id="audit-mail" href="mailto:savsetsystems@gmail.com?subject=Free%20Ad%20Audit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Get a free ad audit</a>
-          <a class="abtn abtn-outline" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/savset'});return false;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Book a call</a>
-        </div>
-      </div>
+  <div class="platforms" role="tablist" aria-label="Ad platform">
+    <button class="ptab active" data-p="google" role="tab" aria-selected="true">Google Ads</button>
+    <button class="ptab" data-p="meta" role="tab" aria-selected="false">Meta Ads</button>
+  </div>
+
+  <div class="inputs-group">
+    <div class="section-eyebrow">Your numbers</div>
+    <div class="inputs-grid">
+      <div class="field"><label for="price">Product price</label><small>What the customer pays you</small>
+        <div class="input-wrap"><span>$</span><input id="price" type="number" inputmode="decimal" min="0" step="any" value="49"></div></div>
+      <div class="field"><label for="cost">Cost per sale</label><small>Product, shipping, fees, anything you pay per order</small>
+        <div class="input-wrap"><span>$</span><input id="cost" type="number" inputmode="decimal" min="0" step="any" value="18"></div></div>
+      <div class="field"><label for="cr">Conversion rate</label><small>Share of clicks that become a sale</small>
+        <div class="input-wrap"><input id="cr" type="number" inputmode="decimal" min="0" max="100" step="any" value="2.5"><span>%</span></div></div>
     </div>
+  </div>
+
+  <div class="inputs-group">
+    <div class="section-eyebrow">Optional — for leads and click costs</div>
+    <div class="inputs-grid">
+      <div class="field"><label for="close">Lead-to-sale close rate</label><small>For lead gen and service businesses</small>
+        <div class="input-wrap"><input id="close" type="number" inputmode="decimal" min="0" max="100" step="any" value="20"><span>%</span></div></div>
+      <div class="field"><label for="ecpc">Expected cost per click</label><small>What you pay, or expect to pay, per click</small>
+        <div class="input-wrap"><span>$</span><input id="ecpc" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 0.80"></div></div>
+    </div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="score-panel" aria-live="polite">
+    <div class="score-main">
+      <div class="score-num" id="o-cpc">—</div>
+      <div class="score-label">max cost per click</div>
+      <span class="vpill v-idle" id="v-pill">Enter numbers</span>
+      <p class="score-text" id="v-text"></p>
+    </div>
+    <div class="score-checks">
+      <div class="check-row"><span class="check-label">Profit per sale</span><span class="check-val" id="o-profit">—</span></div>
+      <div class="check-row"><span class="check-label">Margin</span><span class="check-val" id="o-margin">—</span></div>
+      <div class="check-row"><span class="check-label">Break-even ROAS</span><span class="check-val" id="o-roas">—</span></div>
+      <div class="check-row"><span class="check-label">Max cost per lead</span><span class="check-val" id="o-cpl">—</span></div>
+      <div class="check-row"><span class="check-label">Click cost check</span><span class="check-pill pill-idle" id="o-click">Add a CPC</span></div>
+    </div>
+  </div>
+  <p class="tip" id="tip"></p>
+
+  <!-- AUDIT CTA -->
+  <div class="audit">
+    <div>
+      <h3 id="audit-title">Want us to run your ads?</h3>
+      <p id="audit-text">We build and manage Google and Meta campaigns that stay under your break-even. Start with a free plan.</p>
+    </div>
+    <div class="audit-actions">
+      <a class="abtn abtn-primary" id="audit-mail" href="mailto:savsetsystems@gmail.com?subject=Free%20Ad%20Audit">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span id="audit-btn">Get a free ad plan</span>
+      </a>
+      <a class="abtn abtn-outline" href="#" id="book-call">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book a call
+      </a>
+    </div>
+  </div>
+
+  <!-- THE MATH -->
+  <div class="section-eyebrow">The math</div>
+  <div class="traits-grid">
+    <div class="trait-card">
+      <div class="trait-step">01</div>
+      <div class="trait-name">Profit per sale</div>
+      <div class="trait-desc">Price minus cost. This is the most you can spend to win one customer, so it is also your max cost per sale.</div>
+    </div>
+    <div class="trait-card">
+      <div class="trait-step">02</div>
+      <div class="trait-name">Max cost per click</div>
+      <div class="trait-desc">Profit per sale × conversion rate. If a click converts 2.5% of the time, each click can only be worth 2.5% of your profit.</div>
+    </div>
+    <div class="trait-card">
+      <div class="trait-step">03</div>
+      <div class="trait-name">Break-even ROAS</div>
+      <div class="trait-desc">Price ÷ profit. Below this return on ad spend you lose money, above it you profit. Cost per lead works the same, using your close rate.</div>
+    </div>
+  </div>
+
+</div><!-- /tool -->
+
+<!-- PRESETS -->
+<section class="presets-section">
+  <div class="section-eyebrow" style="max-width:1020px;margin:0 auto 1rem;">Quick examples to try</div>
+  <div class="presets-row">
+    <button class="preset active" data-price="49" data-cost="18" data-cr="2.5" data-close="20" data-ecpc=""><span class="preset-fonts">$</span> Online store</button>
+    <button class="preset" data-price="120" data-cost="10" data-cr="1.5" data-close="20" data-ecpc=""><span class="preset-fonts">$</span> Digital course</button>
+    <button class="preset" data-price="300" data-cost="120" data-cr="4" data-close="25" data-ecpc=""><span class="preset-fonts">$</span> Local service</button>
+    <button class="preset" data-price="2000" data-cost="600" data-cr="3" data-close="15" data-ecpc=""><span class="preset-fonts">$</span> B2B lead gen</button>
+    <button class="preset" data-price="25" data-cost="21" data-cr="2" data-close="20" data-ecpc="0.60"><span class="preset-fonts">$</span> Thin margins ↓</button>
   </div>
 </section>
 
-<section class="how">
-  <div class="section-head"><h2>The math</h2><p>Three formulas, no tricks. Everything runs in your browser.</p></div>
-  <div class="how-row"><span class="step">01</span><h4>Profit per sale</h4><p>Price minus cost. This is the most you can spend to win one customer, so it is also your max cost per sale.</p></div>
-  <div class="how-row"><span class="step">02</span><h4>Max cost per click</h4><p>Profit per sale × conversion rate. If a click converts 2.5% of the time, each click can only be worth 2.5% of your profit.</p></div>
-  <div class="how-row"><span class="step">03</span><h4>Break-even ROAS</h4><p>Price ÷ profit. Below this return on ad spend you lose money; above it you profit. Cost per lead works the same, using your close rate.</p></div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <a href="index.html#home" class="footer-logo-link"><div class="footer-logo">Savset</div></a>
-    <div class="footer-links">
-      <div class="footer-col">
-        <h5>Company</h5>
-        <a href="index.html#services">Motion &amp; Film</a><a href="index.html#services">Web Design</a><a href="works.html">Work</a><a href="index.html#approach">Approach</a><a href="index.html#pricing">Pricing</a>
-      </div>
-      <div class="footer-col">
-        <h5>Contact</h5>
-        <a href="mailto:savsetsystems@gmail.com">E-Mail</a><a href="https://www.youtube.com/@savsetsystems" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/savsetsystems" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/savsetsystems" target="_blank" rel="noopener">Facebook</a><a href="https://www.linkedin.com/company/savsetsystems" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.tiktok.com/@savsetsystems" target="_blank" rel="noopener">TikTok</a><a href="https://x.com/savsetsystems" target="_blank" rel="noopener">X</a>
-      </div>
+  <div class="footer-inner">
+    <div>
+      <a href="https://www.savset.com" class="footer-brand">Savset</a>
+      <div class="footer-product">AdMath</div>
     </div>
+    <div class="footer-note">A free tool from Savset Systems. Built for businesses that spend on ads.</div>
+    <a href="https://www.savset.com" class="footer-back">← Back to savset.com</a>
   </div>
-  <div class="footer-illustration" aria-hidden="true">
-    <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="120" cy="55" r="22" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.35"/>
-      <g stroke="#DBD9FF" stroke-width="0.7" opacity="0.22"><line x1="120" y1="20" x2="120" y2="10"/><line x1="150" y1="35" x2="158" y2="28"/><line x1="90" y1="35" x2="82" y2="28"/><line x1="158" y1="55" x2="168" y2="55"/><line x1="82" y1="55" x2="72" y2="55"/></g>
-      <g stroke="#DBD9FF" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"><path d="M250,45 Q258,38 266,45 Q274,38 282,45"/><path d="M610,70 Q616,65 622,70 Q628,65 634,70"/><path d="M700,42 Q705,37 710,42 Q715,37 720,42"/></g>
-      <path d="M0,150 Q60,95 120,135 Q170,105 230,140 Q290,90 350,138 Q410,108 470,142 Q530,92 590,140 Q650,112 710,144 Q770,100 830,142 Q860,128 900,140" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.18"/>
-      <path d="M0,200 L70,118 L110,158 L165,85 L205,148 L255,68 L300,140 L335,112 L365,150" fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
-      <g stroke="#DBD9FF" stroke-width="0.9" opacity="0.4"><line x1="240" y1="82" x2="252" y2="76"/><line x1="248" y1="92" x2="262" y2="84"/><line x1="268" y1="84" x2="280" y2="92"/></g>
-      <path d="M535,150 L565,112 L600,140 L650,70 L690,148 L735,90 L770,158 L810,120 L850,160 L900,140" fill="none" stroke="#DBD9FF" stroke-width="1.1" opacity="0.32"/>
-      <g stroke="#DBD9FF" stroke-width="0.9" opacity="0.4"><line x1="636" y1="84" x2="648" y2="78"/><line x1="644" y1="94" x2="658" y2="86"/><line x1="664" y1="86" x2="676" y2="94"/></g>
-      <path d="M0,200 Q150,182 300,198 Q450,212 600,196 Q750,182 900,202" fill="none" stroke="#DBD9FF" stroke-width="1" opacity="0.26"/>
-      <line x1="0" y1="200" x2="900" y2="200" stroke="#DBD9FF" stroke-width="0.6" opacity="0.15"/>
-      <g stroke="#DBD9FF" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
-        <line x1="450" y1="40" x2="450" y2="74"/><circle cx="450" cy="35" r="2.6"/><circle cx="450" cy="46" r="4.2"/>
-        <path d="M444,54 L456,54" stroke-width="1"/><path d="M441,62 L459,62" stroke-width="1"/>
-        <path d="M416,75 Q422.8,67.6 431.3,61.2 Q444.9,56.2 450,54 Q455.1,56.2 468.7,61.2 Q477.2,67.6 484,75"/>
-        <line x1="436" y1="75" x2="436" y2="86"/><line x1="464" y1="75" x2="464" y2="86"/>
-        <path d="M396,112 Q406.8,103 420.3,95 Q441.9,88.7 450,86 Q458.1,88.7 479.7,95 Q493.2,103 504,112"/>
-        <line x1="424" y1="112" x2="424" y2="128"/><line x1="476" y1="112" x2="476" y2="128"/>
-        <path d="M370,150 Q386,139.4 406,129.8 Q438,122.2 450,119 Q462,122.2 494,129.8 Q514,139.4 530,150"/>
-        <line x1="404" y1="150" x2="404" y2="170"/><line x1="496" y1="150" x2="496" y2="170"/>
-        <line x1="442" y1="152" x2="442" y2="170"/><line x1="458" y1="152" x2="458" y2="170"/><line x1="442" y1="152" x2="458" y2="152"/>
-        <rect x="394" y="170" width="112" height="9"/><rect x="384" y="179" width="132" height="8"/><rect x="372" y="187" width="156" height="8"/>
-      </g>
-    </svg>
-  </div>
-  <div class="footer-bottom"><span>&copy; 2026 Savset. All rights reserved.</span><span>Go Creative.</span></div>
 </footer>
 
 <script>
-/* Nav */
-const nav=document.getElementById('main-nav');
-const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>60);
-window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-const toggle=document.getElementById('nav-toggle'),mobileMenu=document.getElementById('mobile-menu');
-let menuOpen=false;
-function openMenu(){menuOpen=true;toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');nav.classList.add('menu-open');mobileMenu.style.display='flex';requestAnimationFrame(()=>mobileMenu.classList.add('open'));mobileMenu.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function closeMenu(){menuOpen=false;toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');nav.classList.remove('menu-open');mobileMenu.classList.remove('open');mobileMenu.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-toggle.addEventListener('click',()=>menuOpen?closeMenu():openMenu());
-document.querySelectorAll('#mobile-menu a').forEach(a=>a.addEventListener('click',closeMenu));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)closeMenu();});
-document.querySelectorAll('.mobile-accordion-trigger').forEach(t=>t.addEventListener('click',e=>{
-  e.stopPropagation();const open=t.getAttribute('aria-expanded')==='true';
-  document.querySelectorAll('.mobile-accordion-trigger').forEach(x=>{x.setAttribute('aria-expanded','false');const p=document.getElementById(x.id.replace('trigger','panel'));p.classList.remove('open');p.setAttribute('aria-hidden','true');});
-  if(!open){t.setAttribute('aria-expanded','true');const p=document.getElementById(t.id.replace('trigger','panel'));p.classList.add('open');p.setAttribute('aria-hidden','false');}
+/* ─── CALC ─────────────────────────────────────── */
+const $ = id => document.getElementById(id);
+let platform = 'google';
+
+const num = id => { const v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
+const money = v => '$' + (v >= 100 ? v.toFixed(0) : v.toFixed(2));
+const VERD = {
+  idle:  ['Enter numbers', 'v-idle'],
+  ok:    ['Profitable',    'v-ok'],
+  tight: ['Tight margins', 'v-tight'],
+  bad:   ['Losing money',  'v-bad']
+};
+const AUDIT = {
+  idle:  ['Want us to run your ads?', 'We build and manage Google and Meta campaigns that stay under your break-even. Start with a free plan.', 'Get a free ad plan'],
+  ok:    ['Your numbers work. Want us to run the ads?', 'We build and manage Google and Meta campaigns that stay under your break-even. Start with a free plan.', 'Get a free ad plan'],
+  tight: ['Margins are thin. Let us find the room.', 'Offer, funnel and targeting usually hide the extra points. We will review yours, free.', 'Get a free ad audit'],
+  bad:   ['Numbers not working yet?', 'That does not always mean ads are off the table. Let us look at your offer, funnel and targeting, free.', 'Get a free ad audit']
+};
+
+function setPill(el, state) {
+  el.className = 'vpill ' + VERD[state][1];
+  el.textContent = VERD[state][0];
+}
+
+function calc() {
+  const price = num('price'), cost = num('cost'), cr = num('cr'), close = num('close'), ecpc = num('ecpc');
+  const profit = price - cost;
+  let state = 'idle', text = '', tip = '';
+  let cpcTxt = '—', cplTxt = '—', roasTxt = '—', profitTxt = '—', marginTxt = '—';
+  let clickLabel = 'Add a CPC', clickCls = 'pill-idle';
+
+  if (price > 0) {
+    const maxCpc = profit > 0 ? profit * cr / 100 : 0;
+    const maxCpl = profit > 0 ? profit * close / 100 : 0;
+    const roas   = profit > 0 ? price / profit : 0;
+
+    cpcTxt    = money(maxCpc);
+    cplTxt    = money(maxCpl);
+    roasTxt   = profit > 0 ? roas.toFixed(2) + 'x' : '—';
+    profitTxt = (profit < 0 ? '-' : '') + money(Math.abs(profit));
+    marginTxt = Math.round(profit / price * 100) + '%';
+
+    if (ecpc > 0 && maxCpc > 0) {
+      if (ecpc > maxCpc)            { clickLabel = 'Over budget'; clickCls = 'pill-fail'; }
+      else if (ecpc > maxCpc * 0.8) { clickLabel = 'Very tight';  clickCls = 'pill-warn'; }
+      else                          { clickLabel = 'Within max';  clickCls = 'pill-pass'; }
+    }
+
+    if (profit <= 0) {
+      state = 'bad'; text = 'You lose money on every sale before spending anything on ads.';
+    } else if (cr <= 0) {
+      state = 'bad'; text = 'With no conversions, no click is worth paying for. Add your conversion rate.';
+    } else if (ecpc > 0 && ecpc > maxCpc) {
+      state = 'bad'; text = 'Your expected CPC of ' + money(ecpc) + ' is above your max of ' + money(maxCpc) + '. Every click loses money.';
+    } else if (roas >= 6) {
+      state = 'bad'; text = 'You need a ' + roas.toFixed(1) + 'x return just to break even. Very few campaigns hold that.';
+    } else if ((ecpc > 0 && ecpc > maxCpc * 0.8) || roas >= 4) {
+      state = 'tight';
+      text = (ecpc > 0 && ecpc > maxCpc * 0.8)
+        ? 'Your CPC of ' + money(ecpc) + ' leaves almost no room under your max of ' + money(maxCpc) + '.'
+        : 'You need a ' + roas.toFixed(1) + 'x return just to break even. Few campaigns hold that.';
+    } else {
+      state = 'ok'; text = 'Keep clicks under ' + money(maxCpc) + ' and you are profitable. Aim well below it to leave room for profit.';
+    }
+
+    if (profit > 0) {
+      tip = platform === 'google'
+        ? 'Google Ads: keep max CPC bids under ' + money(maxCpc) + ' and set a Target ROAS of ' + Math.round(roas * 100) + '% or higher.'
+        : 'Meta Ads: use a cost cap near ' + money(profit) + ' per sale and a minimum ROAS of ' + roas.toFixed(2) + 'x.';
+    }
+  }
+
+  // Result panel
+  $('o-cpc').textContent    = cpcTxt;
+  $('o-cpl').textContent    = cplTxt;
+  $('o-roas').textContent   = roasTxt;
+  $('o-profit').textContent = profitTxt;
+  $('o-margin').textContent = marginTxt;
+  $('o-click').className    = 'check-pill ' + clickCls;
+  $('o-click').textContent  = clickLabel;
+  $('v-text').textContent   = text;
+  $('tip').textContent      = tip;
+  setPill($('v-pill'), state);
+
+  // Hero live result
+  $('hero-num').textContent  = cpcTxt;
+  $('hero-text').textContent = text || 'Enter your numbers below to see what you can afford to pay.';
+  setPill($('hero-pill'), state);
+
+  // Audit CTA copy + prefilled email
+  $('audit-title').textContent = AUDIT[state][0];
+  $('audit-text').textContent  = AUDIT[state][1];
+  $('audit-btn').textContent   = AUDIT[state][2];
+  const body = 'Hi Savset, I ran my numbers in AdMath (' + (platform === 'google' ? 'Google' : 'Meta') + ' Ads).\n\n' +
+    'Price: $' + price + '\nCost per sale: $' + cost + '\nConversion rate: ' + cr + '%' +
+    (ecpc ? '\nExpected CPC: $' + ecpc : '') + '\n\nI would like a free ad ' + (state === 'ok' || state === 'idle' ? 'plan' : 'audit') + '.';
+  $('audit-mail').href = 'mailto:savsetsystems@gmail.com?subject=' +
+    encodeURIComponent('Free Ad ' + (state === 'ok' || state === 'idle' ? 'Plan' : 'Audit') + ' (AdMath)') +
+    '&body=' + encodeURIComponent(body);
+}
+
+document.querySelectorAll('.input-wrap input').forEach(i => {
+  i.addEventListener('input', () => {
+    document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+    calc();
+  });
+});
+
+document.querySelectorAll('.ptab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.ptab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+  b.classList.add('active'); b.setAttribute('aria-selected', 'true');
+  platform = b.dataset.p;
+  calc();
 }));
 
-/* Cursor */
-const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;dot.style.left=mx+'px';dot.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-function bindHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));}
-document.querySelectorAll('a,button').forEach(bindHover);
-document.addEventListener('mouseleave',()=>{dot.style.opacity='0';ring.style.opacity='0';});
-document.addEventListener('mouseenter',()=>{dot.style.opacity='1';ring.style.opacity='1';});
-if(window.matchMedia('(hover: none)').matches){dot.style.display='none';ring.style.display='none';document.body.style.cursor='auto';}
-
-
-(function(){
-  const $=id=>document.getElementById(id);
-  let platform='google';
-  const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0;};
-  const money=v=>'$'+(v>=100?v.toFixed(0):v.toFixed(2));
-  const set=(id,t)=>{$(id).textContent=t;};
-  function calc(){
-    const price=num('price'),cost=num('cost'),cr=num('cr'),close=num('close'),ecpc=num('ecpc');
-    const res=$('results');
-    const profit=price-cost;
-    let state='idle',title='Enter your numbers',text='',tip='';
-    if(price<=0){
-      ['o-cpc','o-cpl','o-roas','o-profit','o-cpa','o-margin'].forEach(i=>set(i,'—'));
-      set('o-roas-sub','Revenue ÷ ad spend');set('o-cpl-sub','At your close rate');
-    }else{
-      const maxCpc=profit>0?profit*cr/100:0,maxCpl=profit>0?profit*close/100:0;
-      const roas=profit>0?price/profit:0;
-      set('o-cpc',profit>0?money(maxCpc):'$0.00');
-      set('o-cpl',profit>0?money(maxCpl):'$0.00');
-      set('o-roas',profit>0?roas.toFixed(2)+'x':'—');
-      set('o-roas-sub',profit>0?'= '+Math.round(roas*100)+'% target ROAS':'No profit to cover ad spend');
-      set('o-cpl-sub','At a '+close+'% close rate');
-      set('o-profit',(profit<0?'-':'')+money(Math.abs(profit)));
-      set('o-cpa',profit>0?money(profit):'$0.00');
-      set('o-margin',Math.round(profit/price*100)+'%');
-      if(profit<=0){state='bad';title="This doesn't add up";text='You lose money on every sale before spending anything on ads.';}
-      else if(cr<=0){state='bad';title="This doesn't add up";text='With no conversions, no click is worth paying for. Add your conversion rate.';}
-      else if(ecpc>0&&ecpc>maxCpc){state='bad';title="Clicks cost more than they earn";text='Your expected CPC of '+money(ecpc)+' is above your max of '+money(maxCpc)+'. Every click loses money.';}
-      else if((ecpc>0&&ecpc>maxCpc*0.8)||roas>=4){
-        state=roas>=6?'bad':'tight';title=roas>=6?'Very hard to break even':'Tight margins';
-        text=ecpc>0&&ecpc>maxCpc*0.8?'Your CPC of '+money(ecpc)+' leaves almost no room under your max of '+money(maxCpc)+'.':'You need a '+roas.toFixed(1)+'x return just to break even. Few campaigns hold that.';
-      }else{state='ok';title='Ads can work for you';text='Keep clicks under '+money(maxCpc)+' and you are profitable. Aim well below it to leave room for profit.';}
-      if(profit>0){
-        tip=platform==='google'
-          ?'Google Ads: keep max CPC bids under '+money(maxCpc)+' and set a Target ROAS of '+Math.round(roas*100)+'% or higher.'
-          :'Meta Ads: use a cost cap near '+money(profit)+' per sale and a minimum ROAS of '+roas.toFixed(2)+'x.';
-      }
-    }
-    res.dataset.state=state;set('v-title',title);set('v-text',text);set('tip',tip);
-    const body='Hi Savset, I ran my numbers in AdMath ('+(platform==='google'?'Google':'Meta')+' Ads).\n\nPrice: $'+price+'\nCost per sale: $'+cost+'\nConversion rate: '+cr+'%'+(ecpc?'\nExpected CPC: $'+ecpc:'')+'\n\nI would like a free ad audit.';
-    $('audit-mail').href='mailto:savsetsystems@gmail.com?subject='+encodeURIComponent('Free Ad Audit (AdMath)')+'&body='+encodeURIComponent(body);
-  }
-  document.querySelectorAll('.input-wrap input').forEach(i=>{i.addEventListener('input',calc);bindHover(i);});
-  document.querySelectorAll('.ptab').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('.ptab').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});
-    b.classList.add('active');b.setAttribute('aria-selected','true');platform=b.dataset.p;calc();
-  }));
+document.querySelectorAll('.preset').forEach(btn => btn.addEventListener('click', () => {
+  $('price').value = btn.dataset.price;
+  $('cost').value  = btn.dataset.cost;
+  $('cr').value    = btn.dataset.cr;
+  $('close').value = btn.dataset.close;
+  $('ecpc').value  = btn.dataset.ecpc;
+  document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   calc();
+}));
+
+$('book-call').addEventListener('click', e => {
+  e.preventDefault();
+  if (window.Calendly) Calendly.initPopupWidget({ url: 'https://calendly.com/savset' });
+  else window.open('https://calendly.com/savset', '_blank');
+});
+
+/* ─── CURSOR ───────────────────────────────────── */
+(function(){
+  const dot = $('cursor-dot'), ring = $('cursor-ring');
+  let rx = 0, ry = 0, mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+  function tick(){ rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+  document.querySelectorAll('a,button,.preset,.input-wrap').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cur-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cur-hover'));
+  });
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+  if (window.matchMedia('(hover:none)').matches) { dot.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
 })();
+
+calc();
 </script>
 </body>
 </html>
