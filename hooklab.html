@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HookLab — Savset</title>
+<meta name="description" content="Paste the first line of your reel, caption or post. Get a hook score out of 100, see what to fix, and try stronger openers.">
+<link rel="icon" type="image/x-icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<style>
+:root{
+  --lavender:#DBD9FF;
+  --teal:#00252A;
+  --teal-2:#0A3940;
+  --cream:#F7F6FF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--teal);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none;}
+a,button,textarea{cursor:none;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+a:focus-visible,button:focus-visible{outline:2px solid var(--lavender);outline-offset:4px;}
+.tool a:focus-visible,.tool button:focus-visible,.presets-section button:focus-visible{outline-color:var(--teal);}
+
+/* CURSOR */
+#cursor-dot{width:8px;height:8px;background:var(--lavender);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s,background .2s,opacity .2s;}
+#cursor-ring{width:36px;height:36px;border:1.5px solid rgba(219,217,255,.55);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .35s cubic-bezier(.65,0,.35,1),height .35s cubic-bezier(.65,0,.35,1),border-color .3s;}
+body.cur-hover #cursor-dot{width:12px;height:12px;background:#fff;}
+body.cur-hover #cursor-ring{width:56px;height:56px;border-color:rgba(255,255,255,.5);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 4rem;z-index:500;background:rgba(0,37,42,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(219,217,255,.08);}
+.nav-left{display:flex;align-items:center;gap:1.6rem;}
+.nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--lavender);text-decoration:none;transition:opacity .2s;}
+.nav-logo:hover{opacity:.75;}
+.nav-sep{width:1px;height:18px;background:rgba(219,217,255,.22);}
+.nav-product{font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--lavender);opacity:.45;}
+.nav-back{display:flex;align-items:center;gap:.4rem;font-size:.84rem;color:var(--lavender);text-decoration:none;opacity:.55;transition:opacity .2s;border:1px solid rgba(219,217,255,.2);padding:.45rem 1rem;border-radius:100px;}
+.nav-back:hover{opacity:1;border-color:rgba(219,217,255,.45);}
+
+/* HERO */
+.hero{min-height:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5.5rem 4rem 2.8rem;position:relative;overflow:hidden;background:var(--teal);color:var(--lavender);gap:0;}
+.hero-bg-word{position:absolute;right:-.02em;top:50%;transform:translateY(-50%);font-family:'Fraunces',serif;font-weight:700;font-style:italic;font-size:clamp(5rem,16vw,14rem);color:var(--lavender);opacity:.04;line-height:1;pointer-events:none;user-select:none;white-space:nowrap;letter-spacing:-.04em;}
+.hero-bar{position:absolute;top:0;left:0;right:0;padding:.7rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(219,217,255,.12);z-index:2;}
+.hero-bar-dots{display:flex;gap:.38rem;}
+.hero-bar-dot{width:9px;height:9px;border-radius:50%;background:var(--lavender);opacity:.22;}
+.hero-bar-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.35;color:var(--lavender);}
+.hero-left{position:relative;z-index:1;}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;opacity:.45;margin-bottom:.6rem;}
+.hero h1{font-family:'Fraunces',serif;font-weight:600;font-style:italic;font-size:clamp(2.4rem,4.5vw,4.4rem);letter-spacing:-.02em;line-height:.96;}
+.hero h1 em{font-style:normal;font-weight:300;}
+.hero-sub{max-width:42ch;margin-top:.9rem;font-size:.9rem;line-height:1.55;opacity:.72;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:.38rem .95rem;border-radius:100px;width:fit-content;opacity:.6;border:1px solid rgba(219,217,255,.35);color:var(--lavender);}
+.hero-cta-strip{display:flex;align-items:center;gap:1rem;margin-top:1.6rem;flex-wrap:wrap;}
+.hero-cta-main{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.5rem;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;text-decoration:none;background:var(--lavender);color:var(--teal);transition:transform .25s ease,box-shadow .25s ease;}
+.hero-cta-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.hero-cta-sub{font-size:.8rem;color:var(--lavender);opacity:.55;text-decoration:none;transition:opacity .2s;}
+.hero-cta-sub:hover{opacity:.9;}
+.hero-right{position:relative;z-index:1;padding-left:3rem;border-left:1px solid rgba(219,217,255,.18);}
+.hero-preview-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:.8rem;}
+.hero-live-num{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2.8rem,5.5vw,4.8rem);line-height:1;letter-spacing:-.03em;color:var(--lavender);}
+.hero-live-num span{font-size:.35em;font-weight:300;opacity:.45;}
+.hero-live-cap{font-size:.78rem;opacity:.5;margin-top:.4rem;letter-spacing:.06em;}
+.hero-live-text{font-size:.9rem;line-height:1.6;opacity:.72;margin-top:.9rem;max-width:44ch;min-height:3.2em;}
+.hero-score-row{display:flex;align-items:center;gap:.6rem;margin-top:1rem;}
+
+/* VERDICT PILLS */
+.vpill{display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.32rem .9rem;border-radius:100px;border:1px solid;transition:background .3s,color .3s,border-color .3s;}
+.v-idle{background:rgba(219,217,255,.08);color:var(--lavender);border-color:rgba(219,217,255,.22);}
+.v-ok{background:rgba(0,229,145,.14);color:#00e591;border-color:rgba(0,229,145,.24);}
+.v-tight{background:rgba(212,198,0,.14);color:#d4c600;border-color:rgba(212,198,0,.24);}
+.v-bad{background:rgba(255,107,107,.12);color:#ff6b6b;border-color:rgba(255,107,107,.2);}
+
+/* TOOL */
+.tool{padding:4rem;max-width:1020px;margin:0 auto;}
+.section-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:1.1rem;}
+.platforms{display:flex;gap:.5rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.ptab{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border-radius:100px;border:1px solid rgba(0,37,42,.18);background:transparent;color:var(--teal);opacity:.5;transition:all .25s ease;}
+.ptab:hover{opacity:.75;border-color:rgba(0,37,42,.4);}
+.ptab.active{background:var(--teal);color:var(--lavender);border-color:var(--teal);opacity:1;}
+
+.hook-field{margin-bottom:2.2rem;}
+.hook-field label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.2rem;}
+.hook-field small{display:block;font-size:.78rem;opacity:.55;margin-bottom:.7rem;}
+.hook-box{width:100%;min-height:118px;resize:vertical;border:1.5px solid rgba(0,37,42,.2);border-radius:14px;padding:1.2rem 1.4rem;background:#fff;color:var(--teal);font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.35;outline:none;transition:border-color .2s ease,box-shadow .2s ease;}
+.hook-box:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,37,42,.07);}
+.hook-box::placeholder{color:rgba(0,37,42,.3);}
+.hook-meta{display:flex;justify-content:space-between;gap:1rem;margin-top:.6rem;font-size:.78rem;opacity:.55;flex-wrap:wrap;}
+
+/* RESULT PANEL */
+.score-panel{background:var(--teal);border-radius:8px;display:flex;flex-wrap:wrap;overflow:hidden;margin-bottom:1.5rem;}
+.score-main{flex:1;min-width:240px;padding:2.8rem 3rem;border-right:1px solid rgba(219,217,255,.1);}
+.score-num{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3.6rem,8vw,6.4rem);color:var(--lavender);line-height:1;letter-spacing:-.03em;}
+.score-num span{font-size:.35em;font-weight:300;opacity:.45;}
+.score-label{font-size:.78rem;color:var(--lavender);opacity:.45;margin-top:.5rem;letter-spacing:.1em;}
+.score-main .vpill{margin-top:1.4rem;padding:.5rem 1.4rem;font-size:.72rem;letter-spacing:.18em;}
+.score-text{font-size:.88rem;line-height:1.55;color:var(--lavender);opacity:.65;margin-top:1.1rem;max-width:38ch;min-height:2.8em;}
+.score-checks{flex:1;min-width:260px;padding:2.8rem;display:flex;flex-direction:column;justify-content:center;gap:1.05rem;}
+.check-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.check-label{font-size:.78rem;color:var(--lavender);opacity:.5;letter-spacing:.04em;}
+.check-right{display:flex;align-items:center;gap:.7rem;}
+.check-val{font-size:.8rem;color:var(--lavender);opacity:.7;text-align:right;}
+.check-pill{font-size:.66rem;font-weight:700;letter-spacing:.12em;padding:.22rem .72rem;border-radius:100px;border:1px solid transparent;white-space:nowrap;min-width:5.2rem;text-align:center;}
+.pill-pass{background:rgba(0,229,145,.12);color:#00e591;border-color:rgba(0,229,145,.2);}
+.pill-warn{background:rgba(212,198,0,.12);color:#d4c600;border-color:rgba(212,198,0,.2);}
+.pill-fail{background:rgba(255,107,107,.1);color:#ff6b6b;border-color:rgba(255,107,107,.18);}
+.pill-idle{background:rgba(219,217,255,.08);color:var(--lavender);border-color:rgba(219,217,255,.18);}
+
+/* FIX LIST */
+.fix-list{border:1.5px solid rgba(0,37,42,.1);border-radius:8px;overflow:hidden;margin-bottom:2rem;}
+.fix-row{display:flex;gap:1.2rem;padding:1.1rem 1.5rem;border-bottom:1.5px solid rgba(0,37,42,.08);font-size:.9rem;line-height:1.55;transition:background .3s;}
+.fix-row:last-child{border-bottom:none;}
+.fix-row:hover{background:rgba(0,37,42,.03);}
+.fix-tag{font-size:.68rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;opacity:.45;min-width:6.5rem;padding-top:.2rem;flex-shrink:0;}
+.fix-text{opacity:.8;}
+.fix-empty{padding:1.3rem 1.5rem;font-size:.9rem;opacity:.55;}
+
+/* AUDIT CTA */
+.audit{background:var(--lavender);color:var(--teal);border-radius:8px;padding:2.2rem 2.4rem;margin-bottom:3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.audit h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;margin-bottom:.4rem;line-height:1.2;}
+.audit p{font-size:.9rem;line-height:1.55;opacity:.75;max-width:52ch;}
+.audit-actions{display:flex;flex-wrap:wrap;gap:.7rem;}
+.abtn{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.6rem;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:500;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,background .25s ease;border:1.5px solid var(--teal);}
+.abtn-primary{background:var(--teal);color:var(--lavender);}
+.abtn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,37,42,.25);}
+.abtn-outline{background:transparent;color:var(--teal);}
+.abtn-outline:hover{background:rgba(0,37,42,.08);transform:translateY(-2px);}
+
+/* REWRITE + FORMULA CARDS */
+.recs-section{margin-bottom:3rem;}
+.recs-note{font-size:.8rem;opacity:.5;margin:-.5rem 0 1.1rem;line-height:1.5;}
+.recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.rec-card{display:block;width:100%;text-align:left;font:inherit;color:var(--teal);padding:1.5rem;border:1.5px solid rgba(0,37,42,.1);border-radius:6px;background:var(--cream);position:relative;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.rec-card::before{content:'';position:absolute;inset:0;background:var(--teal);transform:translateY(101%);transition:transform .4s cubic-bezier(.65,0,.35,1);z-index:0;}
+.rec-card:hover::before,.rec-card:focus-visible::before{transform:translateY(0);}
+.rec-card:hover,.rec-card:focus-visible{border-color:var(--teal);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,37,42,.12);}
+.rec-card>*{position:relative;z-index:1;transition:color .3s;}
+.rec-card:hover>*,.rec-card:focus-visible>*{color:var(--lavender);}
+.rec-top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.9rem;}
+.rec-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:.45;}
+.rec-score{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:.2rem .6rem;border-radius:100px;border:1px solid rgba(0,37,42,.18);white-space:nowrap;}
+.rec-card:hover .rec-score,.rec-card:focus-visible .rec-score{border-color:rgba(219,217,255,.35);}
+.rec-text{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:1.1rem;line-height:1.35;margin-bottom:.9rem;}
+.rec-pattern{font-family:'Fraunces',serif;font-weight:500;font-size:1.02rem;line-height:1.4;margin-bottom:.7rem;}
+.rec-pattern mark{background:none;color:inherit;font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;}
+.rec-ex{font-size:.78rem;line-height:1.5;opacity:.55;}
+.rec-hint{display:block;margin-top:.9rem;font-size:.72rem;font-weight:500;letter-spacing:.06em;opacity:.55;}
+.empty-note{grid-column:1/-1;border:1.5px dashed rgba(0,37,42,.15);border-radius:6px;padding:1.4rem 1.5rem;font-size:.88rem;opacity:.55;}
+
+/* HOW SCORED */
+.traits-wrap{border:1.5px solid rgba(0,37,42,.1);border-radius:8px;overflow:hidden;margin-bottom:1rem;}
+.traits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.5px;background:rgba(0,37,42,.1);}
+.trait-card{padding:1.6rem 1.3rem;background:var(--cream);transition:background .3s;}
+.trait-card:hover{background:#efeeff;}
+.trait-step{font-size:.72rem;letter-spacing:.16em;opacity:.4;margin-bottom:.5rem;}
+.trait-name{font-family:'Fraunces',serif;font-weight:500;font-size:1.05rem;margin-bottom:.4rem;}
+.trait-desc{font-size:.78rem;line-height:1.55;opacity:.55;}
+.disclaimer{font-size:.78rem;opacity:.5;line-height:1.55;margin-bottom:3rem;max-width:70ch;}
+
+/* PRESETS */
+.presets-section{padding:3rem 4rem;border-top:1px solid rgba(0,37,42,.08);}
+.presets-row{display:flex;flex-wrap:wrap;gap:.7rem;max-width:1020px;margin:0 auto;}
+.preset{display:flex;align-items:center;gap:.55rem;padding:.5rem 1rem;border-radius:100px;border:1.5px solid rgba(0,37,42,.12);background:transparent;color:var(--teal);font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:500;transition:border-color .2s,background .2s,transform .2s;}
+.preset:hover{border-color:rgba(0,37,42,.3);background:rgba(0,37,42,.04);transform:translateY(-1px);}
+.preset.active{border-color:rgba(0,37,42,.5);background:rgba(0,37,42,.08);}
+.preset-fonts{font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;opacity:.6;}
+
+/* FOOTER */
+footer{padding:3rem 4rem 2.5rem;background:var(--teal);color:var(--lavender);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(219,217,255,.12);padding-top:2rem;}
+.footer-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--lavender);text-decoration:none;transition:opacity .2s;}
+.footer-brand:hover{opacity:.75;}
+.footer-product{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.38;margin-top:.35rem;}
+.footer-back{font-size:.82rem;color:var(--lavender);text-decoration:none;opacity:.5;transition:opacity .2s;}
+.footer-back:hover{opacity:1;}
+.footer-note{font-size:.78rem;opacity:.38;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  nav{padding:1.1rem 1.4rem;}
+  .nav-back span{display:none;}
+  .hero{grid-template-columns:1fr;padding:6rem 1.4rem 2.5rem;}
+  .hero-right{padding-left:0;border-left:none;margin-top:1.5rem;}
+  .tool{padding:3rem 1.4rem;}
+  .score-panel{flex-direction:column;}
+  .score-main{border-right:none;border-bottom:1px solid rgba(219,217,255,.1);padding:2.2rem 1.6rem;}
+  .score-checks{padding:2rem 1.6rem;}
+  .fix-row{flex-direction:column;gap:.3rem;padding:1rem 1.2rem;}
+  .audit{padding:1.8rem 1.4rem;}
+  .recs-grid{grid-template-columns:1fr;}
+  .presets-section{padding:2.5rem 1.4rem;}
+  footer{padding:2.5rem 1.4rem 2rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <div class="nav-left">
+    <a href="https://www.savset.com" class="nav-logo">Savset</a>
+    <div class="nav-sep"></div>
+    <span class="nav-product">HookLab</span>
+  </div>
+  <a href="https://www.savset.com" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    <span>Back to Savset</span>
+  </a>
+</nav>
+
+<!-- HERO — live score -->
+<header class="hero">
+  <div class="hero-bar">
+    <div class="hero-bar-dots">
+      <div class="hero-bar-dot"></div><div class="hero-bar-dot"></div><div class="hero-bar-dot"></div>
+    </div>
+    <div class="hero-bar-title">hooklab — live score</div>
+  </div>
+  <div class="hero-bg-word" aria-hidden="true">Hook</div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Savset · Product</p>
+    <h1>Hook<em>Lab</em></h1>
+    <p class="hero-sub">Paste the first line of your reel, caption or post. Get a score out of 100, see exactly what to fix, and try stronger openers in one click.</p>
+    <div class="hero-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>
+      Curiosity · Specificity · Promise
+    </div>
+    <div class="hero-cta-strip">
+      <a class="hero-cta-main" href="https://www.savset.com#contact">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Need hooks written for you?
+      </a>
+      <a class="hero-cta-sub" href="https://www.savset.com#services">We run social media for brands →</a>
+    </div>
+  </div>
+
+  <div class="hero-right" aria-live="polite">
+    <p class="hero-preview-label">Live score</p>
+    <div class="hero-live-num" id="hero-num">—</div>
+    <div class="hero-live-cap">hook score</div>
+    <div class="hero-live-text" id="hero-text">Type or paste a hook below to see how it scores.</div>
+    <div class="hero-score-row"><span class="vpill v-idle" id="hero-pill">Enter a hook</span></div>
+  </div>
+</header>
+
+<!-- TOOL -->
+<div class="tool">
+
+  <div class="platforms" role="tablist" aria-label="Content format">
+    <button class="ptab active" data-f="reel" role="tab" aria-selected="true">Reel / Short</button>
+    <button class="ptab" data-f="caption" role="tab" aria-selected="false">Caption</button>
+    <button class="ptab" data-f="linkedin" role="tab" aria-selected="false">LinkedIn post</button>
+  </div>
+
+  <div class="hook-field">
+    <label for="hook">Your opening line</label>
+    <small>Paste the first line of your caption or the first sentence of your script.</small>
+    <textarea id="hook" class="hook-box" rows="3" spellcheck="true" placeholder="e.g. Why your Instagram reels get 200 views">Hey guys, today I want to talk about our new product</textarea>
+    <div class="hook-meta"><span id="wc">0 words</span><span id="line-note"></span></div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="score-panel" aria-live="polite">
+    <div class="score-main">
+      <div class="score-num" id="o-score">—</div>
+      <div class="score-label">hook score</div>
+      <span class="vpill v-idle" id="v-pill">Enter a hook</span>
+      <p class="score-text" id="v-text"></p>
+    </div>
+    <div class="score-checks">
+      <div class="check-row"><span class="check-label">Length</span><span class="check-right"><span class="check-val" id="c-len-v">—</span><span class="check-pill pill-idle" id="c-len">—</span></span></div>
+      <div class="check-row"><span class="check-label">Curiosity</span><span class="check-right"><span class="check-val" id="c-cur-v">—</span><span class="check-pill pill-idle" id="c-cur">—</span></span></div>
+      <div class="check-row"><span class="check-label">Specificity</span><span class="check-right"><span class="check-val" id="c-spec-v">—</span><span class="check-pill pill-idle" id="c-spec">—</span></span></div>
+      <div class="check-row"><span class="check-label">Promise</span><span class="check-right"><span class="check-val" id="c-prom-v">—</span><span class="check-pill pill-idle" id="c-prom">—</span></span></div>
+      <div class="check-row"><span class="check-label">Voice</span><span class="check-right"><span class="check-val" id="c-voice-v">—</span><span class="check-pill pill-idle" id="c-voice">—</span></span></div>
+    </div>
+  </div>
+
+  <!-- WHAT TO FIX -->
+  <div class="section-eyebrow" style="margin-top:2.2rem;">What to fix</div>
+  <div class="fix-list" id="fix-list" aria-live="polite"></div>
+
+  <!-- AUDIT / LEAD CTA -->
+  <div class="audit">
+    <div>
+      <h3 id="audit-title">Want hooks written for you?</h3>
+      <p id="audit-text">Send us your three weakest hooks and we will rewrite them, free. No catch.</p>
+    </div>
+    <div class="audit-actions">
+      <a class="abtn abtn-primary" id="audit-mail" href="mailto:savsetsystems@gmail.com?subject=Free%20Hook%20Rewrites">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span id="audit-btn">Send us your hooks</span>
+      </a>
+      <a class="abtn abtn-outline" href="#" id="book-call">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book a call
+      </a>
+    </div>
+  </div>
+
+  <!-- STRONGER OPENERS -->
+  <div class="recs-section">
+    <div class="section-eyebrow">Stronger openers to try</div>
+    <p class="recs-note">These wrap your line in proven hook patterns and re-score each one. Click one to use it, then tweak the wording.</p>
+    <div class="recs-grid" id="rw-grid"></div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="recs-section">
+    <div class="section-eyebrow">Hook formulas</div>
+    <p class="recs-note">Starting from scratch? Pick a pattern, then fill in the [brackets].</p>
+    <div class="recs-grid" id="fm-grid"></div>
+  </div>
+
+  <!-- HOW SCORED -->
+  <div class="section-eyebrow">How the score works</div>
+  <div class="traits-wrap">
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-step">15 PTS</div><div class="trait-name">Length</div><div class="trait-desc">Short enough to read or say in about 3 seconds. The ideal range changes by format.</div></div>
+      <div class="trait-card"><div class="trait-step">25 PTS</div><div class="trait-name">Curiosity</div><div class="trait-desc">Open loops like questions, "why", "mistake" or "nobody tells you" make people stay for the answer.</div></div>
+      <div class="trait-card"><div class="trait-step">25 PTS</div><div class="trait-name">Specificity</div><div class="trait-desc">Numbers, timeframes and names beat vague words like "amazing" or "stuff".</div></div>
+      <div class="trait-card"><div class="trait-step">20 PTS</div><div class="trait-name">Promise</div><div class="trait-desc">A clear payoff: save time, avoid a mistake, learn a skill, get a result.</div></div>
+      <div class="trait-card"><div class="trait-step">15 PTS</div><div class="trait-name">Voice</div><div class="trait-desc">Speaks to "you", skips greetings and filler, and stays clean and readable.</div></div>
+    </div>
+  </div>
+  <p class="disclaimer">HookLab is a rule-based checker. It spots patterns that tend to hold attention, but it cannot predict how a post will perform. Use it to draft faster, then test two versions and compare results.</p>
+
+</div><!-- /tool -->
+
+<!-- PRESETS -->
+<section class="presets-section">
+  <div class="section-eyebrow" style="max-width:1020px;margin:0 auto 1rem;">Quick examples to try</div>
+  <div class="presets-row">
+    <button class="preset active" data-text="Hey guys, today I want to talk about our new product"><span class="preset-fonts">“</span> Weak opener</button>
+    <button class="preset" data-text="Check out this amazing thing we made"><span class="preset-fonts">“</span> Vague</button>
+    <button class="preset" data-text="Why your Instagram reels get 200 views"><span class="preset-fonts">“</span> Decent</button>
+    <button class="preset" data-text="I posted every day for 30 days. Here's what happened."><span class="preset-fonts">“</span> Story</button>
+    <button class="preset" data-text="3 mistakes killing your reels (and the 10-second fix)"><span class="preset-fonts">“</span> Strong</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="https://www.savset.com" class="footer-brand">Savset</a>
+      <div class="footer-product">HookLab</div>
+    </div>
+    <div class="footer-note">A free tool from Savset Systems. Built for brands that post.</div>
+    <a href="https://www.savset.com" class="footer-back">← Back to savset.com</a>
+  </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+let fmt = 'reel';
+
+const FORMATS = {
+  reel:     { lo: 5, hi: 12, label: 'Reel / Short' },
+  caption:  { lo: 8, hi: 16, label: 'Caption' },
+  linkedin: { lo: 8, hi: 20, label: 'LinkedIn post' }
+};
+
+const FILLERS = [
+  "hey guys","hey everyone","hi guys","hi everyone","hello everyone","hello guys","what's up guys","whats up guys",
+  "welcome back to my channel","welcome back","welcome to my channel","so today","okay so","ok so",
+  "today i want to talk about","today i'm going to","today im going to","today i am going to","in this video","in this reel","in this post",
+  "i want to talk about","i wanted to share","let me tell you about","let me show you",
+  "hey","hi","hello","um","uh","okay","ok","so"
+].sort((a, b) => b.length - a.length);
+
+const CURIOSITY = ["why","how","secret","nobody","no one","never","mistake","mistakes","wrong","truth","stop","myth","lie","lies","hidden","surprising","shocking","actually","real reason","here's why","here's what","what happens","you won't","don't","wait","unexpected","regret","warning","biggest","worst","only","before you"];
+const PROMISE   = ["how to","learn","get","save","grow","without","fix","avoid","build","make","free","faster","easy","easier","simple","boost","double","triple","increase","reduce","cut","finally","win","master","guide","formula","proven","results","tips","steps","ways"];
+const VAGUE     = ["thing","things","stuff","amazing","awesome","great","really","very","something","everything","nice","cool","incredible","super","literally"];
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const hasWord = (t, w) => new RegExp('(^|[^a-z])' + escRe(w) + '([^a-z]|$)', 'i').test(t);
+const wordsOf = t => t.trim().split(/\s+/).filter(w => /[a-z0-9]/i.test(w));
+
+function stripFiller(t) {
+  let s = t.trim(), found = [];
+  for (let guard = 0; guard < 4; guard++) {
+    const low = s.toLowerCase().replace(/’/g, "'");
+    const f = FILLERS.find(p => low.startsWith(p) && !/[a-z]/.test(low.charAt(p.length) || ' '));
+    if (!f) break;
+    found.push(s.slice(0, f.length));
+    s = s.slice(f.length).replace(/^[\s,!.:;\-–—]+/, '');
+  }
+  return { text: s, found: found.join(' ').trim() };
+}
+
+function analyse(raw, f) {
+  const hook = raw.trim();
+  const F = FORMATS[f];
+  const words = wordsOf(hook), w = words.length;
+  const { found } = stripFiller(hook);
+  const low = hook.toLowerCase().replace(/’/g, "'");
+
+  // Length (15)
+  let len = 0, lenState = 'ideal';
+  if (w < F.lo)      { len = Math.max(3, 15 - (F.lo - w) * 3); lenState = 'short'; }
+  else if (w > F.hi) { len = Math.max(2, Math.round(15 - (w - F.hi) * 1.5)); lenState = 'long'; }
+  else               { len = 15; }
+
+  // Curiosity (25)
+  const curHits = CURIOSITY.filter(k => hasWord(low, k));
+  const loop = /[?:…]|\.\.\.|\s[—–-]\s/.test(hook);
+  const curN = curHits.length + (loop ? 1 : 0);
+  const cur = curN === 0 ? 3 : curN === 1 ? 14 : curN === 2 ? 21 : 25;
+
+  // Specificity (25)
+  const digits = /\d/.test(hook);
+  const unit = digits && /[$€£]\s?\d|\d\s?%|\d[\d,.]*\s?(?:k|m|x)\b|\d[\d,.]*\s?(?:days?|weeks?|months?|years?|hours?|minutes?|mins?|seconds?|secs?|followers|views|sales|leads|clients|customers|steps|ways|tips|mistakes|reasons|rules|things|dollars)/i.test(hook);
+  const proper = words.slice(1).some(t => /^[A-Z][a-z]{2,}/.test(t.replace(/^[("'“]+/, '')));
+  const vague = VAGUE.filter(k => hasWord(low, k));
+  const spec = clamp(2 + (digits ? 11 : 0) + (unit ? 8 : 0) + (proper ? 4 : 0) - Math.min(9, vague.length * 3), 0, 25);
+
+  // Promise (20)
+  const promHits = PROMISE.filter(k => hasWord(low, k));
+  const timeBound = /\bin\s(?:just\s)?\d+\s?(?:seconds?|secs?|minutes?|mins?|hours?|days?|weeks?)\b/.test(low);
+  const promN = promHits.length + (timeBound ? 1 : 0);
+  const prom = promN === 0 ? 3 : promN === 1 ? 11 : promN === 2 ? 16 : 20;
+
+  // Voice (15)
+  const address = /\b(you|your|you're|you'll|yours|youre)\b/.test(low);
+  const hashtags = (hook.match(/#\w+/g) || []).length;
+  let emoji = 0;
+  try { emoji = (hook.match(/\p{Extended_Pictographic}/gu) || []).length; } catch (e) {}
+  const caps = words.filter(t => t.length > 3 && t === t.toUpperCase() && /[A-Z]/.test(t)).length;
+  const clean = hashtags <= 2 && emoji <= 3 && caps <= 2;
+  const avg = w ? words.join('').replace(/[^a-z0-9]/gi, '').length / w : 0;
+  const voice = (address ? 6 : 0) + (found ? 0 : 5) + (clean ? 2 : 0) + (avg <= 5.6 ? 2 : 0);
+
+  return {
+    w, lenState, found, address, vague, digits,
+    len, cur, spec, prom, voice, curN, promN,
+    total: Math.round(len + cur + spec + prom + voice)
+  };
+}
+
+const VERD = {
+  idle:  ['Enter a hook', 'v-idle'],
+  ok:    ['Strong hook',  'v-ok'],
+  tight: ['Decent hook',  'v-tight'],
+  bad:   ['Weak hook',    'v-bad']
+};
+const stateOf = t => t >= 75 ? 'ok' : t >= 55 ? 'tight' : 'bad';
+function setPill(el, state) { el.className = 'vpill ' + VERD[state][1]; el.textContent = VERD[state][0]; }
+
+function grade(v, max) {
+  const r = v / max;
+  return r >= 0.7 ? ['Strong', 'pill-pass'] : r >= 0.4 ? ['Okay', 'pill-warn'] : ['Weak', 'pill-fail'];
+}
+function setCheck(id, val, pillLabel, pillCls) {
+  $(id + '-v').textContent = val;
+  const p = $(id);
+  p.className = 'check-pill ' + pillCls;
+  p.textContent = pillLabel;
+}
+
+function fixes(a, f) {
+  const F = FORMATS[f], out = [];
+  if (a.lenState === 'long')  out.push(['Length', a.w + ' words is long for a ' + F.label.toLowerCase() + '. Aim for ' + F.lo + '–' + F.hi + '. Lead with the payoff and cut the setup.']);
+  if (a.lenState === 'short') out.push(['Length', a.w + ' words is thin. Aim for ' + F.lo + '–' + F.hi + ': say who it is for or what they get.']);
+  if (a.found)    out.push(['Opener', 'Cut "' + a.found + '". Viewers decide in about 2 seconds, so start with the point, not a greeting.']);
+  if (a.cur < 14) out.push(['Curiosity', 'Open a loop. Ask a question or tease the answer: "Why…", "Most people get this wrong", "Here\'s what happens when…".']);
+  if (a.spec < 14) {
+    let m = 'Add a number, timeframe or name. "3 mistakes" beats "some mistakes".';
+    if (a.vague.length) m += ' Swap vague words (' + a.vague.slice(0, 3).join(', ') + ') for concrete ones.';
+    out.push(['Specificity', m]);
+  }
+  if (a.prom < 11) out.push(['Promise', 'Say what they get: save time, avoid a mistake, learn a skill. If nobody can tell what is in it for them, they will scroll.']);
+  if (!a.address)  out.push(['Voice', 'Talk to one person. Adding "you" or "your" makes the line feel personal.']);
+  return out;
+}
+
+function lowerFirst(s) {
+  return (/^I\b/.test(s) || /^I['’]/.test(s) || /^[A-Z]{2,}/.test(s)) ? s : s.charAt(0).toLowerCase() + s.slice(1);
+}
+
+function candidates(raw, f) {
+  const F = FORMATS[f];
+  let body = stripFiller(raw.trim()).text.replace(/\s+/g, ' ');
+  let core = body.replace(/[.!?…]+$/, '');
+  if (wordsOf(core).length > F.hi) {
+    const first = core.split(/\s*(?:[,;]|\s[—–-]\s|\sand\s|\sbut\s|\sbecause\s)\s*/i)[0];
+    if (first && wordsOf(first).length >= F.lo) core = first;
+  }
+  if (!core) return [];
+  core = core.charAt(0).toUpperCase() + core.slice(1);
+  const lc = lowerFirst(core);
+  const list = [];
+  if (core !== raw.trim().replace(/[.!?…]+$/, '')) list.push({ name: 'Cleaned up', text: core });
+  list.push({ name: 'Open loop',       text: 'Most people get this wrong: ' + lc });
+  list.push({ name: 'Insider angle',   text: 'Nobody tells you this: ' + lc });
+  list.push({ name: 'Time-boxed',      text: core + ' (in 30 seconds)' });
+  list.push({ name: 'Stop the scroll', text: 'Stop scrolling. ' + core });
+  list.push({ name: 'Payoff',          text: core + " — here's what actually works" });
+  return list.map(c => Object.assign({}, c, { score: analyse(c.text, f).total }));
+}
+
+function firstLine(raw) {
+  const lines = raw.split(/\n/).map(l => l.trim()).filter(Boolean);
+  return { hook: lines[0] || '', extra: lines.length > 1 };
+}
+
+function cardEl(topLabel, scoreText) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'rec-card';
+  const top = document.createElement('div');
+  top.className = 'rec-top';
+  const l = document.createElement('span');
+  l.className = 'rec-label';
+  l.textContent = topLabel;
+  top.appendChild(l);
+  if (scoreText) {
+    const s = document.createElement('span');
+    s.className = 'rec-score';
+    s.textContent = scoreText;
+    top.appendChild(s);
+  }
+  b.appendChild(top);
+  return b;
+}
+
+function useText(text) {
+  $('hook').value = text;
+  document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+  render();
+  $('hook').focus();
+}
+
+function renderRewrites(raw, f, base, hasBrackets) {
+  const grid = $('rw-grid');
+  grid.innerHTML = '';
+  const note = msg => {
+    const d = document.createElement('div');
+    d.className = 'empty-note';
+    d.textContent = msg;
+    grid.appendChild(d);
+  };
+  if (!raw) return note('Type a hook above to see stronger versions.');
+  if (hasBrackets) return note('Fill in the [brackets] first, then we can suggest stronger versions.');
+  const better = candidates(raw, f)
+    .filter(c => c.score >= base + 3)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+  if (!better.length) return note('Nothing in our patterns beats this one by a clear margin. Try the formulas below, or send it to us for a human rewrite.');
+  better.forEach(c => {
+    const card = cardEl(c.name, c.score + '/100 · +' + (c.score - base));
+    const t = document.createElement('div');
+    t.className = 'rec-text';
+    t.textContent = c.text;
+    const h = document.createElement('span');
+    h.className = 'rec-hint';
+    h.textContent = 'Click to use this →';
+    card.appendChild(t);
+    card.appendChild(h);
+    card.addEventListener('click', () => useText(c.text));
+    bindHover(card);
+    grid.appendChild(card);
+  });
+}
+
+const FORMULAS = [
+  { name: 'Number + result', pattern: '[Number] [things] that [result] in [time]', ex: '5 edits that doubled our watch time in 2 weeks' },
+  { name: 'Contrarian',      pattern: 'Stop [common mistake]. Do [better move] instead.', ex: 'Stop posting every day. Post three times and do this instead.' },
+  { name: 'Story',           pattern: "I [did something bold] for [time]. Here's what happened.", ex: "I posted a reel every day for 30 days. Here's what happened." },
+  { name: 'Callout',         pattern: "If you're a [who] who [pain], watch this.", ex: "If you're a cafe owner whose reels get 200 views, watch this." },
+  { name: 'Myth buster',     pattern: "[Common belief] is a lie. Here's why.", ex: '"Post more" is a lie. Here\'s why.' },
+  { name: 'Before / after',  pattern: "From [bad state] to [good state] in [time]. Here's how.", ex: "From 200 views to 20,000 in 60 days. Here's how." }
+];
+
+function renderFormulas() {
+  const grid = $('fm-grid');
+  FORMULAS.forEach(fm => {
+    const card = cardEl(fm.name, '');
+    const p = document.createElement('div');
+    p.className = 'rec-pattern';
+    const parts = fm.pattern.split(/(\[[^\]]+\])/);
+    parts.forEach(part => {
+      if (/^\[[^\]]+\]$/.test(part)) {
+        const m = document.createElement('mark');
+        m.textContent = part;
+        p.appendChild(m);
+      } else {
+        p.appendChild(document.createTextNode(part));
+      }
+    });
+    const ex = document.createElement('div');
+    ex.className = 'rec-ex';
+    ex.textContent = 'Example: ' + fm.ex;
+    const h = document.createElement('span');
+    h.className = 'rec-hint';
+    h.textContent = 'Click to start from this →';
+    card.appendChild(p);
+    card.appendChild(ex);
+    card.appendChild(h);
+    card.addEventListener('click', () => useText(fm.pattern));
+    bindHover(card);
+    grid.appendChild(card);
+  });
+}
+
+const AUDIT = {
+  idle:  ['Want hooks written for you?', 'Send us your three weakest hooks and we will rewrite them, free. No catch.', 'Send us your hooks'],
+  ok:    ['Strong hook. Want a month of them?', 'We write the scripts, film and edit the content, and post it for you. Social media management with a hook in every post.', 'Get a free content plan'],
+  tight: ['Hooks are the hard part. We write them for you.', 'Send us your three weakest hooks and we will rewrite them, free. No catch.', 'Send us your hooks'],
+  bad:   ['Hooks are the hard part. We write them for you.', 'Send us your three weakest hooks and we will rewrite them, free. No catch.', 'Send us your hooks']
+};
+
+function render() {
+  const raw = $('hook').value;
+  const { hook, extra } = firstLine(raw);
+  const w = wordsOf(hook).length;
+  const hasBrackets = /\[[^\]]+\]/.test(hook);
+
+  $('wc').textContent = w + (w === 1 ? ' word' : ' words') + (w ? ' · about ' + Math.max(1, Math.round(w / 2.5)) + ' sec spoken' : '');
+  $('line-note').textContent = extra ? 'Scoring the first line only.' : '';
+
+  let state = 'idle', a = null, text = '', fixList = [];
+
+  if (!hook) {
+    text = '';
+  } else if (hasBrackets) {
+    text = 'Fill in the [brackets] to see your score.';
+  } else {
+    a = analyse(hook, fmt);
+    state = stateOf(a.total);
+    text = state === 'ok'
+      ? 'This opener hits most of the signals that stop a scroll.'
+      : state === 'tight'
+        ? 'Decent start. Fix the first item below for the biggest jump.'
+        : 'Unlikely to stop a scroll yet. Start with the fixes below.';
+    fixList = fixes(a, fmt);
+  }
+
+  // Score panel
+  $('o-score').innerHTML = a ? a.total + '<span>/100</span>' : '—';
+  $('v-text').textContent = text;
+  setPill($('v-pill'), state);
+
+  if (a) {
+    const lenLabel = a.lenState === 'ideal' ? ['Ideal', 'pill-pass'] : (a.len / 15 >= 0.4 ? [a.lenState === 'long' ? 'Long' : 'Short', 'pill-warn'] : [a.lenState === 'long' ? 'Too long' : 'Too short', 'pill-fail']);
+    setCheck('c-len', a.w + ' words', lenLabel[0], lenLabel[1]);
+    const gc = grade(a.cur, 25);   setCheck('c-cur',   a.curN + (a.curN === 1 ? ' trigger' : ' triggers'), gc[0], gc[1]);
+    const gs = grade(a.spec, 25);  setCheck('c-spec',  a.digits ? 'Has numbers' : 'No numbers', gs[0], gs[1]);
+    const gp = grade(a.prom, 20);  setCheck('c-prom',  a.promN + (a.promN === 1 ? ' signal' : ' signals'), gp[0], gp[1]);
+    const gv = grade(a.voice, 15); setCheck('c-voice', a.found ? 'Filler opener' : a.address ? 'Speaks to you' : 'Generic', gv[0], gv[1]);
+  } else {
+    ['c-len', 'c-cur', 'c-spec', 'c-prom', 'c-voice'].forEach(id => setCheck(id, '—', '—', 'pill-idle'));
+  }
+
+  // Hero
+  $('hero-num').innerHTML = a ? a.total + '<span>/100</span>' : '—';
+  $('hero-text').textContent = text || 'Type or paste a hook below to see how it scores.';
+  setPill($('hero-pill'), state);
+
+  // Fix list
+  const fl = $('fix-list');
+  fl.innerHTML = '';
+  if (!hook || hasBrackets) {
+    const d = document.createElement('div');
+    d.className = 'fix-empty';
+    d.textContent = hasBrackets ? 'Fill in the [brackets] to get fixes.' : 'Fixes will appear here once you type a hook.';
+    fl.appendChild(d);
+  } else if (!fixList.length) {
+    fixList = [['Looks good', 'No major gaps. Test two versions against each other and compare how many people watch past the first 3 seconds.']];
+  }
+  fixList.forEach(([tag, msg]) => {
+    const row = document.createElement('div');
+    row.className = 'fix-row';
+    const t = document.createElement('span');
+    t.className = 'fix-tag';
+    t.textContent = tag;
+    const m = document.createElement('span');
+    m.className = 'fix-text';
+    m.textContent = msg;
+    row.appendChild(t);
+    row.appendChild(m);
+    fl.appendChild(row);
+  });
+
+  // Audit CTA
+  $('audit-title').textContent = AUDIT[state][0];
+  $('audit-text').textContent  = AUDIT[state][1];
+  $('audit-btn').textContent   = AUDIT[state][2];
+  const subject = state === 'ok' ? 'Free Content Plan (HookLab)' : 'Free Hook Rewrites (HookLab)';
+  const body = 'Hi Savset, I tried HookLab.\n\n' +
+    (hook ? 'My hook: "' + hook + '"\nFormat: ' + FORMATS[fmt].label + (a ? '\nScore: ' + a.total + '/100' : '') + '\n\n' : '') +
+    (state === 'ok' ? 'I would like a free content plan.' : 'Here are my weakest hooks, please rewrite them:\n1. \n2. \n3. ');
+  $('audit-mail').href = 'mailto:savsetsystems@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  // Rewrites
+  renderRewrites(hook, fmt, a ? a.total : 0, hasBrackets);
+}
+
+/* ─── EVENTS ───────────────────────────────────── */
+$('hook').addEventListener('input', () => {
+  document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+  render();
+});
+
+document.querySelectorAll('.ptab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.ptab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+  b.classList.add('active');
+  b.setAttribute('aria-selected', 'true');
+  fmt = b.dataset.f;
+  render();
+}));
+
+document.querySelectorAll('.preset').forEach(btn => btn.addEventListener('click', () => {
+  $('hook').value = btn.dataset.text;
+  document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}));
+
+$('book-call').addEventListener('click', e => {
+  e.preventDefault();
+  if (window.Calendly) Calendly.initPopupWidget({ url: 'https://calendly.com/savset' });
+  else window.open('https://calendly.com/savset', '_blank');
+});
+
+/* ─── CURSOR ───────────────────────────────────── */
+function bindHover(el) {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cur-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cur-hover'));
+}
+(function () {
+  const dot = $('cursor-dot'), ring = $('cursor-ring');
+  let rx = 0, ry = 0, mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+  (function tick() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(tick); })();
+  document.querySelectorAll('a,button,.preset,.hook-box').forEach(bindHover);
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+  if (window.matchMedia('(hover:none)').matches) { dot.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
+})();
+
+renderFormulas();
+render();
+</script>
+</body>
+</html>
